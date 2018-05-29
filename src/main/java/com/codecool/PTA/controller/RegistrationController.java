@@ -29,16 +29,28 @@ public class RegistrationController extends AbstractController {
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 
         String username = req.getParameter("username");
-        String password = Hash.hashPassword(req.getParameter("password"));
+        String password = req.getParameter("password");
+        String passwordConfirm = req.getParameter("password_confirm");
         String firstName = req.getParameter("first_name");
         String lastName = req.getParameter("last_name");
         String email = req.getParameter("email");
 
-        Student student = new Student(username, password);
-
         HttpSession session = req.getSession();
-        session.setAttribute("student", student);
 
-        resp.sendRedirect("/login");
+        if(password.equals(passwordConfirm)) {
+            String hashedPassword = Hash.hashPassword(req.getParameter("password"));
+            Student student = new Student(username, hashedPassword);
+            session.setAttribute("student", student);
+            if(session.getAttribute("passwordNotMatch") != null) {
+                session.removeAttribute("passwordNotMatch");
+            }
+            resp.sendRedirect("/login");
+        } else {
+            session.setAttribute("passwordNotMatch", "The passwords you entered are not matching!");
+            resp.sendRedirect("/registration");
+        }
+
+
+
     }
 }

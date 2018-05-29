@@ -1,11 +1,11 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
 <head>
     <meta charset="UTF-8">
     <title>Registration</title>
 </head>
 <body>
-    <form action="/register" method="POST">
+    <form action="/registration" method="POST">
         <label for="first_name">First name</label>
         <input type="text" name="first_name" id="first_name">
         <label for="last_name"></label>
@@ -20,5 +20,8 @@
         <input type="password" name="password_confirm" id="password_confirm">
         <button type="submit">Register</button>
     </form>
+    <div th:if="${session.passwordNotMatch}">
+        <p>The passwords you entered are not matching!</p>
+    </div>
 </body>
 </html>
