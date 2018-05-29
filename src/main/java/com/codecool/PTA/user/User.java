@@ -61,29 +61,29 @@ public abstract class User {
         this.email = email;
     }
 
-    public static void main(String[] args) {
-
-        EntityManagerFactory emf = Persistence.createEntityManagerFactory("ptaPU");
-        EntityManager em = emf.createEntityManager();
-
-        Student student = new Student("student", "pass");
-        student.setEmail("email");
-        student.setFirstName("first");
-        student.setLastName("last");
-        Mentor mentor = new Mentor("mentor", "pass");
-        mentor.setEmail("email");
-        mentor.setFirstName("first");
-        mentor.setLastName("last");
-
-        EntityTransaction transaction = em.getTransaction();
-        transaction.begin();
-        em.persist(student);
-        em.persist(mentor);
-        transaction.commit();
-
-        em.close();
-        emf.close();
-
-    }
+//    public static void main(String[] args) {
+//
+//        EntityManagerFactory emf = Persistence.createEntityManagerFactory("ptaPU");
+//        EntityManager em = emf.createEntityManager();
+//
+//        Student student = new Student("student", "pass");
+//        student.setEmail("email");
+//        student.setFirstName("first");
+//        student.setLastName("last");
+//        Mentor mentor = new Mentor("mentor", "pass");
+//        mentor.setEmail("email");
+//        mentor.setFirstName("first");
+//        mentor.setLastName("last");
+//
+//        EntityTransaction transaction = em.getTransaction();
+//        transaction.begin();
+//        em.persist(student);
+//        em.persist(mentor);
+//        transaction.commit();
+//
+//        em.close();
+//        emf.close();
+//
+//    }
 
 }
