@@ -5,7 +5,12 @@
     <title>Title</title>
 </head>
 <body>
-    <h1>Hello!</h1>
-    <h1 th:text="${recipient}"></h1>
+    <form action="/" method="POST">
+        <label for="username">Username</label>
+        <input type="text" name="username" id="username">
+        <label for="password">Password</label>
+        <input type="password" name="password" id="password">
+        <button type="submit">Enter</button>
+    </form>
 </body>
 </html>
