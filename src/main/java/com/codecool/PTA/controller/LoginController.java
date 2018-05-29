@@ -1,6 +1,7 @@
 package com.codecool.PTA.controller;
 
 import com.codecool.PTA.config.TemplateEngineUtil;
+import com.codecool.PTA.helper.Hash;
 import com.codecool.PTA.user.Student;
 import org.thymeleaf.TemplateEngine;
 import org.thymeleaf.context.WebContext;
@@ -26,7 +27,7 @@ public class LoginController extends AbstractController {
             WebContext context = new WebContext(req, resp, req.getServletContext());
 
             TemplateEngine engine = TemplateEngineUtil.getTemplateEngine(req.getServletContext());
-            engine.process("index.html", context, resp.getWriter());
+            engine.process("login/index.html", context, resp.getWriter());
 
         }
 
@@ -45,7 +46,7 @@ public class LoginController extends AbstractController {
         List<Student> studentList = getAllStudents.getResultList();
         for (Student student : studentList) {
             if(username.equals(student.getUsername())) {
-                if(password.equals(student.getHashedPassword())) {//Hash.isPasswordCorrect(password, customer.getHashedPassword())) {
+                if(Hash.isPasswordCorrect(password, student.getPassword())) {
                     session.setAttribute("student", student);
                     resp.sendRedirect("/");
                 }
