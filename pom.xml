@@ -11,10 +11,11 @@
    <properties>
        <maven.compiler.source>1.8</maven.compiler.source>
        <maven.compiler.target>1.8</maven.compiler.target>
+       <version.eclipselink>2.6.2</version.eclipselink>
    </properties>
 
     <build>
-        <finalName>codecoolshop</finalName>
+        <finalName>purple-turtle-academy</finalName>
         <sourceDirectory>src/main/java</sourceDirectory>
 
         <plugins>
@@ -76,6 +77,16 @@
             <groupId>org.mindrot</groupId>
             <artifactId>jbcrypt</artifactId>
             <version>0.4</version>
+        </dependency>
+        <dependency>
+            <groupId>org.eclipse.persistence</groupId>
+            <artifactId>org.eclipse.persistence.jpa</artifactId>
+            <version>${version.eclipselink}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.hibernate</groupId>
+            <artifactId>hibernate-entitymanager</artifactId>
+            <version>5.2.10.Final</version>
         </dependency>
     </dependencies>
 
