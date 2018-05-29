@@ -1,10 +1,18 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
 <head>
     <meta charset="UTF-8">
     <title>Purple Turtle Armageddon</title>
 </head>
 <body>
-
+    <div th:fragment="header">
+        <h1>Purple Turtle Armageddon</h1>
+        <div th:if="${session.student}">
+            <div th:text="'Welcome ' + ${session.student.getFirstName()}"></div>
+        </div>
+        <div th:unless="${session.student}">
+            <p>Please log in!</p>
+        </div>
+    </div>
 </body>
 </html>

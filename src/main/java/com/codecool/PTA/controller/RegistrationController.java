@@ -39,6 +39,6 @@ public class RegistrationController extends AbstractController {
         HttpSession session = req.getSession();
         session.setAttribute("student", student);
 
-        resp.sendRedirect("/");
+        resp.sendRedirect("/login");
     }
 }
