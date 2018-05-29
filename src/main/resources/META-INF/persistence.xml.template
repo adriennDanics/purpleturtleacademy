@@ -6,9 +6,9 @@
 
     <persistence-unit name="ptaPU" transaction-type="RESOURCE_LOCAL">
         <provider>org.hibernate.jpa.HibernatePersistenceProvider</provider>
-        <class>com.codecool.PTA.model.Student</class>
-        <class>com.codecool.PTA.model.Mentor</class>
-        <class>com.codecool.PTA.model.Level</class>
+        <class>com.codecool.PTA.user.Student</class>
+        <class>com.codecool.PTA.user.Mentor</class>
+        <class>com.codecool.PTA.user.Level</class>
         <properties>
             <property name="hibernate.dialect" value="org.hibernate.dialect.PostgreSQL94Dialect"/>
             <property name="hibernate.hbm2dll.auto" value="create-drop"/>
