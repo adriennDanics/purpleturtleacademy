@@ -2,6 +2,7 @@ package com.codecool.PTA.controller;
 
 import com.codecool.PTA.config.TemplateEngineUtil;
 import com.codecool.PTA.helper.Hash;
+import com.codecool.PTA.user.Student;
 import org.thymeleaf.TemplateEngine;
 import org.thymeleaf.context.WebContext;
 
@@ -9,6 +10,7 @@ import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 import java.io.IOException;
 
 @WebServlet(urlPatterns = {"/registration"})
@@ -28,7 +30,15 @@ public class RegistrationController extends AbstractController {
 
         String username = req.getParameter("username");
         String password = Hash.hashPassword(req.getParameter("password"));
-        String name = req.getParameter("name");
+        String firstName = req.getParameter("first_name");
+        String lastName = req.getParameter("last_name");
+        String email = req.getParameter("email");
 
+        Student student = new Student(username, password);
+
+        HttpSession session = req.getSession();
+        session.setAttribute("student", student);
+
+        resp.sendRedirect("/");
     }
 }

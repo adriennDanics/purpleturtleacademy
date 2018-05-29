@@ -18,7 +18,7 @@ import java.util.List;
 import java.text.ParseException;
 
 
-@WebServlet(urlPatterns = {"/"})
+@WebServlet(urlPatterns = {"/login"})
 public class LoginController extends AbstractController {
 
         @Override
@@ -27,7 +27,7 @@ public class LoginController extends AbstractController {
             WebContext context = new WebContext(req, resp, req.getServletContext());
 
             TemplateEngine engine = TemplateEngineUtil.getTemplateEngine(req.getServletContext());
-            engine.process("login/index.html", context, resp.getWriter());
+            engine.process("login/login.html", context, resp.getWriter());
 
         }
 
@@ -48,10 +48,10 @@ public class LoginController extends AbstractController {
             if(username.equals(student.getUsername())) {
                 if(Hash.isPasswordCorrect(password, student.getPassword())) {
                     session.setAttribute("student", student);
-                    resp.sendRedirect("/");
+                    resp.sendRedirect("/index");
                 }
             } else {
-                resp.sendRedirect("/");
+                resp.sendRedirect("/index");
             }
         }
     }
