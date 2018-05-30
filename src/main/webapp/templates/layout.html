@@ -58,7 +58,6 @@
                 <div th:if="${session.student}">
                     <button type="button" class="btn btn-light"><a href="/logout" class="nav-link">Logout</a></button>
                     <button type="button" class="btn btn-light"><a href="/profile" class="nav-link">Profile</a></button>
-                    <div th:text="'Welcome ' + ${session.student.getFirstName()}"></div>
                 </div>
                 <div th:unless="${session.student}">
                     <button type="button" class="btn btn-light"><a href="/login" class="nav-link">Login</a></button>

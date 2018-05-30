@@ -8,7 +8,11 @@
 </head>
 <body>
     <div th:replace="layout.html :: navbar"></div>
-
+    <div class="welcome container">
+        <img src="/static/welcome.png" alt="welcome">
+        <div class="welcome message" th:text="'Welcome ' + ${session.student.getFirstName()}">
+        </div>
+    </div>
 
 </body>
 </html>
