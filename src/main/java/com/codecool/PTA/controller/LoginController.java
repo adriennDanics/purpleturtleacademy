@@ -35,14 +35,12 @@ public class LoginController extends AbstractController {
         String password = req.getParameter("password");
 
         for (Student student : Student.studentList) {
-            if (username.equals(student.getUsername())) {
-                if (Hash.isPasswordCorrect(password, student.getPassword())) {
-                    session.setAttribute("student", student);
-                    resp.sendRedirect("/index");
-                }
-            } else {
+            if (username.equals(student.getUsername()) && Hash.isPasswordCorrect(password, student.getPassword())) {
+                session.setAttribute("student", student);
                 resp.sendRedirect("/index");
+                return;
             }
         }
+        resp.sendRedirect("/index");
     }
 }
