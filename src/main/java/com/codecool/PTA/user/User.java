@@ -38,6 +38,10 @@ public abstract class User {
         this.registrationDate = dateNow;
     }
 
+    public long getId() {
+        return id;
+    }
+
     public String getFirstName() {
         return firstName;
     }
