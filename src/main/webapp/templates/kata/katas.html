@@ -2,8 +2,6 @@
 <html lang="en" xmlns:th="http://www.w3.org/1999/xhtml" xmlns="http://www.w3.org/1999/html">
     <head>
         <meta charset="UTF-8">
-        <title>Title</title>
-
         <div th:replace="layout.html :: head"></div>
         <script src="static/js/script.js" defer></script>
 
@@ -12,7 +10,7 @@
         <div th:replace="layout.html :: navbar"></div>
         <h2 class="title" th:text="${kata.title}">Title</h2>
         <h4 class="description" th:text="${kata.description}"> Description</h4>
-        <form class="form-group row" action="/" method="post">
+        <form class="form-group" action="/" method="post">
             <label class="title" id="solution" title="solution">Your solution:</label><br>
             <textarea id="show" class="form-control solution" title="solution" rows="50" cols="100" th:placeholder="${kata.basics}">Basics</textarea><br>
             <button id="check_solution" type="button"> Check solution </button>
