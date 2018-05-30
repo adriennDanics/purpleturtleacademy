@@ -45,8 +45,8 @@ public class LoginController extends AbstractController {
 
         List<Student> studentList = getAllStudents.getResultList();
         for (Student student : studentList) {
-            if(username.equals(student.getUsername())) {
-                if(Hash.isPasswordCorrect(password, student.getPassword())) {
+            if (username.equals(student.getUsername())) {
+                if (Hash.isPasswordCorrect(password, student.getPassword())) {
                     session.setAttribute("student", student);
                     resp.sendRedirect("/index");
                 }

@@ -1,0 +1,17 @@
+body {
+    background-image: url("/static/bcg.jpg");
+    color: #30415d;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    width: 100%;
+    font-family: 'Gochi Hand', cursive;
+}
+
+h1, .form-group {
+    padding: 50px 0 0 50px;
+}
+
+.form-control {
+    width: 50%;
+}
+
