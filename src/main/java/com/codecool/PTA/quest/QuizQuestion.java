@@ -31,4 +31,20 @@ public class QuizQuestion extends Assignment {
         this.courseType = courseType;
         this.answers = answers;
     }
+
+    public String getQuestion() {
+        return question;
+    }
+
+    public Level getLevel() {
+        return level;
+    }
+
+    public CourseType getCourseType() {
+        return courseType;
+    }
+
+    public Map<String, Boolean> getAnswers() {
+        return answers;
+    }
 }
