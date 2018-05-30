@@ -1,6 +1,11 @@
 package com.codecool.PTA.user;
 
-import javax.persistence.*;
+import com.codecool.PTA.course.Course;
+
+import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
+import javax.persistence.ManyToOne;
 
 @Entity
 public class Student extends User {
@@ -10,7 +15,10 @@ public class Student extends User {
     @Enumerated(EnumType.STRING)
     private Level level;
 
-    public Student() {
+    @ManyToOne
+    private Course course;
+
+    protected Student() {
         super();
     }
 
