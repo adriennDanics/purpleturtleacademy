@@ -2,31 +2,33 @@ package com.codecool.PTA.quest;
 
 import com.codecool.PTA.user.Level;
 
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
+import java.util.HashMap;
+import java.util.Map;
 
-public class QuizQuestion {
+@Entity
+public class QuizQuestion extends Assignment {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private long id;
-
+    @Column(nullable = false)
     String question;
-    String answer1;
-    String answer2;
-    String answer3;
-    String answer4;
 
+    @Column(nullable = false)
     Level level;
 
+    @Column(nullable = false)
     CourseType courseType;
 
+    @ElementCollection
+    @MapKeyColumn(name = "answer")
+    private Map<String, Boolean> answers = new HashMap<>();
 
-    private QuizQuestion(){}
+    public QuizQuestion(){}
 
-    public QuizQuestion(String question) {
+    public QuizQuestion(String assignmentTitle, String question, Level level, CourseType courseType, Map<String, Boolean> answers) {
+        super(assignmentTitle);
         this.question = question;
+        this.level = level;
+        this.courseType = courseType;
+        this.answers = answers;
     }
-
 }

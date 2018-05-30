@@ -25,4 +25,7 @@ public abstract class Assignment {
     public Assignment() {
     }
 
+    public long getId() {
+        return id;
+    }
 }
