@@ -6,20 +6,15 @@ import com.codecool.PTA.user.Student;
 import org.thymeleaf.TemplateEngine;
 import org.thymeleaf.context.WebContext;
 
-import javax.persistence.*;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
-import java.util.List;
 
-import java.text.ParseException;
-
-
-@WebServlet(urlPatterns = {"/login"})
-public class LoginController extends AbstractController {
+@WebServlet(urlPatterns = {"/registration"})
+public class RegistrationController extends AbstractController {
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
@@ -27,32 +22,35 @@ public class LoginController extends AbstractController {
         WebContext context = new WebContext(req, resp, req.getServletContext());
 
         TemplateEngine engine = TemplateEngineUtil.getTemplateEngine(req.getServletContext());
-        engine.process("login/login.html", context, resp.getWriter());
-
+        engine.process("registration/registration.html", context, resp.getWriter());
     }
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        HttpSession session = req.getSession();
 
         String username = req.getParameter("username");
         String password = req.getParameter("password");
+        String passwordConfirm = req.getParameter("password_confirm");
+        String firstName = req.getParameter("first_name");
+        String lastName = req.getParameter("last_name");
+        String email = req.getParameter("email");
 
-        EntityManagerFactory emf = Persistence.createEntityManagerFactory("ptadb");
-        EntityManager em = emf.createEntityManager();
+        HttpSession session = req.getSession();
 
-        Query getAllStudents = em.createQuery("SELECT stud FROM Student stud");
-
-        List<Student> studentList = getAllStudents.getResultList();
-        for (Student student : studentList) {
-            if(username.equals(student.getUsername())) {
-                if(Hash.isPasswordCorrect(password, student.getPassword())) {
-                    session.setAttribute("student", student);
-                    resp.sendRedirect("/index");
-                }
-            } else {
-                resp.sendRedirect("/index");
+        if(password.equals(passwordConfirm)) {
+            String hashedPassword = Hash.hashPassword(req.getParameter("password"));
+            Student student = new Student(username, hashedPassword);
+            session.setAttribute("student", student);
+            if(session.getAttribute("passwordNotMatch") != null) {
+                session.removeAttribute("passwordNotMatch");
             }
+            resp.sendRedirect("/login");
+        } else {
+            session.setAttribute("passwordNotMatch", "The passwords you entered are not matching!");
+            resp.sendRedirect("/registration");
         }
+
+
+
     }
 }
