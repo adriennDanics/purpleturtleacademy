@@ -1,11 +1,6 @@
 package com.codecool.PTA.quest;
 
 import javax.persistence.*;
-import java.time.LocalDate;
-import java.time.ZoneId;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.HashMap;
 
 @MappedSuperclass
 public abstract class Assignment {

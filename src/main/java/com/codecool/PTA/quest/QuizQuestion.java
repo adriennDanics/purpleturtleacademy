@@ -12,17 +12,17 @@ public class QuizQuestion extends Assignment {
     @Column(nullable = false)
     String question;
 
-    @Column(nullable = false)
+    @Enumerated(EnumType.STRING)
     Level level;
 
-    @Column(nullable = false)
+    @Enumerated(EnumType.STRING)
     CourseType courseType;
 
     @ElementCollection
     @MapKeyColumn(name = "answer")
     private Map<String, Boolean> answers = new HashMap<>();
 
-    public QuizQuestion(){}
+    public QuizQuestion(){ super();}
 
     public QuizQuestion(String assignmentTitle, String question, Level level, CourseType courseType, Map<String, Boolean> answers) {
         super(assignmentTitle);
