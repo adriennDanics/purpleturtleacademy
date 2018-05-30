@@ -1,11 +1,16 @@
 package com.codecool.PTA.user;
 
+import com.codecool.PTA.course.Course;
+
 import javax.persistence.*;
 
 @Entity
 public class Mentor extends User {
 
-    protected Mentor() {
+    @ManyToOne
+    private Course course;
+
+    public Mentor() {
         super();
     }
 
