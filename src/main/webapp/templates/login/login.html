@@ -2,14 +2,15 @@
 <html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
+    <div th:replace="layout.html :: head"></div>
+
 </head>
 <body>
-    <form action="/login" method="POST">
-        <label for="username">Username</label>
-        <input type="text" name="username" id="username">
-        <label for="password">Password</label>
-        <input type="password" name="password" id="password">
+    <form class="form-group" action="/login" method="POST">
+        <label for="username">Username</label><br>
+        <input class="form-control solution" type="text" name="username" id="username"><br>
+        <label for="password">Password</label><br>
+        <input class="form-control solution" type="password" name="password" id="password"><br>
         <button type="submit">Enter</button>
     </form>
 </body>
