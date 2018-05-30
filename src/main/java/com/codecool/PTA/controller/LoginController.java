@@ -34,6 +34,8 @@ public class LoginController extends AbstractController {
         String username = req.getParameter("username");
         String password = req.getParameter("password");
 
+        Student.askForAllStudents();
+
         for (Student student : Student.studentList) {
             if (username.equals(student.getUsername()) && Hash.isPasswordCorrect(password, student.getPassword())) {
                 session.setAttribute("student", student);

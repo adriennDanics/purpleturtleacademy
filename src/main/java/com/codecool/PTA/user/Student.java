@@ -7,12 +7,12 @@ import javax.persistence.*;
 import java.util.List;
 
 @NamedQuery(name="Student.findAllStudents",
-        query="SELECT s FROM Student s")
+        query="FROM Student")
 @Entity
 public class Student extends User {
 
     @Transient
-    static public List<Student> studentList = PersistenceImplementation.getInstance().getEm().createNamedQuery("Student.findAllStudents", Student.class).getResultList();
+    static public List<Student> studentList;
 
     private long xp;
 
@@ -31,5 +31,13 @@ public class Student extends User {
         super(username, password);
         this.xp = 0;
         this.level = Level.BEGINNER;
+    }
+
+    public static void askForAllStudents() {
+        EntityManager em = PersistenceImplementation.getInstance().getEm();
+        EntityTransaction transaction = em.getTransaction();
+        transaction.begin();
+        studentList = em.createNamedQuery("Student.findAllStudents", Student.class).getResultList();
+        transaction.commit();
     }
 }
