@@ -10,7 +10,7 @@ public class Student extends User {
     @Enumerated(EnumType.STRING)
     private Level level;
 
-    public Student() {
+    protected Student() {
         super();
     }
 

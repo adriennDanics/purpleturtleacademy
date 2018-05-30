@@ -5,7 +5,7 @@ import javax.persistence.*;
 @Entity
 public class Mentor extends User {
 
-    public Mentor() {
+    protected Mentor() {
         super();
     }
 
