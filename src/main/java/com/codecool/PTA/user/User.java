@@ -15,6 +15,7 @@ public abstract class User {
     @Column(unique = true, nullable = false)
     private String username;
 
+    @Column(nullable = false)
     private String password;
     private String firstName;
     private String lastName;
@@ -25,7 +26,7 @@ public abstract class User {
     @Temporal(TemporalType.DATE)
     private Date registrationDate;
 
-    public User() {
+    protected User() {
     }
 
     public User(String username, String password) {
@@ -35,6 +36,10 @@ public abstract class User {
         this.username = username;
         this.password = password;
         this.registrationDate = dateNow;
+    }
+
+    public long getId() {
+        return id;
     }
 
     public String getFirstName() {
@@ -76,30 +81,5 @@ public abstract class User {
     public void setPassword(String password) {
         this.password = password;
     }
-
-    //    public static void main(String[] args) {
-//
-//        EntityManagerFactory emf = Persistence.createEntityManagerFactory("ptaPU");
-//        EntityManager em = emf.createEntityManager();
-//
-//        Student student = new Student("student", "pass");
-//        student.setEmail("email");
-//        student.setFirstName("first");
-//        student.setLastName("last");
-//        Mentor mentor = new Mentor("mentor", "pass");
-//        mentor.setEmail("email");
-//        mentor.setFirstName("first");
-//        mentor.setLastName("last");
-//
-//        EntityTransaction transaction = em.getTransaction();
-//        transaction.begin();
-//        em.persist(student);
-//        em.persist(mentor);
-//        transaction.commit();
-//
-//        em.close();
-//        emf.close();
-//
-//    }
 
 }

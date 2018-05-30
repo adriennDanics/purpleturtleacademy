@@ -10,7 +10,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
-@WebServlet(urlPatterns = {""})
+@WebServlet(urlPatterns = {"", "/index"})
 public class IndexController extends AbstractController {
 
     @Override

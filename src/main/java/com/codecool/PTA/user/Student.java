@@ -18,7 +18,7 @@ public class Student extends User {
     @ManyToOne
     private Course course;
 
-    public Student() {
+    protected Student() {
         super();
     }
 
@@ -26,29 +26,5 @@ public class Student extends User {
         super(username, password);
         this.xp = 0;
         this.level = Level.BEGINNER;
-    }
-
-    public long getXp() {
-        return xp;
-    }
-
-    public void setXp(long xp) {
-        this.xp = xp;
-    }
-
-    public Level getLevel() {
-        return level;
-    }
-
-    public void setLevel(Level level) {
-        this.level = level;
-    }
-
-    public Course getCourse() {
-        return course;
-    }
-
-    public void setCourse(Course course) {
-        this.course = course;
     }
 }
