@@ -25,6 +25,10 @@ public class PersistenceImplementation {
         return instance;
     }
 
+    public EntityManager getEntityManagerInstance() {
+        return emf.createEntityManager();
+    }
+
     public void persist(Object object) {
         EntityManager em = emf.createEntityManager();
 
