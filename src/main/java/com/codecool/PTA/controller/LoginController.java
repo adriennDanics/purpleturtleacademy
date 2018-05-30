@@ -38,20 +38,28 @@ public class LoginController extends AbstractController {
         String username = req.getParameter("username");
         String password = req.getParameter("password");
 
-        EntityManagerFactory emf = Persistence.createEntityManagerFactory("ptadb");
+        EntityManagerFactory emf = Persistence.createEntityManagerFactory("ptaPU");
         EntityManager em = emf.createEntityManager();
 
+        EntityTransaction transaction = em.getTransaction();
+        transaction.begin();
         Query getAllStudents = em.createQuery("SELECT stud FROM Student stud");
-
         List<Student> studentList = getAllStudents.getResultList();
+        transaction.commit();
+        em.close();
+
+
+
+        System.out.println(studentList.size());
         for (Student student : studentList) {
+            System.out.println(student.getUsername());
             if(username.equals(student.getUsername())) {
                 if(Hash.isPasswordCorrect(password, student.getPassword())) {
                     session.setAttribute("student", student);
-                    resp.sendRedirect("/index");
+                    resp.sendRedirect("");
                 }
             } else {
-                resp.sendRedirect("/index");
+                resp.sendRedirect("");
             }
         }
     }
