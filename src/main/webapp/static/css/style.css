@@ -16,7 +16,7 @@ h4.warning {
     width: fit-content;
 }
 
-label {
+label, .nav-item, .btn, .navbar-brand {
     font-family: 'Gochi Hand', cursive;
     font-size: 20px;
 }
@@ -33,12 +33,12 @@ img {
 
 .welcome.message {
     position: absolute;
-    top: 132px;
-    right: -227px;
+    top: 127px;
+    right: -217px;
     color: #30415d;
     padding-left: 10px;
     padding-right: 20px;
-    font-size: 17px;
+    font-size: 22px;
     font-family: 'Gochi Hand', cursive;
 }
 

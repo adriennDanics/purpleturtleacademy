@@ -8,6 +8,7 @@ import com.codecool.PTA.user.Mentor;
 import com.codecool.PTA.user.Student;
 
 import javax.persistence.*;
+import java.util.List;
 
 public class PersistenceImplementation {
 
@@ -127,6 +128,17 @@ public class PersistenceImplementation {
         em.close();
 
         return course;
+    }
+
+    public List findAllCourses() {
+        EntityManager em = emf.createEntityManager();
+
+        EntityTransaction transaction = em.getTransaction();
+        transaction.begin();
+        Query query = em.createQuery("from Course c");
+        List<Course> results = (List<Course>) query.getResultList();
+
+        return results;
     }
 
 }
