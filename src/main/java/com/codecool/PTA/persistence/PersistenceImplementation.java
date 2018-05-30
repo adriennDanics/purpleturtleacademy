@@ -1,8 +1,9 @@
 package com.codecool.PTA.persistence;
 
+import com.codecool.PTA.course.Course;
 import com.codecool.PTA.quest.Kata;
 import com.codecool.PTA.quest.PA;
-import com.codecool.PTA.quest.Quiz;
+import com.codecool.PTA.quest.QuizQuestion;
 import com.codecool.PTA.user.Mentor;
 import com.codecool.PTA.user.Student;
 
@@ -85,17 +86,17 @@ public class PersistenceImplementation {
         return pa;
     }
 
-    public Quiz findQuizById(long id) {
+    public QuizQuestion findQuizQuestionById(long id) {
         EntityManager em = emf.createEntityManager();
 
         EntityTransaction transaction = em.getTransaction();
         transaction.begin();
-        Quiz quiz = em.find(Quiz.class, id);
+        QuizQuestion quizQuestion = em.find(QuizQuestion.class, id);
         transaction.commit();
 
         em.close();
 
-        return quiz;
+        return quizQuestion;
     }
 
     public Kata findKataById(long id) {
@@ -109,6 +110,19 @@ public class PersistenceImplementation {
         em.close();
 
         return kata;
+    }
+
+    public Course findCourseById(long id) {
+        EntityManager em = emf.createEntityManager();
+
+        EntityTransaction transaction = em.getTransaction();
+        transaction.begin();
+        Course course = em.find(Course.class, id);
+        transaction.commit();
+
+        em.close();
+
+        return course;
     }
 
 }
