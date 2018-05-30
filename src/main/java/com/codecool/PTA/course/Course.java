@@ -14,7 +14,8 @@ public class Course {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
 
-    private String name;
+    @Enumerated(value = EnumType.STRING)
+    private CourseType name;
 
     private String description;
 
@@ -26,7 +27,7 @@ public class Course {
 
     protected Course(){}
 
-    public Course(String name, String description){
+    public Course(CourseType name, String description){
         this.name = name;
         this.description = description;
     }
@@ -39,11 +40,11 @@ public class Course {
         this.id = id;
     }
 
-    public String getName() {
+    public CourseType getName() {
         return name;
     }
 
-    public void setName(String name) {
+    public void setName(CourseType name) {
         this.name = name;
     }
 
