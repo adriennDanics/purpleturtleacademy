@@ -40,9 +40,9 @@ public class LoginController extends AbstractController {
             if (username.equals(student.getUsername()) && Hash.isPasswordCorrect(password, student.getPassword())) {
                 session.setAttribute("student", student);
                 resp.sendRedirect("/index");
-                return;
+            } else {
+                resp.sendRedirect("/login");
             }
         }
-        resp.sendRedirect("/index");
     }
 }
