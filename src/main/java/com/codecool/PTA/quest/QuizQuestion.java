@@ -24,8 +24,7 @@ public class QuizQuestion extends Assignment {
 
     public QuizQuestion(){ super();}
 
-    public QuizQuestion(String assignmentTitle, String question, Level level, CourseType courseType, Map<String, Boolean> answers) {
-        super(assignmentTitle);
+    public QuizQuestion(String question, Level level, CourseType courseType, Map<String, Boolean> answers) {
         this.question = question;
         this.level = level;
         this.courseType = courseType;
