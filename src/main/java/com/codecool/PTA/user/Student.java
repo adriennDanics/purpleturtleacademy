@@ -12,7 +12,7 @@ import java.util.List;
 public class Student extends User {
 
     @Transient
-    static public List<Student> studentList = PersistenceImplementation.getInstance().getEntityManagerInstance().createNamedQuery("Student.findAllStudents", Student.class).getResultList();
+    static public List<Student> studentList = PersistenceImplementation.getInstance().getEm().createNamedQuery("Student.findAllStudents", Student.class).getResultList();
 
     private long xp;
 
