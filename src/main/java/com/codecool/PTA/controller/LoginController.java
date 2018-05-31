@@ -36,7 +36,7 @@ public class LoginController extends AbstractController {
         String username = req.getParameter("username");
         String password = req.getParameter("password");
 
-        List<Student> studentList = PersistenceImplementation.getInstance().findAllStudent();
+        List<Student> studentList = PersistenceImplementation.getInstance().findAllStudents();
 
         for (Student student : studentList) {
             if (username.equals(student.getUsername()) && Hash.isPasswordCorrect(password, student.getPassword())) {
