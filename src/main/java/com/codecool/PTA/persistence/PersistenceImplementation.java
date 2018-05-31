@@ -102,11 +102,10 @@ public class PersistenceImplementation {
     }
 
 
-    public List findAllCourses() {
+    public List<Course> findAllCourses() {
         EntityTransaction transaction = em.getTransaction();
         transaction.begin();
-        Query query = em.createQuery("from Course c");
-        List<Course> results = (List<Course>) query.getResultList();
+        List<Course> results = em.createQuery("FROM Course", Course.class).getResultList();
         transaction.commit();
         return results;
     }
