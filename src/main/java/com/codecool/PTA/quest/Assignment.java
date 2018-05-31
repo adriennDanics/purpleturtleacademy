@@ -17,20 +17,20 @@ public abstract class Assignment {
     @Enumerated(EnumType.STRING)
     CourseType courseType;
 
-
     @Column(unique = true, nullable = false)
     private String assignmentTitle;
+
     @Column(nullable = false)
     private String question;
+
+    protected Assignment() {
+    }
 
     public Assignment(Level level, CourseType courseType, String assignmentTitle, String question) {
         this.level = level;
         this.courseType = courseType;
         this.assignmentTitle = assignmentTitle;
         this.question = question;
-    }
-
-    public Assignment() {
     }
 
     public long getId() {

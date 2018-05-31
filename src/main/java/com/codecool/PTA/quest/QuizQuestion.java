@@ -13,9 +13,12 @@ public class QuizQuestion extends Assignment {
     @MapKeyColumn(name = "answer")
     private Map<String, Boolean> answers = new HashMap<>();
 
-    public QuizQuestion(){ super();}
+    protected QuizQuestion() {
+        super();
+    }
 
-    public QuizQuestion(String question, Level level, CourseType courseType, Map<String, Boolean> answers) {
+    public QuizQuestion(String question, String assignmentTitle, Level level, CourseType courseType, Map<String, Boolean> answers) {
+        super(level, courseType, assignmentTitle, question);
         this.answers = answers;
     }
 
