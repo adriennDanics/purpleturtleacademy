@@ -2,10 +2,7 @@ package com.codecool.PTA.user;
 
 import com.codecool.PTA.course.Course;
 
-import javax.persistence.Entity;
-import javax.persistence.EnumType;
-import javax.persistence.Enumerated;
-import javax.persistence.ManyToOne;
+import javax.persistence.*;
 
 @Entity
 public class Student extends User {
@@ -18,6 +15,7 @@ public class Student extends User {
     @ManyToOne
     private Course course;
 
+
     protected Student() {
         super();
     }
@@ -26,5 +24,13 @@ public class Student extends User {
         super(username, password);
         this.xp = 0;
         this.level = Level.BEGINNER;
+    }
+
+    public Course getCourse() {
+        return course;
+    }
+
+    public void setCourse(Course course) {
+        this.course = course;
     }
 }

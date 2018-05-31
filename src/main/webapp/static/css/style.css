@@ -6,12 +6,17 @@ body {
     width: 80%;
 }
 
-h1, .form-group {
-    padding: 50px 0 0 50px;
+h1, h2, h4, h5, .form-group {
+    margin: 35px 0 0 35px;
     font-family: 'Gochi Hand', cursive;
 }
 
-label {
+h4.warning {
+    background-color: #CF6766;
+    width: fit-content;
+}
+
+label, .nav-item, .btn, .navbar-brand {
     font-family: 'Gochi Hand', cursive;
     font-size: 20px;
 }
@@ -20,3 +25,33 @@ label {
     width: 50%;
 }
 
+img {
+    width: 160px;
+    height: 100px;
+    margin: 100px 10px 50px 1150px;
+}
+
+.welcome.message {
+    position: absolute;
+    top: 127px;
+    right: -217px;
+    color: #30415d;
+    padding-left: 10px;
+    padding-right: 20px;
+    font-size: 22px;
+    font-family: 'Gochi Hand', cursive;
+}
+
+.welcome.container {
+    position: relative;
+}
+
+.table {
+    position: relative;
+    display: block;
+    padding:100px;
+}
+
+.navbar {
+    height: 60px;
+}

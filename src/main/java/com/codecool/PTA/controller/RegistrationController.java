@@ -2,6 +2,7 @@ package com.codecool.PTA.controller;
 
 import com.codecool.PTA.config.TemplateEngineUtil;
 import com.codecool.PTA.helper.Hash;
+import com.codecool.PTA.persistence.PersistenceImplementation;
 import com.codecool.PTA.user.Student;
 import org.thymeleaf.TemplateEngine;
 import org.thymeleaf.context.WebContext;
@@ -40,11 +41,15 @@ public class RegistrationController extends AbstractController {
         if(password.equals(passwordConfirm)) {
             String hashedPassword = Hash.hashPassword(req.getParameter("password"));
             Student student = new Student(username, hashedPassword);
+            student.setFirstName(firstName);
+            student.setLastName(lastName);
+            student.setEmail(email);
             session.setAttribute("student", student);
             if(session.getAttribute("passwordNotMatch") != null) {
                 session.removeAttribute("passwordNotMatch");
             }
-            resp.sendRedirect("/login");
+            PersistenceImplementation.getInstance().persist(student);
+            resp.sendRedirect("");
         } else {
             session.setAttribute("passwordNotMatch", "The passwords you entered are not matching!");
             resp.sendRedirect("/registration");
