@@ -16,7 +16,7 @@ public class AssignmentConfig {
 
     private ArrayList<QuizQuestion> questionList = new ArrayList();
 
-    private void fillData(){
+    public void fillData(){
         Map<String, Boolean> answers1 = new HashMap<>();
         answers1.put("str.replace", true);
         answers1.put("str.replace()", false);
@@ -58,10 +58,11 @@ public class AssignmentConfig {
         questionList.add(quizQuestion5);
     }
 
-    private void fillDB(){
+    public void fillDB(){
         for (QuizQuestion question:questionList) {
             PersistenceImplementation.getInstance().persist(question);
         }
     }
+
 
 }
