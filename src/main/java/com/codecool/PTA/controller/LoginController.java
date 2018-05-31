@@ -2,6 +2,7 @@ package com.codecool.PTA.controller;
 
 import com.codecool.PTA.config.TemplateEngineUtil;
 import com.codecool.PTA.helper.Hash;
+import com.codecool.PTA.persistence.PersistenceImplementation;
 import com.codecool.PTA.user.Student;
 import org.thymeleaf.TemplateEngine;
 import org.thymeleaf.context.WebContext;
@@ -12,6 +13,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
+import java.util.List;
 
 
 @WebServlet(urlPatterns = {"/login"})
@@ -34,15 +36,15 @@ public class LoginController extends AbstractController {
         String username = req.getParameter("username");
         String password = req.getParameter("password");
 
-        Student.askForAllStudents();
+        List<Student> studentList = PersistenceImplementation.getInstance().findAllStudent();
 
-        for (Student student : Student.studentList) {
+        for (Student student : studentList) {
             if (username.equals(student.getUsername()) && Hash.isPasswordCorrect(password, student.getPassword())) {
                 session.setAttribute("student", student);
                 resp.sendRedirect("/index");
-            } else {
-                resp.sendRedirect("/login");
+                return;
             }
         }
+        resp.sendRedirect("/login");
     }
 }

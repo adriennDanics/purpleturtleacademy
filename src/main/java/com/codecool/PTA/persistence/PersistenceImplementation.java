@@ -93,12 +93,12 @@ public class PersistenceImplementation {
         return course;
     }
 
-//    public List<Student> findAllStudent() {
-//        EntityTransaction transaction = em.getTransaction();
-//        transaction.begin();
-//        List<Student> studentList = em.createQuery("FROM Student", Student.class).getResultList();
-//        transaction.commit();
-//        return studentList;
-//    }
+    public List<Student> findAllStudent() {
+        EntityTransaction transaction = em.getTransaction();
+        transaction.begin();
+        List<Student> studentList = em.createQuery("FROM Student", Student.class).getResultList();
+        transaction.commit();
+        return studentList;
+    }
 
 }

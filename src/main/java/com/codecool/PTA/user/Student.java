@@ -1,18 +1,11 @@
 package com.codecool.PTA.user;
 
 import com.codecool.PTA.course.Course;
-import com.codecool.PTA.persistence.PersistenceImplementation;
 
 import javax.persistence.*;
-import java.util.List;
 
-@NamedQuery(name="Student.findAllStudents",
-        query="FROM Student")
 @Entity
 public class Student extends User {
-
-    @Transient
-    static public List<Student> studentList;
 
     private long xp;
 
@@ -33,11 +26,4 @@ public class Student extends User {
         this.level = Level.BEGINNER;
     }
 
-    public static void askForAllStudents() {
-        EntityManager em = PersistenceImplementation.getInstance().getEm();
-        EntityTransaction transaction = em.getTransaction();
-        transaction.begin();
-        studentList = em.createNamedQuery("Student.findAllStudents", Student.class).getResultList();
-        transaction.commit();
-    }
 }
