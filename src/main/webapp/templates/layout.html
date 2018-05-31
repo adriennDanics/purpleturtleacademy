@@ -21,8 +21,7 @@
         <link rel="stylesheet" type="text/css" href="static/css/style.css">
     </div>
 
-    <div th:fragment="navbar">
-        <nav class="navbar navbar-expand-lg fixed-top navbar-light bg-light">
+        <nav th:fragment="navbar" class="navbar navbar-expand-lg fixed-top navbar-light bg-light">
             <a class="navbar-brand" href="/index">Home</a>
             <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
@@ -58,7 +57,6 @@
                 <div th:if="${session.student}">
                     <button type="button" class="btn btn-light"><a href="/logout" class="nav-link">Logout</a></button>
                     <button type="button" class="btn btn-light"><a href="/profile" class="nav-link">Profile</a></button>
-                    <div th:text="'Welcome ' + ${session.student.getFirstName()}"></div>
                 </div>
                 <div th:unless="${session.student}">
                     <button type="button" class="btn btn-light"><a href="/login" class="nav-link">Login</a></button>
@@ -66,6 +64,5 @@
                 </div>
             </div>
         </nav>
-    </div>
 </body>
 </html>
