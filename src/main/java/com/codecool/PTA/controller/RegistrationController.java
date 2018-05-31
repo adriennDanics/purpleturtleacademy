@@ -49,7 +49,7 @@ public class RegistrationController extends AbstractController {
                 session.removeAttribute("passwordNotMatch");
             }
             PersistenceImplementation.getInstance().persist(student);
-            resp.sendRedirect("/login");
+            resp.sendRedirect("");
         } else {
             session.setAttribute("passwordNotMatch", "The passwords you entered are not matching!");
             resp.sendRedirect("/registration");
