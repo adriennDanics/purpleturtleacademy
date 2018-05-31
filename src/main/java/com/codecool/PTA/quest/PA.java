@@ -1,13 +1,18 @@
 package com.codecool.PTA.quest;
 
 import com.codecool.PTA.user.Level;
+import com.codecool.PTA.user.Student;
 
 import javax.persistence.*;
+import java.util.Set;
 
 @Entity
 public class PA extends Assignment{
 
     private String submission;
+
+    @ManyToMany()
+    private Set<Student> student;
 
     protected PA() {
         super();
