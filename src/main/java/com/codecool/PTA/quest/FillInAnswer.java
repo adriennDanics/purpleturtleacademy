@@ -14,4 +14,11 @@ public class FillInAnswer {
 
     @ManyToOne
     private FillInTheBlank question;
+
+    public FillInAnswer() {}
+
+    public FillInAnswer(String answer, FillInTheBlank question) {
+        this.answer = answer;
+        this.question = question;
+    }
 }

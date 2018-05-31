@@ -7,6 +7,7 @@ public class Academy {
         AssignmentConfig assignmentConfig = new AssignmentConfig();
         assignmentConfig.fillData();
         assignmentConfig.fillDB();
+        assignmentConfig.fillFillInTheBlankDb();
 
     }
 }

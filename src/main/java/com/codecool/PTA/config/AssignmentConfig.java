@@ -2,6 +2,8 @@ package com.codecool.PTA.config;
 
 import com.codecool.PTA.persistence.PersistenceImplementation;
 import com.codecool.PTA.quest.CourseType;
+import com.codecool.PTA.quest.FillInAnswer;
+import com.codecool.PTA.quest.FillInTheBlank;
 import com.codecool.PTA.quest.QuizQuestion;
 import com.codecool.PTA.user.Level;
 
@@ -58,6 +60,21 @@ public class AssignmentConfig {
             PersistenceImplementation.getInstance().persist(question);
         }
     }
+
+    public void fillFillInTheBlankDb() {
+        FillInTheBlank toFill1 = new FillInTheBlank(Level.BEGINNER,
+                                                    CourseType.Python,
+                                                    "Please fill in the blank to print.",
+                                                    ">>>[](\"I won't say Hello World again!\")");
+
+        FillInAnswer answer1 = new FillInAnswer("print", toFill1);
+
+        PersistenceImplementation.getInstance().persist(toFill1);
+        PersistenceImplementation.getInstance().persist(answer1);
+
+
+    }
+
 
 
 }
