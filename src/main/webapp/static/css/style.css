@@ -26,6 +26,7 @@ label, .nav-item, .btn, .navbar-brand {
 }
 
 img {
+    position:absolute;
     width: 160px;
     height: 100px;
     margin: 100px 10px 50px 1150px;
