@@ -12,7 +12,6 @@ import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
 import java.io.IOException;
 import java.util.List;
 
@@ -27,8 +26,7 @@ public class AssignmentController extends AbstractController {
             context.setVariable("quizQuestions", quizQuestions);
             List<PA> paList = PersistenceImplementation.getInstance().findAllPaAssignments();
             context.setVariable("paList", paList);
-            HttpSession session = req.getSession();
-            Student student = (Student) session.getAttribute("student");
+            Student student = (Student) getLoggedInUser(req);
             context.setVariable("student", student);
 
             TemplateEngine engine = TemplateEngineUtil.getTemplateEngine(req.getServletContext());

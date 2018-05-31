@@ -68,3 +68,23 @@ img {
 .redback {
     background-color: #CF6766;
 }
+
+.badge.badge-primary {
+    background-color: #67ba46;
+}
+
+.badge.badge-info {
+    background-color: #95598c;
+}
+
+.nav-link, a:active, a:hover, a:visited, a:link {
+    color: #30415d;
+}
+
+.assignment.description {
+    width: 60%;
+}
+
+.quiz_answers.btn {
+    margin: 10px;
+}

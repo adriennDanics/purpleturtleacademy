@@ -42,7 +42,9 @@ public class PAController extends AbstractController {
 
         PA pa = PersistenceImplementation.getInstance().findPaById(id);
         String submission = req.getParameter("submission");
+        Student student = (Student) getLoggedInUser(req);
         pa.setSubmission(submission);
+        pa.addStudent(student);
         PersistenceImplementation.getInstance().merge(pa);
         resp.sendRedirect("/assignments");
     }

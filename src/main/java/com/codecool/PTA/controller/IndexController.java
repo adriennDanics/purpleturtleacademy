@@ -11,7 +11,6 @@ import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
 import java.io.IOException;
 
 @WebServlet(urlPatterns = {"", "/index"})
@@ -21,8 +20,7 @@ public class IndexController extends AbstractController {
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         if(checkLogin(req)){
             WebContext context = new WebContext(req, resp, req.getServletContext());
-            HttpSession session = req.getSession();
-            Student student = (Student) session.getAttribute("student");
+            Student student = (Student) getLoggedInUser(req);
 
             Course course = PersistenceImplementation.getInstance().findCourseById(student.getCourse().getId());
             context.setVariable("course", course);
