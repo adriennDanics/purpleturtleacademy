@@ -18,22 +18,24 @@ public class FillInTheBlank extends Assignment {
     @Enumerated(EnumType.STRING)
     private CourseType courseType;
 
-//    @ElementCollection
-    @OneToMany
+    @OneToMany(mappedBy = "question")
     private Set<FillInAnswer> answers = new HashSet<>();
 
     public FillInTheBlank() {
     }
 
-    public FillInTheBlank(String assignmentTitle,
-                          String question,
-                          Level level,
+    public FillInTheBlank(Level level,
                           CourseType courseType,
+                          String assignmentTitle,
+                          String question,
+                          String question1,
+                          Level level1,
+                          CourseType courseType1,
                           Set<FillInAnswer> answers) {
-        super(assignmentTitle);
-        this.question = question;
-        this.level = level;
-        this.courseType = courseType;
+        super(level, courseType, assignmentTitle, question);
+        this.question = question1;
+        this.level = level1;
+        this.courseType = courseType1;
         this.answers = answers;
     }
 }
