@@ -1,6 +1,7 @@
 package com.codecool.PTA.persistence;
 
 import com.codecool.PTA.course.Course;
+import com.codecool.PTA.quest.Assignment;
 import com.codecool.PTA.quest.Kata;
 import com.codecool.PTA.quest.PA;
 import com.codecool.PTA.quest.QuizQuestion;
@@ -109,6 +110,24 @@ public class PersistenceImplementation {
         List<Course> results = (List<Course>) query.getResultList();
         transaction.commit();
         return results;
+    }
+
+    public List<QuizQuestion> findAllQuizQuestion() {
+        EntityTransaction transaction = em.getTransaction();
+        transaction.begin();
+        List<QuizQuestion> quizQuestionList = em.createQuery("FROM QuizQuestion", QuizQuestion.class).getResultList();
+        transaction.commit();
+        return quizQuestionList;
+
+    }
+
+    public List<PA> findAllPaAssignments() {
+        EntityTransaction transaction = em.getTransaction();
+        transaction.begin();
+        List<PA> paList = em.createQuery("FROM PA", PA.class).getResultList();
+        transaction.commit();
+        return paList;
+
     }
 
 }
