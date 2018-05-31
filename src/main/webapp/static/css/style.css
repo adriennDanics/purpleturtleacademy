@@ -11,6 +11,10 @@ h1, h2, h4, h5, .form-group {
     font-family: 'Gochi Hand', cursive;
 }
 
+h2.title {
+    margin: 60px 0 0 35px;
+}
+
 h4.warning {
     background-color: #CF6766;
     width: fit-content;
@@ -55,4 +59,12 @@ img {
 
 .navbar {
     height: 60px;
+}
+
+.greenback {
+    background-color: #67ba46;
+}
+
+.redback {
+    background-color: #CF6766;
 }

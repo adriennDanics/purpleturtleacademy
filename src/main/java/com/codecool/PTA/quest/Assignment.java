@@ -48,4 +48,12 @@ public abstract class Assignment {
     public CourseType getCourseType() {
         return courseType;
     }
+
+    public String getAssignmentTitle() {
+        return assignmentTitle;
+    }
+
+    public void setAssignmentTitle(String assignmentTitle) {
+        this.assignmentTitle = assignmentTitle;
+    }
 }

@@ -1,7 +1,7 @@
 package com.codecool.PTA.persistence;
 
 import com.codecool.PTA.course.Course;
-import com.codecool.PTA.quest.Assignment;
+import com.codecool.PTA.course.CourseType;
 import com.codecool.PTA.quest.Kata;
 import com.codecool.PTA.quest.PA;
 import com.codecool.PTA.quest.QuizQuestion;
@@ -127,6 +127,16 @@ public class PersistenceImplementation {
         transaction.commit();
         return paList;
 
+    }
+
+    public Course findCourseByName(CourseType type){
+        EntityTransaction transaction = em.getTransaction();
+        transaction.begin();
+        Query query= em.createQuery("from Course where name=:name", Course.class);
+        query.setParameter("name", type);
+        Course course = (Course) query.getSingleResult();
+        transaction.commit();
+        return course;
     }
 
 }

@@ -11,17 +11,17 @@
     <div class="table table-hover">
         <table>
             <tbody>
-            <tr>Quizzes</tr>
-            <tr th:each="quiz,iterStat : ${quizzes}" class="card" th:attr="data-id=${student.getLastQuiz()}">
-                <td th:text="${quiz.name}">Name</td>
+            <tr><td>Quizzes</td></tr>
+            <tr th:each="quiz,iterStat : ${quizQuestions}" class="card">
+                <td><a th:href="@{/quiz(id=${quiz.getId()})}" th:text="${quiz.getAssignmentTitle()}">Name</a></td>
             </tr>
-            <tr>Katas</tr>
+            <!--<tr>Katas</tr>
             <tr th:each="kata,iterStat : ${katas}" class="card" th:attr="data-id=${student.getLastQuiz()}">
                 <td th:text="${kata.name}">Name</td>
-            </tr>
-            <tr>PA</tr>
-            <tr th:each="pa,iterStat : ${pas}" class="card" th:attr="data-id=${student.getLastQuiz()}">
-                <td> th:text="${pa.name}">Name</td>
+            </tr>-->
+            <tr><td>PA</td></tr>
+            <tr th:each="pa,iterStat : ${paList}" class="card">
+                <td><a th:href="@{/pa(id=${pa.getId()})}" th:text="${pa.getAssignmentTitle()}">Name</a></td>
             </tr>
             </tbody>
         </table>

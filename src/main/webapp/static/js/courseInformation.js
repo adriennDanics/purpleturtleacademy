@@ -41,6 +41,9 @@ function addEventListenerToModal(id, nameOfCourse){
     if(nameOfCourse === "JAVA") {
         buttonToSignUp.setAttribute("disabled", "disabled");
         buttonToSignUp.innerText = "Coming Soon";
+    } else if(nameOfCourse === "ORIENTATION"){
+        buttonToSignUp.setAttribute("disabled", "disabled");
+        buttonToSignUp.innerText = "No need for that :)";
     } else {
         buttonToSignUp.removeAttribute("disabled");
         buttonToSignUp.innerText = "Sign Up";
