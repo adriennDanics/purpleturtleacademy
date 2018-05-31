@@ -18,7 +18,6 @@ public class ProfileController extends AbstractController {
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         WebContext context = new WebContext(req, resp, req.getServletContext());
         Student student = (Student) getLoggedInUser(req);
-
         context.setVariable("student", student);
 
         TemplateEngine engine = TemplateEngineUtil.getTemplateEngine(req.getServletContext());
