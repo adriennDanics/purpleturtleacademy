@@ -45,3 +45,13 @@ img {
 .welcome.container {
     position: relative;
 }
+
+.table {
+    position: relative;
+    display: block;
+    padding:100px;
+}
+
+.navbar {
+    height: 60px;
+}

@@ -4,23 +4,41 @@
     <meta charset="UTF-8">
 
     <div th:replace="layout.html :: head"></div>
+    <script src="static/js/courseInformation.js" defer></script>
 
 </head>
 <body>
     <div th:replace="layout.html :: navbar"></div>
-    <table>
-        <thead>
-            <tr>
-                <th>Course Name</th>
-                <th>Course Description</th>
-            </tr>
-        </thead>
-        <tbody th:each="course,iterStat : ${courses}">
-            <tr class="card">
-                <td th:text="${course.name}">Name</td>
-                <td th:text="${course.description}">Description</td>
-            </tr>
-        </tbody>
-    </table>
+    <div class="table table-hover">
+        <table>
+            <tbody>
+                <tr th:each="course,iterStat : ${courses}" class="card" th:attr="id='course'+${course.id}">
+                    <td th:text="${course.name}">Name</td>
+                    <td th:text="${course.description}">Description</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+    <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-lg" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Course</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="table">
+                    <div class="row modal-body container-fluid" id="modal-content">
+
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button id="close-modal" type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                    <button id="sign-up-course" type="button" class="btn btn-primary" data-dismiss="modal">Sign up</button>
+                </div>
+            </div>
+        </div>
+    </div>
 </body>
 </html>

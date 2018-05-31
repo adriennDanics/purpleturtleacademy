@@ -36,7 +36,7 @@ public class PersistenceImplementation {
         transaction.begin();
         em.persist(object);
         transaction.commit();
-        }
+    }
 
     public void merge(Object object) {
         EntityTransaction transaction = em.getTransaction();
@@ -93,21 +93,22 @@ public class PersistenceImplementation {
         return course;
     }
 
-    public List findAllCourses() {
-        EntityTransaction transaction = em.getTransaction();
-        transaction.begin();
-        Query query = em.createQuery("from Course c");
-        List<Course> results = (List<Course>) query.getResultList();
-
-        return results;
-    }
-
     public List<Student> findAllStudents() {
         EntityTransaction transaction = em.getTransaction();
         transaction.begin();
         List<Student> studentList = em.createQuery("FROM Student", Student.class).getResultList();
         transaction.commit();
         return studentList;
+    }
+
+
+    public List findAllCourses() {
+        EntityTransaction transaction = em.getTransaction();
+        transaction.begin();
+        Query query = em.createQuery("from Course c");
+        List<Course> results = (List<Course>) query.getResultList();
+        transaction.commit();
+        return results;
     }
 
 }
