@@ -3,15 +3,15 @@
 <head>
     <meta charset="UTF-8">
     <div th:replace="layout.html :: head"></div>
-    <script src="static/js/script.js" defer></script>
+    <script src="static/js/unlockassignment.js" defer></script>
 
 </head>
 <body>
     <div th:replace="layout.html :: navbar"></div>
-    <h2 class="title" th:text="${quiz.title}">Title</h2>
-    <h4 class="description" th:text="${quiz.description}"> Description</h4>
-    <form class="form-group" action="/" method="post" th:each="solution,iterStat : ${quiz.solutions}">
-        <button th:attr="id='check_'+ ${solution}" type="submit" th:text="${solution}"> Check solution </button>
-    </form>
+    <h2 class="title" th:text="${question.getAssignmentTitle()}">Title</h2>
+    <h4 class="description" th:text="${question.getQuestion()}"> Description</h4>
+    <div class="form-group" th:each="answer,iterStat : ${question.getAnswers().keySet()}">
+        <button th:attr="id=${question.getAnswers().get(answer)}" class="quiz_answers" type="submit" th:text="${answer}"> Check solution </button>
+    </div>
 </body>
 </html>

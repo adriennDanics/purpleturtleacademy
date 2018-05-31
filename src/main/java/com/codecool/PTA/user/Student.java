@@ -85,4 +85,5 @@ public class Student extends User {
     public void setCertificate(Certificate certificate) {
         this.certificate = certificate;
     }
+
 }
