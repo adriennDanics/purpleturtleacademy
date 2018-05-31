@@ -13,6 +13,16 @@
         <div class="welcome message" th:text="'Hi ' + ${session.student.getFirstName()}">
         </div>
     </div>
+    <div class="table table-hover">
+        <table>
+            <tbody>
+            <tr class="card" th:attr="data-id=${course.id}">
+                    <td><a href="/assignments" th:text="${course.name}">Name</a></td>
+                    <td th:text="${course.description}">Description</td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
 
 </body>
 </html>

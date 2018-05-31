@@ -33,4 +33,20 @@ public class Student extends User {
     public void setCourse(Course course) {
         this.course = course;
     }
+
+    public long getXp() {
+        return xp;
+    }
+
+    public void setXp(long xp) {
+        this.xp = xp;
+    }
+
+    public Level getLevel() {
+        return level;
+    }
+
+    public void setLevel(Level level) {
+        this.level = level;
+    }
 }

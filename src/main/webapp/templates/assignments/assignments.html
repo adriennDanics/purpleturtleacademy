@@ -1,10 +1,30 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
 <head>
     <meta charset="UTF-8">
-    <title>$Title$</title>
+
+    <div th:replace="layout.html :: head"></div>
+
 </head>
 <body>
-$END$
+    <div th:replace="layout.html :: navbar"></div>
+    <div class="table table-hover">
+        <table>
+            <tbody>
+            <tr>Quizzes</tr>
+            <tr th:each="quiz,iterStat : ${quizzes}" class="card" th:attr="data-id=${student.getLastQuiz()}">
+                <td th:text="${quiz.name}">Name</td>
+            </tr>
+            <tr>Katas</tr>
+            <tr th:each="kata,iterStat : ${katas}" class="card" th:attr="data-id=${student.getLastQuiz()}">
+                <td th:text="${kata.name}">Name</td>
+            </tr>
+            <tr>PA</tr>
+            <tr th:each="pa,iterStat : ${pas}" class="card" th:attr="data-id=${student.getLastQuiz()}">
+                <td> th:text="${pa.name}">Name</td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
 </body>
 </html>

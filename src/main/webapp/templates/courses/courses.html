@@ -12,9 +12,8 @@
     <div class="table table-hover">
         <table>
             <tbody>
-                <tr th:each="course,iterStat : ${courses}" class="card" th:attr="id='course'+${course.id}">
+                <tr th:each="course,iterStat : ${courses}" class="card" th:attr="data-id=${course.id}">
                     <td th:text="${course.name}">Name</td>
-                    <td th:text="${course.description}">Description</td>
                 </tr>
             </tbody>
         </table>
