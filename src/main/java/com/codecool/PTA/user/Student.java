@@ -1,8 +1,11 @@
 package com.codecool.PTA.user;
 
 import com.codecool.PTA.course.Course;
+import com.codecool.PTA.quest.Kata;
+import com.codecool.PTA.quest.PA;
 
 import javax.persistence.*;
+import java.util.Set;
 
 @Entity
 public class Student extends User {
@@ -15,6 +18,11 @@ public class Student extends User {
     @ManyToOne
     private Course course;
 
+    @ManyToMany(mappedBy = "student")
+    private Set<PA> completedPAs;
+
+    @ManyToMany(mappedBy = "student")
+    private Set<Kata> completedKatas;
 
     protected Student() {
         super();
