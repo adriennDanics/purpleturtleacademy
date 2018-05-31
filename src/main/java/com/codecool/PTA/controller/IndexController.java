@@ -2,6 +2,7 @@ package com.codecool.PTA.controller;
 
 import com.codecool.PTA.config.TemplateEngineUtil;
 import com.codecool.PTA.course.Course;
+import com.codecool.PTA.course.CourseType;
 import com.codecool.PTA.persistence.PersistenceImplementation;
 import com.codecool.PTA.user.Student;
 import org.thymeleaf.TemplateEngine;
@@ -23,8 +24,13 @@ public class IndexController extends AbstractController {
             WebContext context = new WebContext(req, resp, req.getServletContext());
             HttpSession session = req.getSession();
             Student student = (Student) session.getAttribute("student");
-            Course course = PersistenceImplementation.getInstance().findCourseById(student.getCourse().getId());
-
+            Course course;
+            String origin = req.getHeader("referer");
+            if (origin.equals("http://localhost:8080/registration")) {
+                course = new Course(CourseType.ORIENTATION, "Please choose a course");
+            } else {
+                course = PersistenceImplementation.getInstance().findCourseById(student.getCourse().getId());
+            }
             context.setVariable("course", course);
             context.setVariable("student", student);
             TemplateEngine engine = TemplateEngineUtil.getTemplateEngine(req.getServletContext());
