@@ -29,4 +29,12 @@ public class Certificate {
         this.student = student;
         this.issueDate = dateNow;
     }
+
+    public Student getStudent() {
+        return student;
+    }
+
+    public Date getIssueDate() {
+        return issueDate;
+    }
 }
