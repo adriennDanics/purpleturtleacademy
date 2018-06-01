@@ -12,7 +12,7 @@
 <h4 class="description assignment" th:text="${question.getQuestion()}"> Description</h4>
 <form class="form-group" th:attr="action='/pa?id='+${question.getId()}" method="POST">
     <label for="submission">Submission</label>
-    <input class="form-control" type="text" name="submission" id="submission" required>
+    <input class="form-control" type="text" name="submission" id="submission" th:attr="value=${question.getSubmission()}" required>
     <button type="submit">Submit a link to your repo!</button>
 </form>
 </body>
