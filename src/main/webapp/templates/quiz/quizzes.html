@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <div th:replace="layout.html :: head"></div>
+    <script src="static/js/unlockassignment.js" defer></script>
+
+</head>
+<body>
+    <div th:replace="layout.html :: navbar"></div>
+    <h2 class="title" id="get-level" th:text="${question.getAssignmentTitle()}" th:attr="data-level=${question.getLevel()}">Title</h2>
+    <h4 class="description assignment" id="get-id" th:attr="data-quizid=${question.getId()}" th:text="${question.getQuestion()}"> Description</h4><br><br><br>
+    <div class="description assignment">
+        <span class="form-group" th:each="answer,iterStat : ${question.getAnswers().keySet()}">
+            <button th:attr="id=${question.getAnswers().get(answer)}" class="quiz_answers btn" type="submit" th:text="${answer}"> Check solution </button>
+        </span>
+    </div>
+    <div><a class="btn" href="/assignments">Back</a></div>
+</body>
+</html>
