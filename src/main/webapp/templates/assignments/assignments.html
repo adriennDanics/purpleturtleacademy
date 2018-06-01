@@ -9,22 +9,34 @@
 <body>
     <div th:replace="layout.html :: navbar"></div>
     <div class="table table-hover">
-        <table>
-            <tbody>
-            <tr><td>Quizzes</td></tr>
-            <tr th:each="quiz,iterStat : ${quizQuestions}" class="card">
-                <td><a th:href="@{/quiz(id=${quiz.getId()})}" th:text="${quiz.getAssignmentTitle()}">Name</a></td>
-            </tr>
-            <!--<tr>Katas</tr>
-            <tr th:each="kata,iterStat : ${katas}" class="card" th:attr="data-id=${student.getLastQuiz()}">
-                <td th:text="${kata.name}">Name</td>
-            </tr>-->
-            <tr><td>PA</td></tr>
-            <tr th:each="pa,iterStat : ${paList}" class="card">
-                <td><a th:href="@{/pa(id=${pa.getId()})}" th:text="${pa.getAssignmentTitle()}">Name</a></td>
-            </tr>
-            </tbody>
-        </table>
+        <span class="dropdown">
+            <a href="#" class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                Quizzes
+            </a>
+            <div class="dropdown-menu">
+            <div th:each="quiz,iterStat : ${quizQuestions}" aria-labelledby="dropdownMenuButton">
+                <a class="dropdown-item"  th:href="@{/quiz(id=${quiz.getId()})}" th:text="${quiz.getAssignmentTitle()}">Name</a>
+            </div>
+            </div>
+        </span>
+            <!--<div class="dropdown">
+            <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                Katas
+            </button>
+            <div th:each="kata,iterStat : ${katas}" class="card dropdown-menu" aria-labelledby="dropdownMenuButton">
+                <a class="dropdown-item"  th:href="@{/kata(id=${pa.getId()})}" th:text="${kata.getAssignmentTitle()}">Name</a>
+            </div>
+        </div>-->
+        <span class="dropdown">
+            <a href="#" class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                PAs
+            </a>
+            <div class="dropdown-menu">
+            <div th:each="pa,iterStat : ${paList}" aria-labelledby="dropdownMenuButton">
+                <a class="dropdown-item"  th:href="@{/pa(id=${pa.getId()})}" th:text="${pa.getAssignmentTitle()}">Name</a>
+            </div>
+            </div>
+        </span>
     </div>
 </body>
 </html>
