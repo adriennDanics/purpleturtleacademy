@@ -93,21 +93,21 @@ public class AssignmentConfig {
         paList.add(pa3);
     }
 
-    public void fillDB() {
-        fillData();
-        for (QuizQuestion question : questionList) {
-            PersistenceImplementation.getInstance().persist(question);
-        }
-        for (PA pa : paList) {
-            PersistenceImplementation.getInstance().persist(pa);
-        }
-    }
+//    public void fillDB() {
+//        fillData();
+//        for (QuizQuestion question : questionList) {
+//            PersistenceImplementation.getInstance().persist(question);
+//        }
+//        for (PA pa : paList) {
+//            PersistenceImplementation.getInstance().persist(pa);
+//        }
+//    }
 
     public void fillFillInTheBlankDb() {
         FillInTheBlank toFill1 = new FillInTheBlank(Level.BEGINNER,
                                                     CourseType.Python,
-                                                    "Please fill in the blank to print.",
-                                                    "<input type=\"text\" class=\"answer\" >(\"Hello World!\")");
+                                                    "Please fill in the blank to print!",
+                                                    "<input type=\"text\" class=\"answer\" size=\"5\" >(\"Hello World!\")");
 
         FillInAnswer answer1 = new FillInAnswer("print", toFill1);
 
@@ -116,13 +116,15 @@ public class AssignmentConfig {
 
         FillInTheBlank toFill2 = new FillInTheBlank(Level.BEGINNER,
                                                     CourseType.Python,
-                                                    "Please fill in the blank to print.",
-                                                    "<input type=\"text\" class=\"answer\" >(\"I won't say Hello World again!\")");
+                                                    "Please fill in the blank to print: Hello World!",
+                                                    "<input type=\"text\" class=\"answer\" size=\"5\" >(\"Hello  + \" <input type=\"text\" class=\"answer\" size=\"5\" >)");
 
-        FillInAnswer answer2 = new FillInAnswer("print!", toFill1);
+        FillInAnswer answer2 = new FillInAnswer("print", toFill2);
+        FillInAnswer answer3 = new FillInAnswer(" World!\"", toFill2);
 
         PersistenceImplementation.getInstance().persist(toFill2);
         PersistenceImplementation.getInstance().persist(answer2);
+        PersistenceImplementation.getInstance().persist(answer3);
 
 
     }
