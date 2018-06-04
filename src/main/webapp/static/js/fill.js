@@ -12,10 +12,6 @@ dom = {
     getCorrectAnswers: function() {
         let questionId = document.getElementById("fillInId").innerText;
         dom._id = questionId;
-        // $.getJSON("/fill_in_answers?id=" + questionId, function(response) {
-        //     dom._correctAnswersObject = response;
-        // });
-
         fetch("/fill_in_answers?id=" + questionId)
             .then(response => response.json())
             .then(function(result) {
@@ -37,11 +33,21 @@ dom = {
             for(let answer of answerInputs) {
                 dom._userAnswers.push(answer.value);
             }
+            if(dom.checkAnswers()) {
+                alert("stimmel");
+            } else {
+                alert("szar vagy!");
+            }
         })
     },
 
     checkAnswers: function() {
-
+        for(let i = 0; i < dom._correctAnswersList.length; i++) {
+            if(dom._correctAnswersList[i].toLowerCase() != dom._userAnswers[i].toLowerCase()) {
+                return false;
+            }
+        }
+        return true;
     }
 
 };
