@@ -20,7 +20,7 @@ public abstract class Assignment {
     @Column(unique = true, nullable = false)
     private String assignmentTitle;
 
-    @Column(nullable = false)
+    @Column(nullable = false, length = 1023)
     private String question;
 
     protected Assignment() {
@@ -47,5 +47,13 @@ public abstract class Assignment {
 
     public CourseType getCourseType() {
         return courseType;
+    }
+
+    public String getAssignmentTitle() {
+        return assignmentTitle;
+    }
+
+    public void setAssignmentTitle(String assignmentTitle) {
+        this.assignmentTitle = assignmentTitle;
     }
 }

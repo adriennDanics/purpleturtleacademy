@@ -7,6 +7,14 @@
 <body>
 
     <div th:replace="layout.html :: navbar"></div>
+    <div id="fillBox">
+        <form action="/fill" method="POST">
+            <div th:text="${fill.getAssignmentTitle()}"></div>
+            <div th:utext="${fill.getQuestion()}"></div>
+            <button type="submit" id="submit">Ok</button>
+        </form>
+    </div>
+
 
 </body>
 </html>

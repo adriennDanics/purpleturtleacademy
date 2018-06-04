@@ -4,18 +4,26 @@ import com.codecool.PTA.persistence.PersistenceImplementation;
 import com.codecool.PTA.quest.CourseType;
 import com.codecool.PTA.quest.FillInAnswer;
 import com.codecool.PTA.quest.FillInTheBlank;
+import com.codecool.PTA.quest.PA;
 import com.codecool.PTA.quest.QuizQuestion;
 import com.codecool.PTA.user.Level;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 public class AssignmentConfig {
 
-    private ArrayList<QuizQuestion> questionList = new ArrayList();
+    private List<QuizQuestion> questionList = new ArrayList<>();
+    private List<PA> paList = new ArrayList<>();
 
-    public void fillData() {
+    private void fillData() {
+        fillQuizQuestions();
+        fillPAs();
+    }
+
+    private void fillQuizQuestions() {
         Map<String, Boolean> answers1 = new HashMap<>();
         answers1.put("str.replace", true);
         answers1.put("str.replace()", false);
@@ -55,9 +63,43 @@ public class AssignmentConfig {
         questionList.add(quizQuestion5);
     }
 
+    private void fillPAs() {
+        PA pa = new PA(Level.BEGINNER, CourseType.Python, "Simple calculator",
+                "Write a calculator script, that waits for the user to enter a number, " +
+                        "then a sign (plus, minus, multiplication and division), then a number again. " +
+                        "After the 2nd number input, the script should calculate the addition or subtraction and print it out. " +
+                        "Then the program should run again with asking for the first number. " +
+                        "The script should exit when the user enters a letter instead of a number. " +
+                        "Submit your python script file.");
+        paList.add(pa);
+
+        PA pa2 = new PA(Level.INTERMEDIATE, CourseType.Python, "Codewars assignment",
+                "You have to collect at least 10 points by completing a subset of the katas below. We count point as follows: " +
+                        "8 kyu kata scores 1 point, " +
+                        "7 kyu kata scores 2 points and " +
+                        "6 kyu kata scores 4 points. " +
+                        "For practice and getting more familiar with Python tricks we suggest you to check the solutions " +
+                        "(after completing a kata), understand the top ranked ones and rewrite your code from scratch based on the new insight.");
+        paList.add(pa2);
+
+        PA pa3 = new PA(Level.ADVANCED, CourseType.Java, "Practice JPA",
+                "This assignment is a step by step introduction to the most widely used JPA annotations. " +
+                        "The instructions are attached in the README.md file. " +
+                        "It starts with a code you can run after some basic setup (step 1). " +
+                        "Check the configurations in persistence.xml! " +
+                        "The following steps hint the annotation to use or to modify to get to the expected result. " +
+                        "Read about those annotations in the documentation or in any other resource, and play with the options, " +
+                        "always checking the consequences in the database and in the state of the in-memory objects!");
+        paList.add(pa3);
+    }
+
     public void fillDB() {
+        fillData();
         for (QuizQuestion question : questionList) {
             PersistenceImplementation.getInstance().persist(question);
+        }
+        for (PA pa : paList) {
+            PersistenceImplementation.getInstance().persist(pa);
         }
     }
 
@@ -65,12 +107,21 @@ public class AssignmentConfig {
         FillInTheBlank toFill1 = new FillInTheBlank(Level.BEGINNER,
                                                     CourseType.Python,
                                                     "Please fill in the blank to print.",
-                                                    ">>>[](\"I won't say Hello World again!\")");
+                                                    ">>> <input type=\"text\">(\"Hello World!\")");
 
         FillInAnswer answer1 = new FillInAnswer("print", toFill1);
 
-        PersistenceImplementation.getInstance().persist(toFill1);
-        PersistenceImplementation.getInstance().persist(answer1);
+        FillInTheBlank toFill2 = new FillInTheBlank(Level.BEGINNER,
+                                                    CourseType.Python,
+                                                    "Please fill in the blank to print.",
+                                                    ">>> <input type=\"text\">(\"I won't say Hello World again!\")");
+
+        FillInAnswer answer2 = new FillInAnswer("print!", toFill1);
+
+//        PersistenceImplementation.getInstance().persist(toFill1);
+//        PersistenceImplementation.getInstance().persist(answer1);
+        PersistenceImplementation.getInstance().persist(toFill2);
+        PersistenceImplementation.getInstance().persist(answer2);
 
 
     }
