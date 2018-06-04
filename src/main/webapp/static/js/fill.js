@@ -29,16 +29,16 @@ dom = {
     },
 
     getUserAnswers: function() {
-        let submitButton = document.getElementById("submit");
+        let submitButton = document.getElementById("submitFillInAnswer");
         submitButton.addEventListener('click', function () {
             let answerInputs = document.getElementsByClassName("answer");
             for(let answer of answerInputs) {
                 dom._userAnswers.push(answer.value);
             }
             if(dom.checkAnswers()) {
-                dom.correctAnswer();
+                dom.correctAnswerResponse();
             } else {
-                dom.wrongAnswer();
+                dom.wrongAnswerResponse();
             }
         })
     },
@@ -56,16 +56,25 @@ dom = {
         dom._responseDiv = document.getElementById("responseDiv")
     },
 
-    correctAnswer: function() {
+    correctAnswerResponse: function() {
         let responseParagraph = document.createElement("p");
         responseParagraph.innerHTML = "Your answer is correct!";
-        dom._responseDiv.appendChild(responseParagraph)
+        dom.clearResponseDiv();
+        dom._responseDiv.appendChild(responseParagraph);
+        let submitButton = document.getElementById("submitFillInAnswer");
+        submitButton.style.display = 'none';
     },
 
-    wrongAnswer: function() {
+    wrongAnswerResponse: function() {
         let responseParagraph = document.createElement("p");
         responseParagraph.innerHTML = "Your answer is wrong!";
-        dom._responseDiv.appendChild(responseParagraph)
+        dom.clearResponseDiv();
+        dom._responseDiv.appendChild(responseParagraph);
+        dom._userAnswers = [];
+    },
+
+    clearResponseDiv: function() {
+        dom._responseDiv.innerHTML = "";
     }
 
 };

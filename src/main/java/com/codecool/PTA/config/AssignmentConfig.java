@@ -107,19 +107,20 @@ public class AssignmentConfig {
         FillInTheBlank toFill1 = new FillInTheBlank(Level.BEGINNER,
                                                     CourseType.Python,
                                                     "Please fill in the blank to print.",
-                                                    ">>> <input type=\"text\">(\"Hello World!\")");
+                                                    "<input type=\"text\" class=\"answer\" >(\"Hello World!\")");
 
         FillInAnswer answer1 = new FillInAnswer("print", toFill1);
+
+        PersistenceImplementation.getInstance().persist(toFill1);
+        PersistenceImplementation.getInstance().persist(answer1);
 
         FillInTheBlank toFill2 = new FillInTheBlank(Level.BEGINNER,
                                                     CourseType.Python,
                                                     "Please fill in the blank to print.",
-                                                    ">>> <input type=\"text\">(\"I won't say Hello World again!\")");
+                                                    "<input type=\"text\" class=\"answer\" >(\"I won't say Hello World again!\")");
 
         FillInAnswer answer2 = new FillInAnswer("print!", toFill1);
 
-//        PersistenceImplementation.getInstance().persist(toFill1);
-//        PersistenceImplementation.getInstance().persist(answer1);
         PersistenceImplementation.getInstance().persist(toFill2);
         PersistenceImplementation.getInstance().persist(answer2);
 
