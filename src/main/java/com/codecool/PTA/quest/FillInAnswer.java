@@ -21,4 +21,28 @@ public class FillInAnswer {
         this.answer = answer;
         this.question = question;
     }
+
+    public long getId() {
+        return id;
+    }
+
+    public void setId(long id) {
+        this.id = id;
+    }
+
+    public String getAnswer() {
+        return answer;
+    }
+
+    public void setAnswer(String answer) {
+        this.answer = answer;
+    }
+
+    public FillInTheBlank getQuestion() {
+        return question;
+    }
+
+    public void setQuestion(FillInTheBlank question) {
+        this.question = question;
+    }
 }

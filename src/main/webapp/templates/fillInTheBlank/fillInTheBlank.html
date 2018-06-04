@@ -3,12 +3,16 @@
 <head>
     <meta charset="UTF-8">
     <div th:replace="layout.html :: head"></div>
+
+    <script src="static/js/fill.js" defer></script>
+
 </head>
 <body>
 
     <div th:replace="layout.html :: navbar"></div>
     <div id="fillBox">
         <form action="/fill" method="POST">
+            <div th:text="${fill.getId()}" id="fillInId" ></div>
             <div th:text="${fill.getAssignmentTitle()}"></div>
             <div th:utext="${fill.getQuestion()}"></div>
             <button type="submit" id="submit">Ok</button>
