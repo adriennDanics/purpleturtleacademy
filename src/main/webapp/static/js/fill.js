@@ -3,10 +3,12 @@ dom = {
     _correctAnswersObject: "",
     _correctAnswersList: [],
     _userAnswers: [],
+    _responseDiv: "",
 
     init: function () {
         dom.getCorrectAnswers();
         dom.getUserAnswers();
+        dom.getResponseDiv();
     },
     
     getCorrectAnswers: function() {
@@ -34,9 +36,9 @@ dom = {
                 dom._userAnswers.push(answer.value);
             }
             if(dom.checkAnswers()) {
-                alert("stimmel");
+                dom.correctAnswer();
             } else {
-                alert("szar vagy!");
+                dom.wrongAnswer();
             }
         })
     },
@@ -48,6 +50,22 @@ dom = {
             }
         }
         return true;
+    },
+
+    getResponseDiv: function () {
+        dom._responseDiv = document.getElementById("responseDiv")
+    },
+
+    correctAnswer: function() {
+        let responseParagraph = document.createElement("p");
+        responseParagraph.innerHTML = "Your answer is correct!";
+        dom._responseDiv.appendChild(responseParagraph)
+    },
+
+    wrongAnswer: function() {
+        let responseParagraph = document.createElement("p");
+        responseParagraph.innerHTML = "Your answer is wrong!";
+        dom._responseDiv.appendChild(responseParagraph)
     }
 
 };
