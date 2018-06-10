@@ -5,6 +5,7 @@ import com.codecool.PTA.course.Course;
 import com.codecool.PTA.course.CourseType;
 import com.codecool.PTA.helper.Hash;
 import com.codecool.PTA.persistence.PersistenceImplementation;
+import com.codecool.PTA.user.GenderEnum;
 import com.codecool.PTA.user.Student;
 import org.thymeleaf.TemplateEngine;
 import org.thymeleaf.context.WebContext;
@@ -37,6 +38,7 @@ public class RegistrationController extends AbstractController {
         String firstName = req.getParameter("first_name");
         String lastName = req.getParameter("last_name");
         String email = req.getParameter("email");
+        String gender = req.getParameter("gender");
 
         HttpSession session = req.getSession();
 
@@ -48,6 +50,7 @@ public class RegistrationController extends AbstractController {
             student.setLastName(lastName);
             student.setEmail(email);
             student.setCourse(course);
+            student.setGender(translateGender(gender));
             session.setAttribute("student", student);
             if(session.getAttribute("passwordNotMatch") != null) {
                 session.removeAttribute("passwordNotMatch");
@@ -58,8 +61,17 @@ public class RegistrationController extends AbstractController {
             session.setAttribute("passwordNotMatch", "The passwords you entered are not matching!");
             resp.sendRedirect("/registration");
         }
+    }
 
-
-
+    GenderEnum translateGender(String genderChecked){
+        GenderEnum gender;
+        if(genderChecked.equals("female")){
+            gender = GenderEnum.FEMALE;
+        } else if (genderChecked.equals("male")){
+            gender = GenderEnum.MALE;
+        } else {
+            gender = GenderEnum.OTHER;
+        }
+        return gender;
     }
 }

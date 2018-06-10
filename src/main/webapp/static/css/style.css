@@ -88,3 +88,9 @@ img {
 .quiz_answers.btn {
     margin: 10px;
 }
+
+.profile-picture {
+    margin: 0;
+    top: 100px;
+    left: 100px;
+}
