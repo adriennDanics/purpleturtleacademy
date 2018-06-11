@@ -17,9 +17,6 @@ public class Kata extends Assignment {
     @Column(length = 1023)
     private String submission;
 
-    @ManyToMany
-    private Set<Student> student;
-
     protected Kata() {
         super();
     }

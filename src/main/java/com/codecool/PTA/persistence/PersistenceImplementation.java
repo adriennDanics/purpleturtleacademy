@@ -134,10 +134,11 @@ public class PersistenceImplementation {
         EntityTransaction transaction = em.getTransaction();
         transaction.begin();
         List<FillInAnswer> answerList = em.createQuery("SELECT answer FROM FillInAnswer AS answer " +
-                                                        "WHERE answer.question.id=:id",
-                                                        FillInAnswer.class).setParameter("id", id).getResultList();
+                        "WHERE answer.question.id=:id",
+                FillInAnswer.class).setParameter("id", id).getResultList();
         transaction.commit();
         return answerList;
+    }
   
   
     public Course findCourseByName(CourseType type){

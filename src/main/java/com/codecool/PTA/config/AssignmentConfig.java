@@ -27,6 +27,7 @@ public class AssignmentConfig {
         fillPAs();
         fillKatas();
         fillCourses();
+        fillFillInTheBlankDb();
     }
 
     private void fillQuizQuestions() {
@@ -99,16 +100,6 @@ public class AssignmentConfig {
         paList.add(pa3);
     }
 
-    public void fillDB() {
-        fillData();
-        for (QuizQuestion question : questionList) {
-            PersistenceImplementation.getInstance().persist(question);
-        }
-        for (PA pa : paList) {
-            PersistenceImplementation.getInstance().persist(pa);
-        }
-    }
-
     public void fillFillInTheBlankDb() {
         FillInTheBlank toFill1 = new FillInTheBlank(Level.BEGINNER,
                                                     CourseType.Python,
@@ -131,10 +122,6 @@ public class AssignmentConfig {
         PersistenceImplementation.getInstance().persist(toFill2);
         PersistenceImplementation.getInstance().persist(answer2);
         PersistenceImplementation.getInstance().persist(answer3);
-
-
-    }
-
 
 
     }

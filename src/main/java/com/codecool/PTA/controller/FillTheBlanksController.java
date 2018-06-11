@@ -3,6 +3,7 @@ package com.codecool.PTA.controller;
 import com.codecool.PTA.config.TemplateEngineUtil;
 import com.codecool.PTA.persistence.PersistenceImplementation;
 import com.codecool.PTA.quest.FillInTheBlank;
+import com.codecool.PTA.user.Student;
 import org.thymeleaf.TemplateEngine;
 import org.thymeleaf.context.WebContext;
 
@@ -19,8 +20,11 @@ public class FillTheBlanksController extends AbstractController {
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         WebContext context = new WebContext(req, resp, req.getServletContext());
 
-        FillInTheBlank fill1 = PersistenceImplementation.getInstance().getEm().find(FillInTheBlank.class, 4L);
+        FillInTheBlank fill1 = PersistenceImplementation.getInstance().getEm().find(FillInTheBlank.class, 2L);
         context.setVariable("fill", fill1);
+
+        Student student = (Student) getLoggedInUser(req);
+        context.setVariable("student", student);
 
         TemplateEngine engine = TemplateEngineUtil.getTemplateEngine(req.getServletContext());
         engine.process("fillInTheBlank/fillInTheBlank.html", context, resp.getWriter());
