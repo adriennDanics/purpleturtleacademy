@@ -18,6 +18,7 @@ addNewImage={
         inputField.setAttribute("id", idString);
         inputField.setAttribute("name", idString);
         inputField.setAttribute("type", "text");
+        inputField.setAttribute("placeholder", "Leave the field blank for default picture");
         inputField.classList.add("form-control");
 
         let submitButton = document.createElement("button");

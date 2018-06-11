@@ -12,14 +12,14 @@
 <br><br><br>
 <div>
     <div class="profile-picture">
-        <h4 th:text="${student.getUsername()}">Name</h4>
+        <h4 id="name-form" th:text="${student.getUsername()}">Name</h4>
         <img th:attr="src=${student.getImage()}" alt="image">
         <form method="post" action="/profile?change=new-image" id="image-form">
             <button id="change-image" class="btn" type="button">Change image</button>
         </form>
-        <form method="post" action="/profile?change=new-user-name" id="name-form">
+        <!--<form method="post" action="/profile?change=new-user-name" id="name-form">
             <button id="change-user-name" class="btn" type="button">Change username</button>
-        </form>
+        </form>-->
     </div>
     <br>
     <br>
