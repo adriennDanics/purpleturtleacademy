@@ -1,5 +1,6 @@
 package com.codecool.PTA.quest;
 
+
 import com.codecool.PTA.user.Level;
 import com.codecool.PTA.user.Student;
 
@@ -9,11 +10,12 @@ import java.util.Set;
 @Entity
 public class Kata extends Assignment {
 
-    @Column(length = 1023)
-    private String submission;
 
     @ManyToMany
     private Set<Student> student;
+
+    @Column(length = 1023)
+    private String submission;
 
     protected Kata() {
         super();

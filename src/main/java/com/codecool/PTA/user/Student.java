@@ -25,6 +25,7 @@ public class Student extends User {
     @ManyToMany(mappedBy = "student")
     private Set<Kata> completedKatas;
 
+
     @OneToOne
     private Certificate certificate;
 

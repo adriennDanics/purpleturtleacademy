@@ -61,6 +61,17 @@ img {
     height: 60px;
 }
 
+#input {
+    display:inline;
+}
+
+#fillBox {
+    margin:150px;
+}
+
+#fillInId {
+    display: none;
+
 .greenback {
     background-color: #67ba46;
 }

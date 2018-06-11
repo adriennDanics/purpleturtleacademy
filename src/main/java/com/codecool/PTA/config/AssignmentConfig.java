@@ -3,6 +3,8 @@ package com.codecool.PTA.config;
 import com.codecool.PTA.course.Course;
 import com.codecool.PTA.persistence.PersistenceImplementation;
 import com.codecool.PTA.quest.CourseType;
+import com.codecool.PTA.quest.FillInAnswer;
+import com.codecool.PTA.quest.FillInTheBlank;
 import com.codecool.PTA.quest.Kata;
 import com.codecool.PTA.quest.PA;
 import com.codecool.PTA.quest.QuizQuestion;
@@ -25,6 +27,7 @@ public class AssignmentConfig {
         fillPAs();
         fillKatas();
         fillCourses();
+        fillFillInTheBlankDb();
     }
 
     private void fillQuizQuestions() {
@@ -97,6 +100,32 @@ public class AssignmentConfig {
         paList.add(pa3);
     }
 
+    public void fillFillInTheBlankDb() {
+        FillInTheBlank toFill1 = new FillInTheBlank(Level.BEGINNER,
+                                                    CourseType.Python,
+                                                    "Please fill in the blank to print!",
+                                                    "<input type=\"text\" class=\"answer\" size=\"5\" >(\"Hello World!\")");
+
+        FillInAnswer answer1 = new FillInAnswer("print", toFill1);
+
+        PersistenceImplementation.getInstance().persist(toFill1);
+        PersistenceImplementation.getInstance().persist(answer1);
+
+        FillInTheBlank toFill2 = new FillInTheBlank(Level.BEGINNER,
+                                                    CourseType.Python,
+                                                    "Please fill in the blank to print: Hello World!",
+                                                    "<input type=\"text\" class=\"answer\" size=\"5\" >(\"Hello  + \" <input type=\"text\" class=\"answer\" size=\"5\" >)");
+
+        FillInAnswer answer2 = new FillInAnswer("print", toFill2);
+        FillInAnswer answer3 = new FillInAnswer(" World!\"", toFill2);
+
+        PersistenceImplementation.getInstance().persist(toFill2);
+        PersistenceImplementation.getInstance().persist(answer2);
+        PersistenceImplementation.getInstance().persist(answer3);
+
+
+    }
+
     private void fillKatas() {
         Kata kata = new Kata(Level.BEGINNER, CourseType.Python, "Find Multiples of a Number",
                 "In this simple exercise, you will build a program that takes a value, integer, " +
@@ -143,5 +172,4 @@ public class AssignmentConfig {
             PersistenceImplementation.getInstance().persist(course);
         }
     }
-
 }

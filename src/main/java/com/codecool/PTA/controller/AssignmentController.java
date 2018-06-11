@@ -1,10 +1,13 @@
 package com.codecool.PTA.controller;
 
 import com.codecool.PTA.config.TemplateEngineUtil;
+import com.codecool.PTA.course.Course;
+import com.codecool.PTA.quest.Assignment;
 import com.codecool.PTA.persistence.PersistenceImplementation;
 import com.codecool.PTA.quest.PA;
 import com.codecool.PTA.quest.QuizQuestion;
 import com.codecool.PTA.user.Student;
+
 import org.thymeleaf.TemplateEngine;
 import org.thymeleaf.context.WebContext;
 
