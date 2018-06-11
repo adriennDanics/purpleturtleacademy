@@ -1,8 +1,8 @@
 package com.codecool.PTA.JSON;
 
-import com.codecool.PTA.course.Course;
+import com.codecool.PTA.model.course.Course;
 import com.codecool.PTA.persistence.PersistenceImplementation;
-import com.codecool.PTA.user.Student;
+import com.codecool.PTA.model.user.Student;
 import org.json.simple.JSONObject;
 
 import javax.servlet.ServletException;

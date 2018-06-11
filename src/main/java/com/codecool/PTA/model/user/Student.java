@@ -1,9 +1,9 @@
-package com.codecool.PTA.user;
+package com.codecool.PTA.model.user;
 
-import com.codecool.PTA.certificate.Certificate;
-import com.codecool.PTA.course.Course;
-import com.codecool.PTA.quest.Kata;
-import com.codecool.PTA.quest.PA;
+import com.codecool.PTA.model.certificate.Certificate;
+import com.codecool.PTA.model.course.Course;
+import com.codecool.PTA.model.quest.Kata;
+import com.codecool.PTA.model.quest.PA;
 
 import javax.persistence.*;
 import java.util.Set;

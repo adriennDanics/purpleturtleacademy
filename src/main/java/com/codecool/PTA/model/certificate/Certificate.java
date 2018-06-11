@@ -1,6 +1,6 @@
-package com.codecool.PTA.certificate;
+package com.codecool.PTA.model.certificate;
 
-import com.codecool.PTA.user.Student;
+import com.codecool.PTA.model.user.Student;
 
 import javax.persistence.*;
 import java.time.LocalDate;

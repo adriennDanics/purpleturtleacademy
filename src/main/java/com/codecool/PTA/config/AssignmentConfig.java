@@ -1,14 +1,14 @@
 package com.codecool.PTA.config;
 
-import com.codecool.PTA.course.Course;
+import com.codecool.PTA.model.course.Course;
 import com.codecool.PTA.persistence.PersistenceImplementation;
-import com.codecool.PTA.quest.CourseType;
-import com.codecool.PTA.quest.FillInAnswer;
-import com.codecool.PTA.quest.FillInTheBlank;
-import com.codecool.PTA.quest.Kata;
-import com.codecool.PTA.quest.PA;
-import com.codecool.PTA.quest.QuizQuestion;
-import com.codecool.PTA.user.Level;
+import com.codecool.PTA.model.quest.CourseType;
+import com.codecool.PTA.model.quest.FillInAnswer;
+import com.codecool.PTA.model.quest.FillInTheBlank;
+import com.codecool.PTA.model.quest.Kata;
+import com.codecool.PTA.model.quest.PA;
+import com.codecool.PTA.model.quest.QuizQuestion;
+import com.codecool.PTA.model.user.Level;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -143,15 +143,15 @@ public class AssignmentConfig {
     }
 
     private void fillCourses(){
-        Course course1 = new Course(com.codecool.PTA.course.CourseType.JAVA, "Java is a simple and yet "+
+        Course course1 = new Course(com.codecool.PTA.model.course.CourseType.JAVA, "Java is a simple and yet "+
                 "powerful object oriented programming language and it is in many respects similar to C++.");
         courseList.add(course1);
 
-        Course course2 = new Course(com.codecool.PTA.course.CourseType.PYTHON, "Python is a programming "+
+        Course course2 = new Course(com.codecool.PTA.model.course.CourseType.PYTHON, "Python is a programming "+
                 "language, as are C, Fortran, BASIC, PHP, etc. Some specific features of Python are as follows: "+
                 "an interpreted (as opposed to compiled) language.");
         courseList.add(course2);
-        Course course3 = new Course(com.codecool.PTA.course.CourseType.ORIENTATION, "Please choose a course "+
+        Course course3 = new Course(com.codecool.PTA.model.course.CourseType.ORIENTATION, "Please choose a course "+
                 "to pursue!");
         courseList.add(course3);
 

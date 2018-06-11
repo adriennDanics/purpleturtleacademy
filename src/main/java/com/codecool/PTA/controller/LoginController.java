@@ -3,7 +3,7 @@ package com.codecool.PTA.controller;
 import com.codecool.PTA.config.TemplateEngineUtil;
 import com.codecool.PTA.helper.Hash;
 import com.codecool.PTA.persistence.PersistenceImplementation;
-import com.codecool.PTA.user.Student;
+import com.codecool.PTA.model.user.Student;
 import org.thymeleaf.TemplateEngine;
 import org.thymeleaf.context.WebContext;
 
