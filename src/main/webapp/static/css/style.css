@@ -89,8 +89,6 @@ img {
     margin: 10px;
 }
 
-.profile-picture {
-    margin: 0;
-    top: 100px;
-    left: 100px;
+.profile-picture img, .certi-link {
+    margin: 50px;
 }

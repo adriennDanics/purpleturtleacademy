@@ -9,8 +9,19 @@
 <body>
 <div th:replace="layout.html :: navbar"></div>
 <br><br><br>
-<span><img class="profile-picture" th:attr="src=${student.getImage()}" alt="image">
-<a class="btn" href="/profile/certificate">Certificate</a></span>
+<div>
+    <div class="profile-picture">
+        <img th:attr="src=${student.getImage()}" alt="image">
+    </div>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <div class="certi-link">
+        <a href="/profile/certificate">Certificate</a>
+    </div>
+</div>
 
 </body>
 </html>
