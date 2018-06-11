@@ -4,6 +4,7 @@ package com.codecool.PTA.controller;
 import com.codecool.PTA.config.TemplateEngineUtil;
 import com.codecool.PTA.course.Course;
 import com.codecool.PTA.persistence.PersistenceImplementation;
+import com.codecool.PTA.user.Student;
 import org.thymeleaf.TemplateEngine;
 import org.thymeleaf.context.WebContext;
 
@@ -22,6 +23,9 @@ public class CoursesController extends AbstractController {
         if(checkLogin(req)) {
             WebContext context = new WebContext(req, resp, req.getServletContext());
             List<Course> courses = PersistenceImplementation.getInstance().findAllCourses();
+            Student student = (Student) getLoggedInUser(req);
+
+            context.setVariable("student", student);
             context.setVariable("courses", courses);
 
             TemplateEngine engine = TemplateEngineUtil.getTemplateEngine(req.getServletContext());

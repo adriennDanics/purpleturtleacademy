@@ -10,16 +10,17 @@ function addEventListenerToCourse(){
         courseCards[i].addEventListener("click", function () {
             courseCards[i].setAttribute("data-toggle", "modal");
             courseCards[i].setAttribute("data-target", "#exampleModal");
-            getCurseInfo(i+1);
+            let id = courseCards[i].getAttribute("data-id");
+            getCurseInfo(id);
         })
     });
 }
 
 function getCurseInfo(id) {
-    $.getJSON("http://localhost:8080/courseinfo?id="+id,
+    $.getJSON("/courseinfo?id="+id,
         function(response) {
-            console.log(JSON.stringify(response));
             let rowToAppendContentTo = document.getElementById("modal-content");
+            removeInfo();
             let newRow = document.createElement("div");
             let newName = document.createElement("div");
             let newDescription = document.createElement("div");
@@ -31,15 +32,18 @@ function getCurseInfo(id) {
             newRow.appendChild(newName);
             newRow.appendChild(newDescription);
             rowToAppendContentTo.appendChild(newRow);
-            addEventListenerToModal(id, response.id);
+            addEventListenerToModal(id, response.name);
     });
 }
 
-function addEventListenerToModal(id, idOfCourse){
+function addEventListenerToModal(id, nameOfCourse){
     let buttonToSignUp = document.getElementById("sign-up-course");
-    if(idOfCourse === 1) {
+    if(nameOfCourse === "JAVA") {
         buttonToSignUp.setAttribute("disabled", "disabled");
         buttonToSignUp.innerText = "Coming Soon";
+    } else if(nameOfCourse === "ORIENTATION"){
+        buttonToSignUp.setAttribute("disabled", "disabled");
+        buttonToSignUp.innerText = "No need for that :)";
     } else {
         buttonToSignUp.removeAttribute("disabled");
         buttonToSignUp.innerText = "Sign Up";
@@ -56,7 +60,7 @@ function addEventListenerToModal(id, idOfCourse){
 function signUpToCourse(id) {
     $.ajax({
         type: "POST",
-        url: "http://localhost:8080/courseinfo?id=" + id,
+        url: "/courseinfo?id=" + id,
         data: JSON.stringify("sign-up"),
         async: false,
         contentType: "application/json; charset=utf-8",

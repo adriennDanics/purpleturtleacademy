@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
 
@@ -18,7 +18,7 @@
         <!--Our stuff-->
         <link href="https://fonts.googleapis.com/css?family=Gochi+Hand" rel="stylesheet">
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-        <link rel="stylesheet" type="text/css" href="static/css/style.css">
+        <link rel="stylesheet" type="text/css" href="/static/css/style.css">
     </div>
 
         <nav th:fragment="navbar" class="navbar navbar-expand-lg fixed-top navbar-light bg-light">
@@ -33,9 +33,9 @@
                         <a class="nav-link" href="/courses">Courses <span class="sr-only">(current)</span></a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="#">Link</a>
+                        <a class="nav-link disabled" href="#">Challenges (Soon)</a>
                     </li>
-                    <li class="nav-item dropdown">
+                    <!--<li class="nav-item dropdown">
                         <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                             Dropdown
                         </a>
@@ -45,18 +45,19 @@
                             <div class="dropdown-divider"></div>
                             <a class="dropdown-item" href="#">Something else here</a>
                         </div>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link disabled" href="#">Disabled</a>
-                    </li>
+                    </li>-->
                 </ul>
-                <form class="form-inline my-2 my-lg-0">
+                <!--<form class="form-inline my-2 my-lg-0">
                     <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
                     <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
-                </form>
+                </form>-->
                 <div th:if="${session.student}">
                     <button type="button" class="btn btn-light"><a href="/logout" class="nav-link">Logout</a></button>
                     <button type="button" class="btn btn-light"><a href="/profile" class="nav-link">Profile</a></button>
+                </div>
+                <div class="nav-item">
+                    <span class="badge badge-pill badge-info" id="get-xp" th:text="${student.getXp()} + ' XP'" th:attr="data-xp=${student.getXp()}">XP</span>
+                    <span class="badge badge-primary" th:text="${student.getLevel()}">Level</span>
                 </div>
                 <div th:unless="${session.student}">
                     <button type="button" class="btn btn-light"><a href="/login" class="nav-link">Login</a></button>

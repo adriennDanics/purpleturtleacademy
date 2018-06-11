@@ -1,9 +1,11 @@
 package com.codecool.PTA.config;
 
+import com.codecool.PTA.course.Course;
 import com.codecool.PTA.persistence.PersistenceImplementation;
 import com.codecool.PTA.quest.CourseType;
 import com.codecool.PTA.quest.FillInAnswer;
 import com.codecool.PTA.quest.FillInTheBlank;
+import com.codecool.PTA.quest.Kata;
 import com.codecool.PTA.quest.PA;
 import com.codecool.PTA.quest.QuizQuestion;
 import com.codecool.PTA.user.Level;
@@ -17,10 +19,14 @@ public class AssignmentConfig {
 
     private List<QuizQuestion> questionList = new ArrayList<>();
     private List<PA> paList = new ArrayList<>();
+    private List<Kata> kataList = new ArrayList<>();
+    private List<Course> courseList = new ArrayList<>();
 
     private void fillData() {
         fillQuizQuestions();
         fillPAs();
+        fillKatas();
+        fillCourses();
     }
 
     private void fillQuizQuestions() {
@@ -93,15 +99,15 @@ public class AssignmentConfig {
         paList.add(pa3);
     }
 
-//    public void fillDB() {
-//        fillData();
-//        for (QuizQuestion question : questionList) {
-//            PersistenceImplementation.getInstance().persist(question);
-//        }
-//        for (PA pa : paList) {
-//            PersistenceImplementation.getInstance().persist(pa);
-//        }
-//    }
+    public void fillDB() {
+        fillData();
+        for (QuizQuestion question : questionList) {
+            PersistenceImplementation.getInstance().persist(question);
+        }
+        for (PA pa : paList) {
+            PersistenceImplementation.getInstance().persist(pa);
+        }
+    }
 
     public void fillFillInTheBlankDb() {
         FillInTheBlank toFill1 = new FillInTheBlank(Level.BEGINNER,
@@ -131,4 +137,52 @@ public class AssignmentConfig {
 
 
 
+    }
+
+    private void fillKatas() {
+        Kata kata = new Kata(Level.BEGINNER, CourseType.Python, "Find Multiples of a Number",
+                "In this simple exercise, you will build a program that takes a value, integer, " +
+                        "and returns a list of its multiples up to another value, limit. If limit is a multiple of integer, " +
+                        "it should be included as well. There will only ever be positive integers passed into the function, " +
+                        "not consisting of 0. The limit will always be higher than the base. " +
+                        "For example, if the parameters passed are (2, 6), the function should return [2, 4, 6] " +
+                        "as 2, 4, and 6 are the multiples of 2 up to 6. " +
+                        "If you can, try writing it in only one line of code.");
+        kataList.add(kata);
+        Kata kata2 = new Kata(Level.BEGINNER, CourseType.Python, "Reverse words",
+                "Complete the function that accepts a string parameter, and reverses each word in the string. " +
+                        "All spaces in the string should be retained.");
+        kataList.add(kata2);
+    }
+
+    private void fillCourses(){
+        Course course1 = new Course(com.codecool.PTA.course.CourseType.JAVA, "Java is a simple and yet "+
+                "powerful object oriented programming language and it is in many respects similar to C++.");
+        courseList.add(course1);
+
+        Course course2 = new Course(com.codecool.PTA.course.CourseType.PYTHON, "Python is a programming "+
+                "language, as are C, Fortran, BASIC, PHP, etc. Some specific features of Python are as follows: "+
+                "an interpreted (as opposed to compiled) language.");
+        courseList.add(course2);
+        Course course3 = new Course(com.codecool.PTA.course.CourseType.ORIENTATION, "Please choose a course "+
+                "to pursue!");
+        courseList.add(course3);
+
+    }
+
+    public void fillDB() {
+        fillData();
+        for (QuizQuestion question : questionList) {
+            PersistenceImplementation.getInstance().persist(question);
+        }
+        for (PA pa : paList) {
+            PersistenceImplementation.getInstance().persist(pa);
+        }
+        for (Kata kata : kataList) {
+            PersistenceImplementation.getInstance().persist(kata);
+        }
+        for (Course course : courseList) {
+            PersistenceImplementation.getInstance().persist(course);
+        }
+    }
 }
