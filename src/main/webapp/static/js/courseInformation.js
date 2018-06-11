@@ -17,7 +17,7 @@ function addEventListenerToCourse(){
 }
 
 function getCurseInfo(id) {
-    $.getJSON("http://localhost:8080/courseinfo?id="+id,
+    $.getJSON("/courseinfo?id="+id,
         function(response) {
             let rowToAppendContentTo = document.getElementById("modal-content");
             removeInfo();
@@ -60,7 +60,7 @@ function addEventListenerToModal(id, nameOfCourse){
 function signUpToCourse(id) {
     $.ajax({
         type: "POST",
-        url: "http://localhost:8080/courseinfo?id=" + id,
+        url: "/courseinfo?id=" + id,
         data: JSON.stringify("sign-up"),
         async: false,
         contentType: "application/json; charset=utf-8",
