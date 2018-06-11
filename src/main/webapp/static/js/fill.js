@@ -24,7 +24,7 @@ dom = {
 
     makeCorrectAnswerList: function() {
         for(let key in dom._correctAnswersObject) {
-            dom._correctAnswersList.push(dom._correctAnswersObject[key])
+            dom._correctAnswersList.push(dom._correctAnswersObject[key]);
             dom._correctAnswersList.reverse();
         }
     },
