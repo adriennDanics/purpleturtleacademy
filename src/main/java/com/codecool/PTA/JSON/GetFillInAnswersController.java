@@ -12,14 +12,19 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.util.List;
 
-@WebServlet(urlPatterns = {"/fill_in_answers"})
 public class GetFillInAnswersController extends AbstractController {
+    
+    private PersistenceImplementation persistenceImplementation;
+
+    public GetFillInAnswersController(PersistenceImplementation persistenceImplementation) {
+        this.persistenceImplementation = persistenceImplementation;
+    }
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         long id = Long.valueOf(req.getParameter("id"));
 
-        List<FillInAnswer> answers = PersistenceImplementation.getInstance().findFillInAnswersForQuestion(id);
+        List<FillInAnswer> answers = persistenceImplementation.findFillInAnswersForQuestion(id);
 
         JSONObject answerJSON = new JSONObject();
 

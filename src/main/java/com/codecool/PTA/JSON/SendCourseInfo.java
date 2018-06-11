@@ -13,14 +13,19 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
 
-@WebServlet(urlPatterns = {"/courseinfo"})
 public class SendCourseInfo extends HttpServlet {
+    
+    private PersistenceImplementation persistenceImplementation;
+
+    public SendCourseInfo(PersistenceImplementation persistenceImplementation) {
+        this.persistenceImplementation = persistenceImplementation;
+    }
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         long id = Long.valueOf(req.getParameter("id"));
 
-        Course course = PersistenceImplementation.getInstance().findCourseById(id);
+        Course course = persistenceImplementation.findCourseById(id);
         JSONObject item = new JSONObject();
         item.put("name", course.getName().toString());
         item.put("description", course.getDescription());
@@ -35,10 +40,10 @@ public class SendCourseInfo extends HttpServlet {
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         long id = Long.valueOf(req.getParameter("id"));
 
-        Course course = PersistenceImplementation.getInstance().findCourseById(id);
+        Course course = persistenceImplementation.findCourseById(id);
         HttpSession session = req.getSession();
         Student student = (Student) session.getAttribute("student");
         student.setCourse(course);
-        PersistenceImplementation.getInstance().merge(student);
+        persistenceImplementation.merge(student);
     }
 }

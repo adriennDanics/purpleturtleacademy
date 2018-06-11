@@ -14,19 +14,11 @@ import java.util.List;
 
 public class PersistenceImplementation {
 
-    private static PersistenceImplementation instance = null;
     private final EntityManager em;
 
-    private PersistenceImplementation() {
+    public PersistenceImplementation() {
         EntityManagerFactory emf = Persistence.createEntityManagerFactory("ptaPU");
         em = emf.createEntityManager();
-    }
-
-    public static PersistenceImplementation getInstance() {
-        if (instance == null) {
-            instance = new PersistenceImplementation();
-        }
-        return instance;
     }
 
     public EntityManager getEm() {

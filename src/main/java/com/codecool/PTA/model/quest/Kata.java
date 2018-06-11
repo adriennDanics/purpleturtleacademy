@@ -10,7 +10,6 @@ import java.util.Set;
 @Entity
 public class Kata extends Assignment {
 
-
     @ManyToMany
     private Set<Student> student;
 

@@ -8,14 +8,18 @@ import org.thymeleaf.TemplateEngine;
 import org.thymeleaf.context.WebContext;
 
 import javax.servlet.ServletException;
-import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.BufferedReader;
 import java.io.IOException;
 
-@WebServlet(urlPatterns = {"/quiz"})
 public class QuizController extends AbstractController {
+    
+    private PersistenceImplementation persistenceImplementation;
+
+    public QuizController(PersistenceImplementation persistenceImplementation) {
+        this.persistenceImplementation = persistenceImplementation;
+    }
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
@@ -23,7 +27,7 @@ public class QuizController extends AbstractController {
             long id = Long.valueOf(req.getParameter("id"));
 
             WebContext context = new WebContext(req, resp, req.getServletContext());
-            QuizQuestion question = PersistenceImplementation.getInstance().findQuizQuestionById(id);
+            QuizQuestion question = persistenceImplementation.findQuizQuestionById(id);
             Student student = (Student) getLoggedInUser(req);
             context.setVariable("student", student);
             context.setVariable("question", question);
@@ -50,6 +54,6 @@ public class QuizController extends AbstractController {
         }
         long xp = Long.valueOf(sb.toString().trim());
         student.setXp(xp);
-        PersistenceImplementation.getInstance().merge(student);
+        persistenceImplementation.merge(student);
     }
 }

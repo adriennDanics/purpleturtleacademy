@@ -10,22 +10,26 @@ import org.thymeleaf.TemplateEngine;
 import org.thymeleaf.context.WebContext;
 
 import javax.servlet.ServletException;
-import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.util.List;
 
-@WebServlet(urlPatterns = {"/assignments"})
 public class AssignmentController extends AbstractController {
+    
+    private PersistenceImplementation persistenceImplementation;
+
+    public AssignmentController(PersistenceImplementation persistenceImplementation) {
+        this.persistenceImplementation = persistenceImplementation;
+    }
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         if(checkLogin(req)) {
             WebContext context = new WebContext(req, resp, req.getServletContext());
-            List<QuizQuestion> quizQuestions = PersistenceImplementation.getInstance().findAllQuizQuestion();
+            List<QuizQuestion> quizQuestions = persistenceImplementation.findAllQuizQuestion();
             context.setVariable("quizQuestions", quizQuestions);
-            List<PA> paList = PersistenceImplementation.getInstance().findAllPaAssignments();
+            List<PA> paList = persistenceImplementation.findAllPaAssignments();
             context.setVariable("paList", paList);
             Student student = (Student) getLoggedInUser(req);
             context.setVariable("student", student);

@@ -16,11 +16,17 @@ import java.util.List;
 import java.util.Map;
 
 public class AssignmentConfig {
+    
+    private PersistenceImplementation persistenceImplementation;
 
     private List<QuizQuestion> questionList = new ArrayList<>();
     private List<PA> paList = new ArrayList<>();
     private List<Kata> kataList = new ArrayList<>();
     private List<Course> courseList = new ArrayList<>();
+
+    public AssignmentConfig(PersistenceImplementation persistenceImplementation) {
+        this.persistenceImplementation = persistenceImplementation;
+    }
 
     private void fillData() {
         fillQuizQuestions();
@@ -108,8 +114,8 @@ public class AssignmentConfig {
 
         FillInAnswer answer1 = new FillInAnswer("print", toFill1);
 
-        PersistenceImplementation.getInstance().persist(toFill1);
-        PersistenceImplementation.getInstance().persist(answer1);
+        persistenceImplementation.persist(toFill1);
+        persistenceImplementation.persist(answer1);
 
         FillInTheBlank toFill2 = new FillInTheBlank(Level.BEGINNER,
                                                     CourseType.Python,
@@ -119,9 +125,9 @@ public class AssignmentConfig {
         FillInAnswer answer2 = new FillInAnswer("print", toFill2);
         FillInAnswer answer3 = new FillInAnswer(" World!\"", toFill2);
 
-        PersistenceImplementation.getInstance().persist(toFill2);
-        PersistenceImplementation.getInstance().persist(answer2);
-        PersistenceImplementation.getInstance().persist(answer3);
+        persistenceImplementation.persist(toFill2);
+        persistenceImplementation.persist(answer2);
+        persistenceImplementation.persist(answer3);
 
 
     }
@@ -160,16 +166,16 @@ public class AssignmentConfig {
     public void fillDB() {
         fillData();
         for (QuizQuestion question : questionList) {
-            PersistenceImplementation.getInstance().persist(question);
+            persistenceImplementation.persist(question);
         }
         for (PA pa : paList) {
-            PersistenceImplementation.getInstance().persist(pa);
+            persistenceImplementation.persist(pa);
         }
         for (Kata kata : kataList) {
-            PersistenceImplementation.getInstance().persist(kata);
+            persistenceImplementation.persist(kata);
         }
         for (Course course : courseList) {
-            PersistenceImplementation.getInstance().persist(course);
+            persistenceImplementation.persist(course);
         }
     }
 }
