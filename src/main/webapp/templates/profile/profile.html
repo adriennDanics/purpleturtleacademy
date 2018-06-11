@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
 
     <div th:replace="layout.html :: head"></div>
+    <script src="static/js/newImage.js" defer></script>
 
 </head>
 <body>
@@ -11,7 +12,14 @@
 <br><br><br>
 <div>
     <div class="profile-picture">
+        <h4 th:text="${student.getUsername()}">Name</h4>
         <img th:attr="src=${student.getImage()}" alt="image">
+        <form method="post" action="/profile?change=new-image" id="image-form">
+            <button id="change-image" class="btn" type="button">Change image</button>
+        </form>
+        <form method="post" action="/profile?change=new-user-name" id="name-form">
+            <button id="change-user-name" class="btn" type="button">Change username</button>
+        </form>
     </div>
     <br>
     <br>
@@ -19,7 +27,7 @@
     <br>
     <br>
     <div class="certi-link">
-        <a href="/profile/certificate">Certificate</a>
+        <a class="btn" href="/profile/certificate">Certificate</a>
     </div>
 </div>
 

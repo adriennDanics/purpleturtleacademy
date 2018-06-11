@@ -1,6 +1,7 @@
 package com.codecool.PTA.controller;
 
 import com.codecool.PTA.config.TemplateEngineUtil;
+import com.codecool.PTA.persistence.PersistenceImplementation;
 import com.codecool.PTA.user.Student;
 import org.thymeleaf.TemplateEngine;
 import org.thymeleaf.context.WebContext;
@@ -26,5 +27,20 @@ public class ProfileController extends AbstractController {
         } else {
             resp.sendRedirect("/login");
         }
+    }
+
+    @Override
+    protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        Student student = (Student) getLoggedInUser(req);
+        String newImage = req.getParameter("new-image");
+
+        if(!newImage.equals("")){
+            student.setImage(newImage);
+        } else {
+            student.reSetDefaultImage();
+        }
+
+        PersistenceImplementation.getInstance().merge(student);
+        resp.sendRedirect("/profile");
     }
 }

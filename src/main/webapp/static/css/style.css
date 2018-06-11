@@ -89,6 +89,7 @@ img {
     margin: 10px;
 }
 
-.profile-picture img, .certi-link {
-    margin: 50px;
+.profile-picture img, .certi-link , .profile-picture form{
+    position: relative;
+    margin: 10px 50px 10px 50px;
 }
