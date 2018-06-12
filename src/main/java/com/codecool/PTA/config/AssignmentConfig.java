@@ -28,12 +28,17 @@ public class AssignmentConfig {
         this.persistenceImplementation = persistenceImplementation;
     }
 
-    private void fillData() {
-        fillQuizQuestions();
-        fillPAs();
-        fillKatas();
-        fillCourses();
-        fillFillInTheBlankDb();
+    private boolean fillData() {
+        try {
+            fillQuizQuestions();
+            fillPAs();
+            fillKatas();
+            fillCourses();
+            fillFillInTheBlankDb();
+            return true;
+        } catch (Exception e) {
+            return false;
+        }
     }
 
     private void fillQuizQuestions() {
