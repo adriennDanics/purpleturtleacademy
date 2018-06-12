@@ -29,12 +29,15 @@ public abstract class User {
     protected User() {
     }
 
-    public User(String username, String password) {
+    public User(String username, String password, String firstName, String lastName, String email) {
         LocalDate localDate = java.time.LocalDate.now();
         Date dateNow = Date.from(localDate.atStartOfDay(ZoneId.systemDefault()).toInstant());
 
         this.username = username;
         this.password = password;
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.email = email;
         this.registrationDate = dateNow;
     }
 

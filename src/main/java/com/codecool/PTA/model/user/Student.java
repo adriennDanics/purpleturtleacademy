@@ -33,10 +33,11 @@ public class Student extends User {
         super();
     }
 
-    public Student(String username, String password) {
-        super(username, password);
+    public Student(String username, String password, String firstName, String lastName, String email, Course course) {
+        super(username, password, firstName, lastName, email);
         this.xp = 0;
         this.level = Level.BEGINNER;
+        this.course = course;
     }
 
     public Course getCourse() {

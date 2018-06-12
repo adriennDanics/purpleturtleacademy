@@ -49,11 +49,7 @@ public class RegistrationController extends AbstractController {
         if (password.equals(passwordConfirm)) {
             Course course = persistenceImplementation.findCourseByName(CourseType.ORIENTATION);
             String hashedPassword = hash.hashPassword(req.getParameter("password"));
-            Student student = new Student(username, hashedPassword);
-            student.setFirstName(firstName);
-            student.setLastName(lastName);
-            student.setEmail(email);
-            student.setCourse(course);
+            Student student = new Student(username, hashedPassword, firstName, lastName, email, course);
             session.setAttribute("student", student);
             if (session.getAttribute("passwordNotMatch") != null) {
                 session.removeAttribute("passwordNotMatch");
