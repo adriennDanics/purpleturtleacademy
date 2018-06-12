@@ -6,6 +6,7 @@ import com.codecool.PTA.model.course.CourseType;
 import com.codecool.PTA.model.user.Student;
 import com.codecool.PTA.persistence.PersistenceImplementation;
 import org.junit.jupiter.api.*;
+import org.mockito.ArgumentCaptor;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
@@ -52,7 +53,9 @@ class RegistrationControllerTest {
         when(req.getParameter("last_name")).thenReturn("last_name");
         when(req.getParameter("email")).thenReturn("email");
         when(req.getSession()).thenReturn(session);
-        doNothing().when(session).setAttribute("student", any());
+
+        ArgumentCaptor<Student> captor = ArgumentCaptor.forClass(Student.class);
+        doNothing().when(session).setAttribute(anyString(), captor.capture());
 
         Hash hash = mock(Hash.class);
         when(hash.hashPassword(anyString())).thenReturn("password");
@@ -62,7 +65,8 @@ class RegistrationControllerTest {
         when(pim.findCourseByName(any())).thenReturn(new Course(CourseType.ORIENTATION, "orientation"));
 
         new RegistrationController(pim, hash).doPost(req, resp);
+        Student sessionStudent = captor.getValue();
 
-        assertEquals(student, req.getSession().getAttribute("student"));
+        assertEquals(student, sessionStudent);
     }
 }

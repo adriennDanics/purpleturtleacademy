@@ -4,6 +4,7 @@ import javax.persistence.*;
 import java.time.LocalDate;
 import java.time.ZoneId;
 import java.util.Date;
+import java.util.Objects;
 
 @MappedSuperclass
 public abstract class User {
@@ -85,4 +86,22 @@ public abstract class User {
         this.password = password;
     }
 
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof User)) return false;
+        User user = (User) o;
+        return Objects.equals(getUsername(), user.getUsername()) &&
+                Objects.equals(getPassword(), user.getPassword()) &&
+                Objects.equals(getFirstName(), user.getFirstName()) &&
+                Objects.equals(getLastName(), user.getLastName()) &&
+                Objects.equals(getEmail(), user.getEmail()) &&
+                Objects.equals(registrationDate, user.registrationDate);
+    }
+
+    @Override
+    public int hashCode() {
+
+        return Objects.hash(getUsername(), getPassword(), getFirstName(), getLastName(), getEmail(), registrationDate);
+    }
 }
