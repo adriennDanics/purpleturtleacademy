@@ -1,24 +1,29 @@
 package com.codecool.PTA.controller;
 
 import com.codecool.PTA.config.TemplateEngineUtil;
-import com.codecool.PTA.course.Course;
-import com.codecool.PTA.course.CourseType;
 import com.codecool.PTA.helper.Hash;
+import com.codecool.PTA.model.course.Course;
+import com.codecool.PTA.model.course.CourseType;
+import com.codecool.PTA.model.user.GenderEnum;
+import com.codecool.PTA.model.user.Student;
 import com.codecool.PTA.persistence.PersistenceImplementation;
-import com.codecool.PTA.user.GenderEnum;
-import com.codecool.PTA.user.Student;
 import org.thymeleaf.TemplateEngine;
 import org.thymeleaf.context.WebContext;
 
 import javax.servlet.ServletException;
-import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
 
-@WebServlet(urlPatterns = {"/registration"})
 public class RegistrationController extends AbstractController {
+
+    private PersistenceImplementation persistenceImplementation;
+
+    public RegistrationController(PersistenceImplementation persistenceImplementation) {
+        this.persistenceImplementation = persistenceImplementation;
+    }
+
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
@@ -43,7 +48,7 @@ public class RegistrationController extends AbstractController {
         HttpSession session = req.getSession();
 
         if(password.equals(passwordConfirm)) {
-            Course course = PersistenceImplementation.getInstance().findCourseByName(CourseType.ORIENTATION);
+            Course course = persistenceImplementation.findCourseByName(CourseType.ORIENTATION);
             String hashedPassword = Hash.hashPassword(req.getParameter("password"));
             Student student = new Student(username, hashedPassword);
             student.setFirstName(firstName);
@@ -55,7 +60,7 @@ public class RegistrationController extends AbstractController {
             if(session.getAttribute("passwordNotMatch") != null) {
                 session.removeAttribute("passwordNotMatch");
             }
-            PersistenceImplementation.getInstance().persist(student);
+            persistenceImplementation.persist(student);
             resp.sendRedirect("");
         } else {
             session.setAttribute("passwordNotMatch", "The passwords you entered are not matching!");
@@ -63,15 +68,19 @@ public class RegistrationController extends AbstractController {
         }
     }
 
-    GenderEnum translateGender(String genderChecked){
+    GenderEnum translateGender(String genderChecked) {
         GenderEnum gender;
-        if(genderChecked.equals("female")){
+        if (genderChecked.equals("female")) {
             gender = GenderEnum.FEMALE;
-        } else if (genderChecked.equals("male")){
+        } else if (genderChecked.equals("male")) {
             gender = GenderEnum.MALE;
         } else {
             gender = GenderEnum.OTHER;
         }
         return gender;
+    }
+
+    public void setPersistenceImplementation(PersistenceImplementation persistenceImplementation) {
+        this.persistenceImplementation = persistenceImplementation;
     }
 }

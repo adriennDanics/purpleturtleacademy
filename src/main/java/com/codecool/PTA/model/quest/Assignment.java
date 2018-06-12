@@ -1,6 +1,6 @@
-package com.codecool.PTA.quest;
+package com.codecool.PTA.model.quest;
 
-import com.codecool.PTA.user.Level;
+import com.codecool.PTA.model.user.Level;
 
 import javax.persistence.*;
 

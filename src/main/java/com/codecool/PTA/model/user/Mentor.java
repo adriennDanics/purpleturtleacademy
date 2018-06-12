@@ -1,6 +1,6 @@
-package com.codecool.PTA.user;
+package com.codecool.PTA.model.user;
 
-import com.codecool.PTA.course.Course;
+import com.codecool.PTA.model.course.Course;
 
 import javax.persistence.*;
 

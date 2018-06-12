@@ -1,6 +1,6 @@
 package com.codecool.PTA.controller;
 
-import com.codecool.PTA.user.User;
+import com.codecool.PTA.model.user.User;
 
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;

@@ -1,4 +1,4 @@
-package com.codecool.PTA.user;
+package com.codecool.PTA.model.user;
 
 public enum GenderEnum {
     MALE("male", "static/boyTurtle.jpeg"),

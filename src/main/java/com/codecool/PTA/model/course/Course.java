@@ -1,7 +1,7 @@
-package com.codecool.PTA.course;
+package com.codecool.PTA.model.course;
 
-import com.codecool.PTA.user.Mentor;
-import com.codecool.PTA.user.Student;
+import com.codecool.PTA.model.user.Mentor;
+import com.codecool.PTA.model.user.Student;
 
 import javax.persistence.*;
 import java.util.HashSet;

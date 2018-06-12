@@ -1,31 +1,24 @@
 package com.codecool.PTA.persistence;
 
-import com.codecool.PTA.course.Course;
-import com.codecool.PTA.course.CourseType;
-import com.codecool.PTA.quest.Kata;
-import com.codecool.PTA.quest.PA;
-import com.codecool.PTA.quest.QuizQuestion;
-import com.codecool.PTA.user.Mentor;
-import com.codecool.PTA.user.Student;
+import com.codecool.PTA.model.course.Course;
+import com.codecool.PTA.model.quest.*;
+import com.codecool.PTA.model.course.CourseType;
+import com.codecool.PTA.model.quest.Kata;
+import com.codecool.PTA.model.quest.PA;
+import com.codecool.PTA.model.quest.QuizQuestion;
+import com.codecool.PTA.model.user.Mentor;
+import com.codecool.PTA.model.user.Student;
 
 import javax.persistence.*;
 import java.util.List;
 
 public class PersistenceImplementation {
 
-    private static PersistenceImplementation instance = null;
     private final EntityManager em;
 
-    private PersistenceImplementation() {
+    public PersistenceImplementation() {
         EntityManagerFactory emf = Persistence.createEntityManagerFactory("ptaPU");
         em = emf.createEntityManager();
-    }
-
-    public static PersistenceImplementation getInstance() {
-        if (instance == null) {
-            instance = new PersistenceImplementation();
-        }
-        return instance;
     }
 
     public EntityManager getEm() {
@@ -129,6 +122,17 @@ public class PersistenceImplementation {
 
     }
 
+    public List<FillInAnswer> findFillInAnswersForQuestion(long id) {
+        EntityTransaction transaction = em.getTransaction();
+        transaction.begin();
+        List<FillInAnswer> answerList = em.createQuery("SELECT answer FROM FillInAnswer AS answer " +
+                        "WHERE answer.question.id=:id",
+                FillInAnswer.class).setParameter("id", id).getResultList();
+        transaction.commit();
+        return answerList;
+    }
+  
+  
     public Course findCourseByName(CourseType type){
         EntityTransaction transaction = em.getTransaction();
         transaction.begin();

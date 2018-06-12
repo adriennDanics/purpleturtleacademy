@@ -1,12 +1,14 @@
 package com.codecool.PTA.config;
 
-import com.codecool.PTA.course.Course;
+import com.codecool.PTA.model.course.Course;
 import com.codecool.PTA.persistence.PersistenceImplementation;
-import com.codecool.PTA.quest.CourseType;
-import com.codecool.PTA.quest.Kata;
-import com.codecool.PTA.quest.PA;
-import com.codecool.PTA.quest.QuizQuestion;
-import com.codecool.PTA.user.Level;
+import com.codecool.PTA.model.quest.CourseType;
+import com.codecool.PTA.model.quest.FillInAnswer;
+import com.codecool.PTA.model.quest.FillInTheBlank;
+import com.codecool.PTA.model.quest.Kata;
+import com.codecool.PTA.model.quest.PA;
+import com.codecool.PTA.model.quest.QuizQuestion;
+import com.codecool.PTA.model.user.Level;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -14,17 +16,24 @@ import java.util.List;
 import java.util.Map;
 
 public class AssignmentConfig {
+    
+    private PersistenceImplementation persistenceImplementation;
 
     private List<QuizQuestion> questionList = new ArrayList<>();
     private List<PA> paList = new ArrayList<>();
     private List<Kata> kataList = new ArrayList<>();
     private List<Course> courseList = new ArrayList<>();
 
+    public AssignmentConfig(PersistenceImplementation persistenceImplementation) {
+        this.persistenceImplementation = persistenceImplementation;
+    }
+
     private void fillData() {
         fillQuizQuestions();
         fillPAs();
         fillKatas();
         fillCourses();
+        fillFillInTheBlankDb();
     }
 
     private void fillQuizQuestions() {
@@ -97,6 +106,32 @@ public class AssignmentConfig {
         paList.add(pa3);
     }
 
+    public void fillFillInTheBlankDb() {
+        FillInTheBlank toFill1 = new FillInTheBlank(Level.BEGINNER,
+                                                    CourseType.Python,
+                                                    "Please fill in the blank to print!",
+                                                    "<input type=\"text\" class=\"answer\" size=\"5\" >(\"Hello World!\")");
+
+        FillInAnswer answer1 = new FillInAnswer("print", toFill1);
+
+        persistenceImplementation.persist(toFill1);
+        persistenceImplementation.persist(answer1);
+
+        FillInTheBlank toFill2 = new FillInTheBlank(Level.BEGINNER,
+                                                    CourseType.Python,
+                                                    "Please fill in the blank to print: Hello World!",
+                                                    "<input type=\"text\" class=\"answer\" size=\"5\" >(\"Hello  + \" <input type=\"text\" class=\"answer\" size=\"5\" >)");
+
+        FillInAnswer answer2 = new FillInAnswer("print", toFill2);
+        FillInAnswer answer3 = new FillInAnswer(" World!\"", toFill2);
+
+        persistenceImplementation.persist(toFill2);
+        persistenceImplementation.persist(answer2);
+        persistenceImplementation.persist(answer3);
+
+
+    }
+
     private void fillKatas() {
         Kata kata = new Kata(Level.BEGINNER, CourseType.Python, "Find Multiples of a Number",
                 "In this simple exercise, you will build a program that takes a value, integer, " +
@@ -114,15 +149,15 @@ public class AssignmentConfig {
     }
 
     private void fillCourses(){
-        Course course1 = new Course(com.codecool.PTA.course.CourseType.JAVA, "Java is a simple and yet "+
+        Course course1 = new Course(com.codecool.PTA.model.course.CourseType.JAVA, "Java is a simple and yet "+
                 "powerful object oriented programming language and it is in many respects similar to C++.");
         courseList.add(course1);
 
-        Course course2 = new Course(com.codecool.PTA.course.CourseType.PYTHON, "Python is a programming "+
+        Course course2 = new Course(com.codecool.PTA.model.course.CourseType.PYTHON, "Python is a programming "+
                 "language, as are C, Fortran, BASIC, PHP, etc. Some specific features of Python are as follows: "+
                 "an interpreted (as opposed to compiled) language.");
         courseList.add(course2);
-        Course course3 = new Course(com.codecool.PTA.course.CourseType.ORIENTATION, "Please choose a course "+
+        Course course3 = new Course(com.codecool.PTA.model.course.CourseType.ORIENTATION, "Please choose a course "+
                 "to pursue!");
         courseList.add(course3);
 
@@ -131,17 +166,16 @@ public class AssignmentConfig {
     public void fillDB() {
         fillData();
         for (QuizQuestion question : questionList) {
-            PersistenceImplementation.getInstance().persist(question);
+            persistenceImplementation.persist(question);
         }
         for (PA pa : paList) {
-            PersistenceImplementation.getInstance().persist(pa);
+            persistenceImplementation.persist(pa);
         }
         for (Kata kata : kataList) {
-            PersistenceImplementation.getInstance().persist(kata);
+            persistenceImplementation.persist(kata);
         }
         for (Course course : courseList) {
-            PersistenceImplementation.getInstance().persist(course);
+            persistenceImplementation.persist(course);
         }
     }
-
 }
