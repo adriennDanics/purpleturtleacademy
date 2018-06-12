@@ -1,6 +1,7 @@
 package com.codecool.PTA.model;
 
 import com.codecool.PTA.JSON.GetFillInAnswersController;
+import com.codecool.PTA.JSON.ReceiveNewName;
 import com.codecool.PTA.JSON.SendCourseInfo;
 import com.codecool.PTA.config.AssignmentConfig;
 import com.codecool.PTA.controller.*;
@@ -28,6 +29,7 @@ public class Container {
         servletContext.addServlet("certificateController", new CertificateController()).addMapping("/profile/certificate");
         servletContext.addServlet("logoutController", new LogoutController()).addMapping("/logout");
         servletContext.addServlet("profileController", new ProfileController(persistenceImplementation)).addMapping("/profile");
+        servletContext.addServlet("receiveNewName", new ReceiveNewName(persistenceImplementation)).addMapping("/profile/newname");
     }
     
 }

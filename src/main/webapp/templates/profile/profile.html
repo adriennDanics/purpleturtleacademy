@@ -11,22 +11,19 @@
 <div th:replace="layout.html :: navbar"></div>
 <br><br><br>
 <div>
-    <div class="profile-picture">
+    <div>
         <h4 id="name-form" th:text="${student.getUsername()}">Name</h4>
+    </div>
+    <div class="profile-picture">
         <img th:attr="src=${student.getImage()}" alt="image">
-        <form method="post" action="/profile?change=new-image" id="image-form">
+        <form method="post" action="/profile" id="image-form">
             <button id="change-image" class="btn" type="button">Change image</button>
         </form>
-        <!--<form method="post" action="/profile?change=new-user-name" id="name-form">
-            <button id="change-user-name" class="btn" type="button">Change username</button>
-        </form>-->
+        <button id="change-user-name" class="btn" type="button">Change username</button>
     </div>
     <br>
     <br>
-    <br>
-    <br>
-    <br>
-    <div class="certi-link">
+    <div class="certi-link" th:if="${student.getCertificate()}">
         <a class="btn" href="/profile/certificate">Certificate</a>
     </div>
 </div>
