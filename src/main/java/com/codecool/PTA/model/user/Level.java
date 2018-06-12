@@ -1,4 +1,4 @@
-package com.codecool.PTA.user;
+package com.codecool.PTA.model.user;
 
 public enum Level {
     BEGINNER,

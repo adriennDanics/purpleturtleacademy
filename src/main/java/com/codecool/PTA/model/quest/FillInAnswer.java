@@ -1,4 +1,4 @@
-package com.codecool.PTA.quest;
+package com.codecool.PTA.model.quest;
 
 import javax.persistence.*;
 

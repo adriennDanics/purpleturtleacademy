@@ -2,20 +2,24 @@ package com.codecool.PTA.controller;
 
 import com.codecool.PTA.config.TemplateEngineUtil;
 import com.codecool.PTA.persistence.PersistenceImplementation;
-import com.codecool.PTA.quest.PA;
-import com.codecool.PTA.user.Student;
+import com.codecool.PTA.model.quest.PA;
+import com.codecool.PTA.model.user.Student;
 import org.thymeleaf.TemplateEngine;
 import org.thymeleaf.context.WebContext;
 
 import javax.servlet.ServletException;
-import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
 
-@WebServlet(urlPatterns = {"/pa"})
 public class PAController extends AbstractController {
+    
+    private PersistenceImplementation persistenceImplementation;
+
+    public PAController(PersistenceImplementation persistenceImplementation) {
+        this.persistenceImplementation = persistenceImplementation;
+    }
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
@@ -23,7 +27,7 @@ public class PAController extends AbstractController {
             long id = Long.valueOf(req.getParameter("id"));
 
             WebContext context = new WebContext(req, resp, req.getServletContext());
-            PA question = PersistenceImplementation.getInstance().findPaById(id);
+            PA question = persistenceImplementation.findPaById(id);
             HttpSession session = req.getSession();
             Student student = (Student) session.getAttribute("student");
             context.setVariable("student", student);
@@ -40,12 +44,12 @@ public class PAController extends AbstractController {
     public void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         long id = Long.valueOf(req.getParameter("id"));
 
-        PA pa = PersistenceImplementation.getInstance().findPaById(id);
+        PA pa = persistenceImplementation.findPaById(id);
         String submission = req.getParameter("submission");
         Student student = (Student) getLoggedInUser(req);
         pa.setSubmission(submission);
         pa.addStudent(student);
-        PersistenceImplementation.getInstance().merge(pa);
+        persistenceImplementation.merge(pa);
         resp.sendRedirect("/assignments");
     }
 }

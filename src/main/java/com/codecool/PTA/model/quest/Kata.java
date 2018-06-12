@@ -1,15 +1,14 @@
-package com.codecool.PTA.quest;
+package com.codecool.PTA.model.quest;
 
 
-import com.codecool.PTA.user.Level;
-import com.codecool.PTA.user.Student;
+import com.codecool.PTA.model.user.Level;
+import com.codecool.PTA.model.user.Student;
 
 import javax.persistence.*;
 import java.util.Set;
 
 @Entity
 public class Kata extends Assignment {
-
 
     @ManyToMany
     private Set<Student> student;
