@@ -1,6 +1,6 @@
 package com.codecool.PTA.model.quest;
 
-//TODO
+//TODO: delete this!
 public enum CourseType {
     Python,
     OOP,

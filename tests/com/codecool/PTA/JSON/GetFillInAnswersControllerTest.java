@@ -1,14 +1,12 @@
-package com.codecool.PTA.config;
+package com.codecool.PTA.JSON;
 
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.*;
 //TODO
-class AssignmentConfigTest {
+class GetFillInAnswersControllerTest {
 
     @Test
-    void testFillData() {
-
-    }
+    void testJSONObjectNotEmpty() {}
 
 }

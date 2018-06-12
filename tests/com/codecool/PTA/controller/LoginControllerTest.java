@@ -1,13 +1,13 @@
-package com.codecool.PTA.config;
+package com.codecool.PTA.controller;
 
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.*;
 //TODO
-class AssignmentConfigTest {
+class LoginControllerTest {
 
     @Test
-    void testFillData() {
+    void testFindAppropriateStudent() {
 
     }
 

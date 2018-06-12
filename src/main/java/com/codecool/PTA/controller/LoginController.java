@@ -43,6 +43,7 @@ public class LoginController extends AbstractController {
 
         List<Student> studentList = persistenceImplementation.findAllStudents();
 
+        //TODO: error handling
         for (Student student : studentList) {
             if (username.equals(student.getUsername()) && hash.isPasswordCorrect(password, student.getPassword())) {
                 session.setAttribute("student", student);
