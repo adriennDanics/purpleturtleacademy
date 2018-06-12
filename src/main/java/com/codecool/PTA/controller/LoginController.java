@@ -17,9 +17,11 @@ import java.util.List;
 public class LoginController extends AbstractController {
 
     private PersistenceImplementation persistenceImplementation;
+    private Hash hash;
 
-    public LoginController(PersistenceImplementation persistenceImplementation) {
+    public LoginController(PersistenceImplementation persistenceImplementation, Hash hash) {
         this.persistenceImplementation = persistenceImplementation;
+        this.hash = hash;
     }
 
     @Override
@@ -42,7 +44,7 @@ public class LoginController extends AbstractController {
         List<Student> studentList = persistenceImplementation.findAllStudents();
 
         for (Student student : studentList) {
-            if (username.equals(student.getUsername()) && Hash.isPasswordCorrect(password, student.getPassword())) {
+            if (username.equals(student.getUsername()) && hash.isPasswordCorrect(password, student.getPassword())) {
                 session.setAttribute("student", student);
                 resp.sendRedirect("/index");
                 return;

@@ -1,21 +1,29 @@
 package com.codecool.PTA.helper;
 
-import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.*;
 
 import static junit.framework.Assert.*;
 
 public class HashTest {
 
+    private Hash hash;
+
+    @BeforeEach
+    private void init() {
+        this.hash = new Hash();
+
+    }
+
     @Test
     public void checkCorrectPassword() {
-        String hash = Hash.hashPassword("testpassword");
-        assertTrue(Hash.isPasswordCorrect("testpassword", hash));
+        String hashStr = hash.hashPassword("testpassword");
+        assertTrue(hash.isPasswordCorrect("testpassword", hashStr));
     }
 
     @Test
     public void checkIncorrectPassword() {
-        String hash = Hash.hashPassword("testpassword");
-        assertFalse(Hash.isPasswordCorrect("something", hash));
+        String hashStr = hash.hashPassword("testpassword");
+        assertFalse(hash.isPasswordCorrect("something", hashStr));
     }
 
 }

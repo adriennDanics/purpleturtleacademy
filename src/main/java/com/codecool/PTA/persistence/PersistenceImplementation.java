@@ -25,18 +25,28 @@ public class PersistenceImplementation {
         return em;
     }
 
-    public void persist(Object object) {
-        EntityTransaction transaction = em.getTransaction();
-        transaction.begin();
-        em.persist(object);
-        transaction.commit();
+    public boolean persist(Object object) {
+        try {
+            EntityTransaction transaction = em.getTransaction();
+            transaction.begin();
+            em.persist(object);
+            transaction.commit();
+            return true;
+        } catch (Exception e) {
+            return false;
+        }
     }
 
-    public void merge(Object object) {
-        EntityTransaction transaction = em.getTransaction();
-        transaction.begin();
-        em.merge(object);
-        transaction.commit();
+    public boolean merge(Object object) {
+        try {
+            EntityTransaction transaction = em.getTransaction();
+            transaction.begin();
+            em.merge(object);
+            transaction.commit();
+            return true;
+        } catch (Exception e) {
+            return false;
+        }
     }
 
     public Student findStudentById(long id) {

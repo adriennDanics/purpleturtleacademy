@@ -16,11 +16,13 @@ import javax.servlet.http.HttpSession;
 import java.io.IOException;
 
 public class RegistrationController extends AbstractController {
-    
-    private PersistenceImplementation persistenceImplementation;
 
-    public RegistrationController(PersistenceImplementation persistenceImplementation) {
+    private PersistenceImplementation persistenceImplementation;
+    private Hash hash;
+
+    public RegistrationController(PersistenceImplementation persistenceImplementation, Hash hash) {
         this.persistenceImplementation = persistenceImplementation;
+        this.hash = hash;
     }
 
     @Override
@@ -30,7 +32,6 @@ public class RegistrationController extends AbstractController {
 
         TemplateEngine engine = TemplateEngineUtil.getTemplateEngine(req.getServletContext());
         engine.process("registration/registration.html", context, resp.getWriter());
-        System.out.println("valami");
     }
 
     @Override
@@ -45,16 +46,16 @@ public class RegistrationController extends AbstractController {
 
         HttpSession session = req.getSession();
 
-        if(password.equals(passwordConfirm)) {
+        if (password.equals(passwordConfirm)) {
             Course course = persistenceImplementation.findCourseByName(CourseType.ORIENTATION);
-            String hashedPassword = Hash.hashPassword(req.getParameter("password"));
+            String hashedPassword = hash.hashPassword(req.getParameter("password"));
             Student student = new Student(username, hashedPassword);
             student.setFirstName(firstName);
             student.setLastName(lastName);
             student.setEmail(email);
             student.setCourse(course);
             session.setAttribute("student", student);
-            if(session.getAttribute("passwordNotMatch") != null) {
+            if (session.getAttribute("passwordNotMatch") != null) {
                 session.removeAttribute("passwordNotMatch");
             }
             persistenceImplementation.persist(student);

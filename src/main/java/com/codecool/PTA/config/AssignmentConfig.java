@@ -106,7 +106,7 @@ public class AssignmentConfig {
         paList.add(pa3);
     }
 
-    public void fillFillInTheBlankDb() {
+    private void fillFillInTheBlankDb() {
         FillInTheBlank toFill1 = new FillInTheBlank(Level.BEGINNER,
                                                     CourseType.Python,
                                                     "Please fill in the blank to print!",
@@ -128,8 +128,6 @@ public class AssignmentConfig {
         persistenceImplementation.persist(toFill2);
         persistenceImplementation.persist(answer2);
         persistenceImplementation.persist(answer3);
-
-
     }
 
     private void fillKatas() {
@@ -160,7 +158,6 @@ public class AssignmentConfig {
         Course course3 = new Course(com.codecool.PTA.model.course.CourseType.ORIENTATION, "Please choose a course "+
                 "to pursue!");
         courseList.add(course3);
-
     }
 
     public void fillDB() {
