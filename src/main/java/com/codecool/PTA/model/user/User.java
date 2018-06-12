@@ -101,7 +101,6 @@ public abstract class User {
 
     @Override
     public int hashCode() {
-
         return Objects.hash(getUsername(), getPassword(), getFirstName(), getLastName(), getEmail(), registrationDate);
     }
 }

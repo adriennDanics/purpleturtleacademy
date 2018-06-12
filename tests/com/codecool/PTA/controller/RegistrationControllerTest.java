@@ -30,8 +30,7 @@ class RegistrationControllerTest {
     }
 
     private void createStudentExample() {
-        Student student = new Student("username", "password", "first_name", "last_name", "email", course);
-        this.student = student;
+        this.student = new Student("username", "password", "first_name", "last_name", "email", course);;
     }
 
     private void createCourse() {

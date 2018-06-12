@@ -27,7 +27,6 @@ public class RegistrationController extends AbstractController {
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-
         WebContext context = new WebContext(req, resp, req.getServletContext());
 
         TemplateEngine engine = TemplateEngineUtil.getTemplateEngine(req.getServletContext());
@@ -36,20 +35,13 @@ public class RegistrationController extends AbstractController {
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-
-        String username = req.getParameter("username");
-        String password = req.getParameter("password");
-        String passwordConfirm = req.getParameter("password_confirm");
-        String firstName = req.getParameter("first_name");
-        String lastName = req.getParameter("last_name");
-        String email = req.getParameter("email");
-
         HttpSession session = req.getSession();
 
-        if (password.equals(passwordConfirm)) {
-            Course course = persistenceImplementation.findCourseByName(CourseType.ORIENTATION);
-            String hashedPassword = hash.hashPassword(req.getParameter("password"));
-            Student student = new Student(username, hashedPassword, firstName, lastName, email, course);
+        String password = req.getParameter("password");
+        String passwordConfirm = req.getParameter("password_confirm");
+
+        if (passwordsMatch(password, passwordConfirm)) {
+            Student student = createNewlyRegisteredStudent(req);
             session.setAttribute("student", student);
             if (session.getAttribute("passwordNotMatch") != null) {
                 session.removeAttribute("passwordNotMatch");
@@ -60,6 +52,23 @@ public class RegistrationController extends AbstractController {
             session.setAttribute("passwordNotMatch", "The passwords you entered are not matching!");
             resp.sendRedirect("/registration");
         }
+    }
+
+    private boolean passwordsMatch(String password, String passwordConfirm) {
+        return password.equals(passwordConfirm);
+    }
+
+    private Student createNewlyRegisteredStudent(HttpServletRequest req) {
+        String hashedPassword = hash.hashPassword(req.getParameter("password"));
+        Course course = persistenceImplementation.findCourseByName(CourseType.ORIENTATION);
+
+        return new Student(
+                req.getParameter("username"),
+                hashedPassword,
+                req.getParameter("first_name"),
+                req.getParameter("last_name"),
+                req.getParameter("email"),
+                course);
     }
 
 }
