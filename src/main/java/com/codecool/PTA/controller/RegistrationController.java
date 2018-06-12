@@ -65,7 +65,4 @@ public class RegistrationController extends AbstractController {
         }
     }
 
-    public void setPersistenceImplementation(PersistenceImplementation persistenceImplementation) {
-        this.persistenceImplementation = persistenceImplementation;
-    }
 }
