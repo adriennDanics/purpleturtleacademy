@@ -36,25 +36,32 @@ public class RegistrationController extends AbstractController {
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         HttpSession session = req.getSession();
-
-        String password = req.getParameter("password");
-        String passwordConfirm = req.getParameter("password_confirm");
-
-        if (passwordsMatch(password, passwordConfirm)) {
+        if (passwordsMatch(req)) {
             Student student = createNewlyRegisteredStudent(req);
             session.setAttribute("student", student);
-            if (session.getAttribute("passwordNotMatch") != null) {
-                session.removeAttribute("passwordNotMatch");
-            }
             persistenceImplementation.persist(student);
+            clearPasswordNotMatchFromSession(session);
             resp.sendRedirect("");
         } else {
-            session.setAttribute("passwordNotMatch", "The passwords you entered are not matching!");
+            addPasswordNotMatchToSession(session);
             resp.sendRedirect("/registration");
         }
     }
 
-    private boolean passwordsMatch(String password, String passwordConfirm) {
+    private void addPasswordNotMatchToSession(HttpSession session) {
+        session.setAttribute("passwordNotMatch", "The passwords you entered are not matching!");
+    }
+
+    private void clearPasswordNotMatchFromSession(HttpSession session) {
+        if (session.getAttribute("passwordNotMatch") != null) {
+            session.removeAttribute("passwordNotMatch");
+        }
+    }
+
+    private boolean passwordsMatch(HttpServletRequest req) {
+        String password = req.getParameter("password");
+        String passwordConfirm = req.getParameter("password_confirm");
+
         return password.equals(passwordConfirm);
     }
 
@@ -68,7 +75,8 @@ public class RegistrationController extends AbstractController {
                 req.getParameter("first_name"),
                 req.getParameter("last_name"),
                 req.getParameter("email"),
-                course);
+                course
+        );
     }
 
 }

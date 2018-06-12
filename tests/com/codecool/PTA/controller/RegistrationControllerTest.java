@@ -17,20 +17,34 @@ import java.io.IOException;
 
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.*;
-//TODO
+
 class RegistrationControllerTest {
 
     private Student student;
     private Course course;
+    private HttpServletRequest req;
+    private HttpServletResponse resp;
+    private HttpSession session;
+    private Hash hash;
+    private PersistenceImplementation pim;
 
     @BeforeEach
     private void init() {
         createStudentExample();
         createCourse();
+        mockClasses();
+    }
+
+    private void mockClasses() {
+        this.req = mock(HttpServletRequest.class);
+        this.resp = mock(HttpServletResponse.class);
+        this.session = mock(HttpSession.class);
+        this.hash = mock(Hash.class);
+        this.pim = mock(PersistenceImplementation.class);
     }
 
     private void createStudentExample() {
-        this.student = new Student("username", "password", "first_name", "last_name", "email", course);;
+        this.student = new Student("username", "password", "first_name", "last_name", "email", course);
     }
 
     private void createCourse() {
@@ -39,10 +53,6 @@ class RegistrationControllerTest {
 
     @Test
     void testEverythingOK() throws ServletException, IOException {
-        HttpServletRequest req = mock(HttpServletRequest.class);
-        HttpServletResponse resp = mock(HttpServletResponse.class);
-
-        HttpSession session = mock(HttpSession.class);
         when(session.getAttribute("passwordNotMatch")).thenReturn(null);
 
         when(req.getParameter("username")).thenReturn("username");
@@ -56,10 +66,8 @@ class RegistrationControllerTest {
         ArgumentCaptor<Student> captor = ArgumentCaptor.forClass(Student.class);
         doNothing().when(session).setAttribute(anyString(), captor.capture());
 
-        Hash hash = mock(Hash.class);
         when(hash.hashPassword(anyString())).thenReturn("password");
 
-        PersistenceImplementation pim = mock(PersistenceImplementation.class);
         when(pim.persist(any(Student.class))).thenReturn(true);
         when(pim.findCourseByName(any())).thenReturn(new Course(CourseType.ORIENTATION, "orientation"));
 
@@ -68,4 +76,5 @@ class RegistrationControllerTest {
 
         assertEquals(student, sessionStudent);
     }
+
 }
