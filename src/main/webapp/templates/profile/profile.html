@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
 
     <div th:replace="layout.html :: head"></div>
-    <script src="static/js/newImage.js" defer></script>
+    <script src="static/js/editProfile.js" defer></script>
 
 </head>
 <body>
@@ -20,6 +20,9 @@
             <button id="change-image" class="btn" type="button">Change image</button>
         </form>
         <button id="change-user-name" class="btn" type="button">Change username</button>
+        <form method="post" action="/profile" id="password-form">
+            <button id="change-password" class="btn" type="button">Change password</button>
+        </form>
     </div>
     <br>
     <br>
