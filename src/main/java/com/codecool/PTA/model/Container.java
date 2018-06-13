@@ -1,9 +1,6 @@
 package com.codecool.PTA.model;
 
-import com.codecool.PTA.JSON.GetFillInAnswersController;
-import com.codecool.PTA.JSON.ReceiveNewName;
-import com.codecool.PTA.JSON.ReceiveNewPassword;
-import com.codecool.PTA.JSON.SendCourseInfo;
+import com.codecool.PTA.JSON.*;
 import com.codecool.PTA.config.AssignmentConfig;
 import com.codecool.PTA.controller.*;
 import com.codecool.PTA.helper.Hash;
@@ -34,6 +31,8 @@ public class Container {
         servletContext.addServlet("profileController", new ProfileController(persistenceImplementation)).addMapping("/profile");
         servletContext.addServlet("receiveNewName", new ReceiveNewName(persistenceImplementation)).addMapping("/profile/newname");
         servletContext.addServlet("receiveNewPassword", new ReceiveNewPassword(persistenceImplementation, hash)).addMapping("/profile/newpassword");
+        servletContext.addServlet("listUsersController", new ListUsersController(persistenceImplementation)).addMapping("/list-users");
+        servletContext.addServlet("handleFriendRequests", new HandleFriendRequests(persistenceImplementation)).addMapping("/save-friend-request");
     }
     
 }

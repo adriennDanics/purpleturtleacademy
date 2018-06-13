@@ -1,19 +1,18 @@
 package com.codecool.PTA.config;
 
 import com.codecool.PTA.model.course.Course;
+import com.codecool.PTA.model.quest.*;
+import com.codecool.PTA.model.user.GenderEnum;
+import com.codecool.PTA.model.user.Student;
 import com.codecool.PTA.persistence.PersistenceImplementation;
-import com.codecool.PTA.model.quest.CourseType;
-import com.codecool.PTA.model.quest.FillInAnswer;
-import com.codecool.PTA.model.quest.FillInTheBlank;
-import com.codecool.PTA.model.quest.Kata;
-import com.codecool.PTA.model.quest.PA;
-import com.codecool.PTA.model.quest.QuizQuestion;
 import com.codecool.PTA.model.user.Level;
 
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+
+import static com.codecool.PTA.model.course.CourseType.ORIENTATION;
 
 public class AssignmentConfig {
     
@@ -23,9 +22,19 @@ public class AssignmentConfig {
     private List<PA> paList = new ArrayList<>();
     private List<Kata> kataList = new ArrayList<>();
     private List<Course> courseList = new ArrayList<>();
+    private List<Student> studentList = new ArrayList<>();
 
     public AssignmentConfig(PersistenceImplementation persistenceImplementation) {
         this.persistenceImplementation = persistenceImplementation;
+    }
+
+    private void fillStudents() {
+        Student student1 = new Student("aladar", "1", "Aladar", "Aradi", "em@ail.com", courseList.get(2), GenderEnum.MALE);
+        studentList.add(student1);
+        Student student2 = new Student("bea", "1", "Bea", "Biro", "bea@email.hu", courseList.get(2), GenderEnum.FEMALE);
+        studentList.add(student2);
+        Student student3 = new Student("cecil(ia)", "1", "Cecil(ia)", "Céges", "cecil(ia)@email.com", courseList.get(2), GenderEnum.OTHER);
+        studentList.add(student3);
     }
 
     private boolean fillData() {
@@ -35,6 +44,7 @@ public class AssignmentConfig {
             fillKatas();
             fillCourses();
             fillFillInTheBlankDb();
+            fillStudents();
             return true;
         } catch (Exception e) {
             return false;
@@ -160,7 +170,7 @@ public class AssignmentConfig {
                 "language, as are C, Fortran, BASIC, PHP, etc. Some specific features of Python are as follows: "+
                 "an interpreted (as opposed to compiled) language.");
         courseList.add(course2);
-        Course course3 = new Course(com.codecool.PTA.model.course.CourseType.ORIENTATION, "Please choose a course "+
+        Course course3 = new Course(ORIENTATION, "Please choose a course "+
                 "to pursue!");
         courseList.add(course3);
     }
@@ -178,6 +188,9 @@ public class AssignmentConfig {
         }
         for (Course course : courseList) {
             persistenceImplementation.persist(course);
+        }
+        for (Student student : studentList) {
+            persistenceImplementation.persist(student);
         }
     }
 }

@@ -6,6 +6,7 @@ import com.codecool.PTA.model.quest.Kata;
 import com.codecool.PTA.model.quest.PA;
 
 import javax.persistence.*;
+import java.util.HashSet;
 import java.util.Set;
 
 @Entity
@@ -25,9 +26,29 @@ public class Student extends User {
     @ManyToMany(mappedBy = "student")
     private Set<Kata> completedKatas;
 
-
     @OneToOne
     private Certificate certificate;
+
+    @ManyToMany(cascade = CascadeType.ALL)
+    @JoinTable(
+            name="Friendship",
+            joinColumns=@JoinColumn(name="Student"),
+            inverseJoinColumns=@JoinColumn(name="Friend"))
+    private Set<Student> friends = new HashSet<>();
+
+    @ManyToMany(cascade = CascadeType.ALL)
+    @JoinTable(
+            name="PendingFriendship",
+            joinColumns=@JoinColumn(name="Student"),
+            inverseJoinColumns=@JoinColumn(name="PendingFriend"))
+    private Set<Student> pendingFriends = new HashSet<>();
+
+    @ManyToMany(cascade = CascadeType.ALL)
+    @JoinTable(
+            name="StudentTagedByOthers",
+            joinColumns=@JoinColumn(name="Student"),
+            inverseJoinColumns=@JoinColumn(name="TaggerFriend"))
+    private Set<Student> taggedByOthers = new HashSet<>();
 
     protected Student() {
         super();
@@ -38,6 +59,18 @@ public class Student extends User {
         this.xp = 0;
         this.level = Level.BEGINNER;
         this.course = course;
+    }
+
+    public void addToFriends(Student student) {
+        friends.add(student);
+    }
+
+    public void addToPendingFriends(Student student) {
+        pendingFriends.add(student);
+    }
+
+    public void addToTaggedByOthers(Student student) {
+        taggedByOthers.add(student);
     }
 
     public Course getCourse() {
