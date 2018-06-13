@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <div th:replace="layout.html :: head"></div>
+    <script src="static/js/friends.js" defer></script>
+
+</head>
+<body>
+<div id="studentListBox">
+    <div th:replace="layout.html :: navbar"></div>
+    <span>
+            <div th:each="student : ${friends}">
+                <div th:id="student + ${student.getId()}">
+                    <div th:text="${student.getUsername()}">username</div>
+                </div>
+            </div>
+        </span>
+</div>
+
+
+</body>
+</html>

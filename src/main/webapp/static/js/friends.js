@@ -1,9 +1,9 @@
 dom = {
     init: function() {
-        dom.sendFriendRequest();
+        dom.acceptFriendRequest();
     },
 
-    sendFriendRequest: function() {
+    acceptFriendRequest: function() {
         let requesterId = document.getElementById("requesterStudent").dataset.requesterstudent;
         let requestButtons = document.getElementsByClassName("requestButtons");
         for(let button of requestButtons) {
@@ -12,9 +12,16 @@ dom = {
                 $.post('/save-friend-request', {
                     requesterId: requesterId,
                     requestedId: requestedId
-                })
+                });
+                let elemetToDeteteId = "student" + requestedId;
+                dom.removeAddedFriendFromDom(elemetToDeteteId)
             })
         }
+    },
+
+    removeAddedFriendFromDom: function(id) {
+        let elemToDelete = document.getElementById(id);
+        $(elemToDelete).remove();
     }
 };
 

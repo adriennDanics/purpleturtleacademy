@@ -33,6 +33,11 @@ public class Container {
         servletContext.addServlet("receiveNewPassword", new ReceiveNewPassword(persistenceImplementation, hash)).addMapping("/profile/newpassword");
         servletContext.addServlet("listUsersController", new ListUsersController(persistenceImplementation)).addMapping("/list-users");
         servletContext.addServlet("handleFriendRequests", new HandleFriendRequests(persistenceImplementation)).addMapping("/save-friend-request");
+        servletContext.addServlet("friendsController", new FriendsController(persistenceImplementation)).addMapping("/friends");
+        servletContext.addServlet("friendRequestsController", new FriendRequestsController(persistenceImplementation)).addMapping("/friend-requests");
+        servletContext.addServlet("acceptFriendRequest", new AcceptFriendRequest(persistenceImplementation)).addMapping("/accept-request");
+        servletContext.addServlet("rejectRequestsController", new RejectFriendRequest(persistenceImplementation)).addMapping("/reject-request");
+
     }
     
 }

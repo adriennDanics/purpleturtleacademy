@@ -73,6 +73,30 @@ public class Student extends User {
         taggedByOthers.add(student);
     }
 
+    public void removeFromFriends(Student student) {
+        friends.remove(student);
+    }
+
+    public void removeFromPendingFriends(Student student) {
+        pendingFriends.remove(student);
+    }
+
+    public void removeFromTaggedByOthers(Student student) {
+        taggedByOthers.remove(student);
+    }
+
+    public Set<Student> getFriends() {
+        return friends;
+    }
+
+    public Set<Student> getPendingFriends() {
+        return pendingFriends;
+    }
+
+    public Set<Student> getTaggedByOthers() {
+        return taggedByOthers;
+    }
+
     public Course getCourse() {
         return course;
     }
