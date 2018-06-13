@@ -16,9 +16,11 @@ import java.io.IOException;
 public class ReceiveNewPassword extends HttpServlet {
 
     private PersistenceImplementation persistenceImplementation;
+    private Hash hash;
 
-    public ReceiveNewPassword(PersistenceImplementation persistenceImplementation) {
+    public ReceiveNewPassword(PersistenceImplementation persistenceImplementation, Hash hash) {
         this.persistenceImplementation = persistenceImplementation;
+        this.hash = hash;
     }
 
     @Override
@@ -36,9 +38,9 @@ public class ReceiveNewPassword extends HttpServlet {
         reader.close();
 
         JSONObject passwords = new JSONObject(sb.toString());
-        if(Hash.isPasswordCorrect(passwords.get("old").toString(), student.getPassword())){
+        if(hash.isPasswordCorrect(passwords.get("old").toString(), student.getPassword())){
             String password = passwords.get("new").toString();
-            student.setPassword(Hash.hashPassword(password));
+            student.setPassword(hash.hashPassword(password));
             persistenceImplementation.merge(student);
         } else {
             JSONObject denial = new JSONObject();

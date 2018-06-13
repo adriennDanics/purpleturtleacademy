@@ -35,7 +35,7 @@ public abstract class User {
     protected User() {
     }
 
-    public User(String username, String password, String firstName, String lastName, String email) {
+    public User(String username, String password, String firstName, String lastName, String email, GenderEnum gender) {
         LocalDate localDate = java.time.LocalDate.now();
         Date dateNow = Date.from(localDate.atStartOfDay(ZoneId.systemDefault()).toInstant());
 
@@ -45,6 +45,7 @@ public abstract class User {
         this.lastName = lastName;
         this.email = email;
         this.registrationDate = dateNow;
+        this.gender = gender;
     }
 
     public long getId() {

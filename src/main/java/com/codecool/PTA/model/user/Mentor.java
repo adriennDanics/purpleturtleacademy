@@ -14,7 +14,7 @@ public class Mentor extends User {
         super();
     }
 
-    public Mentor(String username, String password, String firstName, String lastName, String email) {
-        super(username, password, firstName, lastName, email);
+    public Mentor(String username, String password, String firstName, String lastName, String email, GenderEnum gender) {
+        super(username, password, firstName, lastName, email, gender);
     }
 }

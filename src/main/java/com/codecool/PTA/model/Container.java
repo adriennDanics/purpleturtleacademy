@@ -33,7 +33,7 @@ public class Container {
         servletContext.addServlet("logoutController", new LogoutController()).addMapping("/logout");
         servletContext.addServlet("profileController", new ProfileController(persistenceImplementation)).addMapping("/profile");
         servletContext.addServlet("receiveNewName", new ReceiveNewName(persistenceImplementation)).addMapping("/profile/newname");
-        servletContext.addServlet("receiveNewPassword", new ReceiveNewPassword(persistenceImplementation)).addMapping("/profile/newpassword");
+        servletContext.addServlet("receiveNewPassword", new ReceiveNewPassword(persistenceImplementation, hash)).addMapping("/profile/newpassword");
     }
     
 }
