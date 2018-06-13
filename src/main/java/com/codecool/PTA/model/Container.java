@@ -15,7 +15,7 @@ import javax.servlet.ServletContextEvent;
 public class Container {
 
     public void createObjects(ServletContextEvent sce) {
-        PersistenceImplementation persistenceImplementation = new PersistenceImplementation();
+        PersistenceImplementation persistenceImplementation = new PersistenceImplementation("ptaPU");
         Hash hash = new Hash();
         new AssignmentConfig(persistenceImplementation);
         ServletContext servletContext = sce.getServletContext();

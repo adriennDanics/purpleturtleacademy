@@ -17,8 +17,8 @@ public class PersistenceImplementation {
 
     private final EntityManager em;
 
-    public PersistenceImplementation() {
-        EntityManagerFactory emf = Persistence.createEntityManagerFactory("ptaPU");
+    public PersistenceImplementation(String persistenceUnit) {
+        EntityManagerFactory emf = Persistence.createEntityManagerFactory(persistenceUnit);
         em = emf.createEntityManager();
     }
 
@@ -34,6 +34,7 @@ public class PersistenceImplementation {
             transaction.commit();
             return true;
         } catch (Exception e) {
+            e.printStackTrace();
             return false;
         }
     }
