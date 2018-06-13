@@ -27,6 +27,11 @@ public abstract class User {
     @Temporal(TemporalType.DATE)
     private Date registrationDate;
 
+    @Enumerated(value = EnumType.STRING)
+    private GenderEnum gender;
+
+    private String image;
+
     protected User() {
     }
 
@@ -86,6 +91,22 @@ public abstract class User {
         this.password = password;
     }
 
+    public void setGender(GenderEnum gender) {
+        this.gender = gender;
+        this.image = gender.getImage();
+    }
+
+    public void reSetDefaultImage(){
+        this.image = gender.getImage();
+    }
+
+    public String getImage() {
+        return image;
+    }
+
+    public void setImage(String image) {
+        this.image = image;
+    }
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;

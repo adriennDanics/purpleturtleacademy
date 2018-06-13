@@ -1,11 +1,12 @@
 package com.codecool.PTA.controller;
 
 import com.codecool.PTA.config.TemplateEngineUtil;
+import com.codecool.PTA.helper.Hash;
 import com.codecool.PTA.model.course.Course;
 import com.codecool.PTA.model.course.CourseType;
-import com.codecool.PTA.helper.Hash;
-import com.codecool.PTA.persistence.PersistenceImplementation;
+import com.codecool.PTA.model.user.GenderEnum;
 import com.codecool.PTA.model.user.Student;
+import com.codecool.PTA.persistence.PersistenceImplementation;
 import org.thymeleaf.TemplateEngine;
 import org.thymeleaf.context.WebContext;
 
@@ -65,9 +66,26 @@ public class RegistrationController extends AbstractController {
         return password.equals(passwordConfirm);
     }
 
+    GenderEnum translateGender(String genderChecked) {
+        GenderEnum gender;
+        if (genderChecked.equals("female")) {
+            gender = GenderEnum.FEMALE;
+        } else if (genderChecked.equals("male")) {
+            gender = GenderEnum.MALE;
+        } else {
+            gender = GenderEnum.OTHER;
+        }
+        return gender;
+    }
+
+    public void setPersistenceImplementation(PersistenceImplementation persistenceImplementation) {
+        this.persistenceImplementation = persistenceImplementation;
+    }
+
     private Student createNewlyRegisteredStudent(HttpServletRequest req) {
         String hashedPassword = hash.hashPassword(req.getParameter("password"));
         Course course = persistenceImplementation.findCourseByName(CourseType.ORIENTATION);
+        GenderEnum gender = translateGender(req.getParameter("gender"));
 
         return new Student(
                 req.getParameter("username"),
@@ -75,7 +93,8 @@ public class RegistrationController extends AbstractController {
                 req.getParameter("first_name"),
                 req.getParameter("last_name"),
                 req.getParameter("email"),
-                course
+                course,
+                gender
         );
     }
 
