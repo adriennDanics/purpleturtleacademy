@@ -143,4 +143,12 @@ public class PersistenceImplementation {
         return course;
     }
 
+    public List<Kata> findAllKatas(){
+        EntityTransaction transaction = em.getTransaction();
+        transaction.begin();
+        List<Kata> kataList = em.createQuery("FROM Kata ", Kata.class).getResultList();
+        transaction.commit();
+        return kataList;
+    }
+
 }

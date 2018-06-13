@@ -11,18 +11,41 @@
         <input class="form-control" type="text" name="first_name" id="first_name" required>
         <label for="last_name">Last name</label>
         <input class="form-control" type="text" name="last_name" id="last_name">
+        <fieldset class="form-group">
+            <legend>Gender</legend>
+            <div class="form-check">
+                <label class="form-check-label">
+                    <input type="radio" class="form-check-input" name="gender" id="optionsRadios1" value="male" checked="">
+                    Male
+                </label>
+            </div>
+            <div class="form-check">
+                <label class="form-check-label">
+                    <input type="radio" class="form-check-input" name="gender" id="optionsRadios2" value="female">
+                    Female
+                </label>
+            </div>
+            <div class="form-check">
+                <label class="form-check-label">
+                    <input type="radio" class="form-check-input" name="gender" id="optionsRadios3" value="other">
+                    Other
+                </label>
+            </div>
+        </fieldset>
         <label for="email">Email</label>
         <input class="form-control" type="email" name="email" id="email" required>
         <label for="username">Username</label>
         <input class="form-control" type="text" name="username" id="username" required>
         <label for="password">Password</label>
         <input class="form-control" type="password" name="password" id="password">
+        <div th:if="${session.passwordNotMatch}">
+            <p class="warning">The passwords you entered are not matching!</p>
+        </div>
         <label for="password_confirm">Password confirm</label>
         <input class="form-control" type="password" name="password_confirm" id="password_confirm">
-        <button type="submit">Register</button>
+        <button class="btn" type="submit">Register</button>
+        <a class="btn" href="/login">Back</a>
     </form>
-    <div th:if="${session.passwordNotMatch}">
-        <p>The passwords you entered are not matching!</p>
-    </div>
+
 </body>
 </html>

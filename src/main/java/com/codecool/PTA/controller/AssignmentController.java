@@ -1,6 +1,7 @@
 package com.codecool.PTA.controller;
 
 import com.codecool.PTA.config.TemplateEngineUtil;
+import com.codecool.PTA.model.quest.Kata;
 import com.codecool.PTA.persistence.PersistenceImplementation;
 import com.codecool.PTA.model.quest.PA;
 import com.codecool.PTA.model.quest.QuizQuestion;
@@ -29,6 +30,8 @@ public class AssignmentController extends AbstractController {
             WebContext context = new WebContext(req, resp, req.getServletContext());
             List<QuizQuestion> quizQuestions = persistenceImplementation.findAllQuizQuestion();
             context.setVariable("quizQuestions", quizQuestions);
+            List<Kata> kataList = persistenceImplementation.findAllKatas();
+            context.setVariable("kataList", kataList);
             List<PA> paList = persistenceImplementation.findAllPaAssignments();
             context.setVariable("paList", paList);
             Student student = (Student) getLoggedInUser(req);
