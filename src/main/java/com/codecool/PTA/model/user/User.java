@@ -46,6 +46,7 @@ public abstract class User {
         this.email = email;
         this.registrationDate = dateNow;
         this.gender = gender;
+        this.image = gender.getImage();
     }
 
     public long getId() {
