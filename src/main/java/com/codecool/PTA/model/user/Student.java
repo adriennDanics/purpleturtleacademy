@@ -54,6 +54,13 @@ public class Student extends User {
 
     public void setXp(long xp) {
         this.xp = xp;
+        checkIfLevelJump();
+    }
+
+    private void checkIfLevelJump(){
+        if(level.getNextLevel().getEntryRequirement() <= xp){
+            this.level = level.getNextLevel();
+        }
     }
 
     public Level getLevel() {
