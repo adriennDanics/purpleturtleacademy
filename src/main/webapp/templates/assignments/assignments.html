@@ -20,7 +20,7 @@
                 <h4>Katas</h4>
             </li>
             <div th:each="kata,iterStat : ${kataList}">
-                <a class="dropdown-item disabled"  th:href="#" data-link="@{/kata(id=${kata.getId()})}" th:text="${kata.getAssignmentTitle()}" aria-disabled="true">Name</a>
+                <a class="dropdown-item disabled"  href="#" data-link="@{/kata(id=${kata.getId()})}" th:text="${kata.getAssignmentTitle()}" aria-disabled="true">Name</a>
             </div>
             <li class="nav-item">
                 <h4>PAs</h4>
