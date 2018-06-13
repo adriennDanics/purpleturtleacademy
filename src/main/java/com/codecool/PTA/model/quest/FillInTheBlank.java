@@ -1,8 +1,10 @@
 package com.codecool.PTA.model.quest;
 
+import com.codecool.PTA.model.course.CourseType;
 import com.codecool.PTA.model.user.Level;
 
-import javax.persistence.*;
+import javax.persistence.Entity;
+import javax.persistence.OneToMany;
 import java.util.HashSet;
 import java.util.Set;
 

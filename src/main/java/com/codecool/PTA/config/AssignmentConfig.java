@@ -1,14 +1,10 @@
 package com.codecool.PTA.config;
 
 import com.codecool.PTA.model.course.Course;
-import com.codecool.PTA.persistence.PersistenceImplementation;
-import com.codecool.PTA.model.quest.CourseType;
-import com.codecool.PTA.model.quest.FillInAnswer;
-import com.codecool.PTA.model.quest.FillInTheBlank;
-import com.codecool.PTA.model.quest.Kata;
-import com.codecool.PTA.model.quest.PA;
-import com.codecool.PTA.model.quest.QuizQuestion;
+import com.codecool.PTA.model.course.CourseType;
+import com.codecool.PTA.model.quest.*;
 import com.codecool.PTA.model.user.Level;
+import com.codecool.PTA.persistence.PersistenceImplementation;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -47,14 +43,14 @@ public class AssignmentConfig {
         answers1.put("str.replace()", false);
         answers1.put("str.replace(old, new[, count])", false);
         answers1.put("str.replace(old, new)", false);
-        QuizQuestion quizQuestion1 = new QuizQuestion("What is the built-in function for replacing a substring in a string?", "Replacing substrings", Level.BEGINNER, CourseType.Python, answers1);
+        QuizQuestion quizQuestion1 = new QuizQuestion("What is the built-in function for replacing a substring in a string?", "Replacing substrings", Level.BEGINNER, CourseType.PYTHON, answers1);
         questionList.add(quizQuestion1);
 
         Map<String, Boolean> answers2 = new HashMap<>();
         answers2.put("str.upper()", false);
         answers2.put("str.upper", true);
         answers2.put("str.toUpperCase()", false);
-        QuizQuestion quizQuestion2 = new QuizQuestion("What is the built-in function for converting a string to uppercase?", "Converting to uppercase", Level.BEGINNER, CourseType.Python, answers2);
+        QuizQuestion quizQuestion2 = new QuizQuestion("What is the built-in function for converting a string to uppercase?", "Converting to uppercase", Level.BEGINNER, CourseType.PYTHON, answers2);
         questionList.add(quizQuestion2);
 
         Map<String, Boolean> answers3 = new HashMap<>();
@@ -62,7 +58,7 @@ public class AssignmentConfig {
         answers3.put("math.sqrt()", false);
         answers3.put("math.sqrt(number)", false);
         answers3.put("math.sqrt(x)", true);
-        QuizQuestion quizQuestion3 = new QuizQuestion("What is the built-in math function for calculating the square root of a number if my number is named \"x\"?", "Calculating square root", Level.BEGINNER, CourseType.Python, answers3);
+        QuizQuestion quizQuestion3 = new QuizQuestion("What is the built-in math function for calculating the square root of a number if my number is named \"x\"?", "Calculating square root", Level.BEGINNER, CourseType.PYTHON, answers3);
         questionList.add(quizQuestion3);
 
         Map<String, Boolean> answers4 = new HashMap<>();
@@ -71,18 +67,18 @@ public class AssignmentConfig {
         answers4.put("array.insert(i, x)", true);
         answers4.put("array.insert(position, x)", false);
         answers4.put("array.insert(i,x)", false);
-        QuizQuestion quizQuestion4 = new QuizQuestion("What is the built-in function for inserting a new item with value x into a certain position in an array?", "Inserting into an array", Level.BEGINNER, CourseType.Python, answers4);
+        QuizQuestion quizQuestion4 = new QuizQuestion("What is the built-in function for inserting a new item with value x into a certain position in an array?", "Inserting into an array", Level.BEGINNER, CourseType.PYTHON, answers4);
         questionList.add(quizQuestion4);
 
         Map<String, Boolean> answers5 = new HashMap<>();
         answers5.put("curses.echo()", true);
         answers5.put("curses.echo", false);
-        QuizQuestion quizQuestion5 = new QuizQuestion("What is the built-in function for entering echo mode in curses?", "Entering echo mode", Level.BEGINNER, CourseType.Python, answers5);
+        QuizQuestion quizQuestion5 = new QuizQuestion("What is the built-in function for entering echo mode in curses?", "Entering echo mode", Level.BEGINNER, CourseType.PYTHON, answers5);
         questionList.add(quizQuestion5);
     }
 
     private void fillPAs() {
-        PA pa = new PA(Level.BEGINNER, CourseType.Python, "Simple calculator",
+        PA pa = new PA(Level.BEGINNER, CourseType.PYTHON, "Simple calculator",
                 "Write a calculator script, that waits for the user to enter a number, " +
                         "then a sign (plus, minus, multiplication and division), then a number again. " +
                         "After the 2nd number input, the script should calculate the addition or subtraction and print it out. " +
@@ -91,7 +87,7 @@ public class AssignmentConfig {
                         "Submit your python script file.");
         paList.add(pa);
 
-        PA pa2 = new PA(Level.INTERMEDIATE, CourseType.Python, "Codewars assignment",
+        PA pa2 = new PA(Level.INTERMEDIATE, CourseType.PYTHON, "Codewars assignment",
                 "You have to collect at least 10 points by completing a subset of the katas below. We count point as follows: " +
                         "8 kyu kata scores 1 point, " +
                         "7 kyu kata scores 2 points and " +
@@ -100,7 +96,7 @@ public class AssignmentConfig {
                         "(after completing a kata), understand the top ranked ones and rewrite your code from scratch based on the new insight.");
         paList.add(pa2);
 
-        PA pa3 = new PA(Level.ADVANCED, CourseType.Java, "Practice JPA",
+        PA pa3 = new PA(Level.ADVANCED, CourseType.JAVA, "Practice JPA",
                 "This assignment is a step by step introduction to the most widely used JPA annotations. " +
                         "The instructions are attached in the README.md file. " +
                         "It starts with a code you can run after some basic setup (step 1). " +
@@ -113,7 +109,7 @@ public class AssignmentConfig {
 
     private void fillFillInTheBlankDb() {
         FillInTheBlank toFill1 = new FillInTheBlank(Level.BEGINNER,
-                                                    CourseType.Python,
+                                                    CourseType.PYTHON,
                                                     "Please fill in the blank to print!",
                                                     "<input type=\"text\" class=\"answer\" size=\"5\" >(\"Hello World!\")");
 
@@ -123,7 +119,7 @@ public class AssignmentConfig {
         persistenceImplementation.persist(answer1);
 
         FillInTheBlank toFill2 = new FillInTheBlank(Level.BEGINNER,
-                                                    CourseType.Python,
+                                                    CourseType.PYTHON,
                                                     "Please fill in the blank to print: Hello World!",
                                                     "<input type=\"text\" class=\"answer\" size=\"5\" >(\"Hello  + \" <input type=\"text\" class=\"answer\" size=\"5\" >)");
 
@@ -136,7 +132,7 @@ public class AssignmentConfig {
     }
 
     private void fillKatas() {
-        Kata kata = new Kata(Level.BEGINNER, CourseType.Python, "Find Multiples of a Number",
+        Kata kata = new Kata(Level.BEGINNER, CourseType.PYTHON, "Find Multiples of a Number",
                 "In this simple exercise, you will build a program that takes a value, integer, " +
                         "and returns a list of its multiples up to another value, limit. If limit is a multiple of integer, " +
                         "it should be included as well. There will only ever be positive integers passed into the function, " +
@@ -145,7 +141,7 @@ public class AssignmentConfig {
                         "as 2, 4, and 6 are the multiples of 2 up to 6. " +
                         "If you can, try writing it in only one line of code.");
         kataList.add(kata);
-        Kata kata2 = new Kata(Level.BEGINNER, CourseType.Python, "Reverse words",
+        Kata kata2 = new Kata(Level.BEGINNER, CourseType.PYTHON, "Reverse words",
                 "Complete the function that accepts a string parameter, and reverses each word in the string. " +
                         "All spaces in the string should be retained.");
         kataList.add(kata2);
