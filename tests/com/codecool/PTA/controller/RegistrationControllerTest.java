@@ -3,6 +3,7 @@ package com.codecool.PTA.controller;
 import com.codecool.PTA.helper.Hash;
 import com.codecool.PTA.model.course.Course;
 import com.codecool.PTA.model.course.CourseType;
+import com.codecool.PTA.model.user.GenderEnum;
 import com.codecool.PTA.model.user.Student;
 import com.codecool.PTA.persistence.PersistenceImplementation;
 import org.junit.jupiter.api.*;
@@ -22,6 +23,8 @@ class RegistrationControllerTest {
 
     private Student student;
     private Course course;
+    private GenderEnum gender;
+
     private HttpServletRequest req;
     private HttpServletResponse resp;
     private HttpSession session;
@@ -30,8 +33,9 @@ class RegistrationControllerTest {
 
     @BeforeEach
     private void init() {
-        createStudentExample();
         createCourse();
+        createGender();
+        createStudentExample();
         mockClasses();
     }
 
@@ -44,11 +48,15 @@ class RegistrationControllerTest {
     }
 
     private void createStudentExample() {
-        this.student = new Student("username", "password", "first_name", "last_name", "email", course);
+        this.student = new Student("username", "password", "first_name", "last_name", "email", course, gender);
     }
 
     private void createCourse() {
         this.course = new Course(CourseType.ORIENTATION, "orientation");
+    }
+
+    private void createGender() {
+        this.gender = GenderEnum.OTHER;
     }
 
     @Test
@@ -61,6 +69,7 @@ class RegistrationControllerTest {
         when(req.getParameter("first_name")).thenReturn("first_name");
         when(req.getParameter("last_name")).thenReturn("last_name");
         when(req.getParameter("email")).thenReturn("email");
+        when(req.getParameter("gender")).thenReturn("other");
         when(req.getSession()).thenReturn(session);
 
         ArgumentCaptor<Student> captor = ArgumentCaptor.forClass(Student.class);
@@ -72,6 +81,7 @@ class RegistrationControllerTest {
         when(pim.findCourseByName(any())).thenReturn(new Course(CourseType.ORIENTATION, "orientation"));
 
         new RegistrationController(pim, hash).doPost(req, resp);
+
         Student sessionStudent = captor.getValue();
 
         assertEquals(student, sessionStudent);
