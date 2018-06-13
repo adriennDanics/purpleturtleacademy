@@ -8,12 +8,12 @@
     </head>
     <body>
         <div th:replace="layout.html :: navbar"></div>
-        <h2 class="title" th:text="${kata.title}">Title</h2>
-        <h4 class="description" th:text="${kata.description}"> Description</h4>
-        <form class="form-group" action="/" method="post">
-            <label class="title" id="solution" title="solution">Your solution:</label><br>
-            <textarea id="show" class="form-control solution" title="solution" rows="50" cols="100" th:placeholder="${kata.basics}">Basics</textarea><br>
-            <button id="check_solution" type="button"> Check solution </button>
+        <h2 class="title" th:text="${kata.assignmentTitle}">Title</h2>
+        <h4 class="description" th:text="${kata.question}"> Description</h4>
+        <form class="form-group" th:attr="action='/kata?id='+${kata.getId()}" method="POST">
+            <label for="submission">Submission</label>
+            <input class="form-control" type="text" name="submission" id="submission" th:attr="value=${kata.getSubmission()}" required>
+            <button type="submit">Submit a link to your repo!</button>
         </form>
     </body>
 </html>

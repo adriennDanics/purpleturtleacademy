@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
 
@@ -20,7 +20,7 @@
                 <h4>Katas</h4>
             </li>
             <div th:each="kata,iterStat : ${kataList}">
-                <a class="dropdown-item disabled"  href="#" data-link="@{/kata(id=${kata.getId()})}" th:text="${kata.getAssignmentTitle()}" aria-disabled="true">Name</a>
+                <a class="dropdown-item"  th:href="@{/kata(id=${kata.getId()})}" th:text="${kata.getAssignmentTitle()}">Name</a>
             </div>
             <li class="nav-item">
                 <h4>PAs</h4>
