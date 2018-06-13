@@ -16,7 +16,7 @@ import java.util.List;
 
 public class CoursesController extends AbstractController {
     
-    PersistenceImplementation persistenceImplementation;
+    private PersistenceImplementation persistenceImplementation;
 
     public CoursesController(PersistenceImplementation persistenceImplementation) {
         this.persistenceImplementation = persistenceImplementation;

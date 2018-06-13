@@ -19,15 +19,15 @@ import java.io.IOException;
 public class RegistrationController extends AbstractController {
 
     private PersistenceImplementation persistenceImplementation;
+    private Hash hash;
 
-    public RegistrationController(PersistenceImplementation persistenceImplementation) {
+    public RegistrationController(PersistenceImplementation persistenceImplementation, Hash hash) {
         this.persistenceImplementation = persistenceImplementation;
+        this.hash = hash;
     }
-
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-
         WebContext context = new WebContext(req, resp, req.getServletContext());
 
         TemplateEngine engine = TemplateEngineUtil.getTemplateEngine(req.getServletContext());
@@ -36,36 +36,34 @@ public class RegistrationController extends AbstractController {
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-
-        String username = req.getParameter("username");
-        String password = req.getParameter("password");
-        String passwordConfirm = req.getParameter("password_confirm");
-        String firstName = req.getParameter("first_name");
-        String lastName = req.getParameter("last_name");
-        String email = req.getParameter("email");
-        String gender = req.getParameter("gender");
-
         HttpSession session = req.getSession();
-
-        if(password.equals(passwordConfirm)) {
-            Course course = persistenceImplementation.findCourseByName(CourseType.ORIENTATION);
-            String hashedPassword = Hash.hashPassword(req.getParameter("password"));
-            Student student = new Student(username, hashedPassword);
-            student.setFirstName(firstName);
-            student.setLastName(lastName);
-            student.setEmail(email);
-            student.setCourse(course);
-            student.setGender(translateGender(gender));
+        if (passwordsMatch(req)) {
+            Student student = createNewlyRegisteredStudent(req);
             session.setAttribute("student", student);
-            if(session.getAttribute("passwordNotMatch") != null) {
-                session.removeAttribute("passwordNotMatch");
-            }
             persistenceImplementation.persist(student);
+            clearPasswordNotMatchFromSession(session);
             resp.sendRedirect("");
         } else {
-            session.setAttribute("passwordNotMatch", "The passwords you entered are not matching!");
+            addPasswordNotMatchToSession(session);
             resp.sendRedirect("/registration");
         }
+    }
+
+    private void addPasswordNotMatchToSession(HttpSession session) {
+        session.setAttribute("passwordNotMatch", "The passwords you entered are not matching!");
+    }
+
+    private void clearPasswordNotMatchFromSession(HttpSession session) {
+        if (session.getAttribute("passwordNotMatch") != null) {
+            session.removeAttribute("passwordNotMatch");
+        }
+    }
+
+    private boolean passwordsMatch(HttpServletRequest req) {
+        String password = req.getParameter("password");
+        String passwordConfirm = req.getParameter("password_confirm");
+
+        return password.equals(passwordConfirm);
     }
 
     GenderEnum translateGender(String genderChecked) {
@@ -83,4 +81,21 @@ public class RegistrationController extends AbstractController {
     public void setPersistenceImplementation(PersistenceImplementation persistenceImplementation) {
         this.persistenceImplementation = persistenceImplementation;
     }
+
+    private Student createNewlyRegisteredStudent(HttpServletRequest req) {
+        String hashedPassword = hash.hashPassword(req.getParameter("password"));
+        Course course = persistenceImplementation.findCourseByName(CourseType.ORIENTATION);
+        GenderEnum gender = translateGender(req.getParameter("gender"));
+
+        return new Student(
+                req.getParameter("username"),
+                hashedPassword,
+                req.getParameter("first_name"),
+                req.getParameter("last_name"),
+                req.getParameter("email"),
+                course,
+                gender
+        );
+    }
+
 }

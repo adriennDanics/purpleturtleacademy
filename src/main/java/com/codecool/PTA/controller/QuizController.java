@@ -14,7 +14,7 @@ import java.io.BufferedReader;
 import java.io.IOException;
 
 public class QuizController extends AbstractController {
-    
+
     private PersistenceImplementation persistenceImplementation;
 
     public QuizController(PersistenceImplementation persistenceImplementation) {
@@ -23,7 +23,7 @@ public class QuizController extends AbstractController {
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        if(checkLogin(req)) {
+        if (checkLogin(req)) {
             long id = Long.valueOf(req.getParameter("id"));
 
             WebContext context = new WebContext(req, resp, req.getServletContext());
@@ -38,20 +38,21 @@ public class QuizController extends AbstractController {
             resp.sendRedirect("/login");
         }
     }
+
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         Student student = (Student) getLoggedInUser(req);
 
         StringBuilder sb = new StringBuilder();
         BufferedReader reader = req.getReader();
-        try {
-            String line;
-            while ((line = reader.readLine()) != null) {
-                sb.append(line).append('\n');
-            }
-        } finally {
-            reader.close();
+
+        String line;
+        while ((line = reader.readLine()) != null) {
+            sb.append(line).append('\n');
         }
+
+        reader.close();
+
         long xp = Long.valueOf(sb.toString().trim());
         student.setXp(xp);
         persistenceImplementation.merge(student);

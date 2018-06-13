@@ -24,7 +24,7 @@ public class SendCourseInfo extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         long id = Long.valueOf(req.getParameter("id"));
-
+        //TODO: error handling
         Course course = persistenceImplementation.findCourseById(id);
         JSONObject item = new JSONObject();
         item.put("name", course.getName().toString());
@@ -39,7 +39,7 @@ public class SendCourseInfo extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         long id = Long.valueOf(req.getParameter("id"));
-
+        //TODO: error handling
         Course course = persistenceImplementation.findCourseById(id);
         HttpSession session = req.getSession();
         Student student = (Student) session.getAttribute("student");

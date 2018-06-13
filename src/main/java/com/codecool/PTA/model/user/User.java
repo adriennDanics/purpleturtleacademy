@@ -4,6 +4,7 @@ import javax.persistence.*;
 import java.time.LocalDate;
 import java.time.ZoneId;
 import java.util.Date;
+import java.util.Objects;
 
 @MappedSuperclass
 public abstract class User {
@@ -34,13 +35,17 @@ public abstract class User {
     protected User() {
     }
 
-    public User(String username, String password) {
+    public User(String username, String password, String firstName, String lastName, String email, GenderEnum gender) {
         LocalDate localDate = java.time.LocalDate.now();
         Date dateNow = Date.from(localDate.atStartOfDay(ZoneId.systemDefault()).toInstant());
 
         this.username = username;
         this.password = password;
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.email = email;
         this.registrationDate = dateNow;
+        this.gender = gender;
     }
 
     public long getId() {
@@ -102,5 +107,22 @@ public abstract class User {
 
     public void setImage(String image) {
         this.image = image;
+    }
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof User)) return false;
+        User user = (User) o;
+        return Objects.equals(getUsername(), user.getUsername()) &&
+                Objects.equals(getPassword(), user.getPassword()) &&
+                Objects.equals(getFirstName(), user.getFirstName()) &&
+                Objects.equals(getLastName(), user.getLastName()) &&
+                Objects.equals(getEmail(), user.getEmail()) &&
+                Objects.equals(registrationDate, user.registrationDate);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(getUsername(), getPassword(), getFirstName(), getLastName(), getEmail(), registrationDate);
     }
 }
