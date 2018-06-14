@@ -38,7 +38,7 @@ public class AssignmentConfig {
         studentList.add(student3);
     }
 
-    private boolean fillData() {
+    boolean fillData() {
         try {
             fillQuizQuestions();
             fillPAs();
