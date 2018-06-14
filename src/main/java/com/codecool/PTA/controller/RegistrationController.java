@@ -39,10 +39,18 @@ public class RegistrationController extends AbstractController {
         HttpSession session = req.getSession();
         if (passwordsMatch(req)) {
             Student student = createNewlyRegisteredStudent(req);
-            session.setAttribute("student", student);
-            persistenceImplementation.persist(student);
-            clearPasswordNotMatchFromSession(session);
-            resp.sendRedirect("");
+            if(persistenceImplementation.persist(student)) {
+                session.setAttribute("student", student);
+                clearPasswordNotMatchFromSession(session);
+                if (session.getAttribute("used") != null) {
+                    session.removeAttribute("used");
+                }
+                resp.sendRedirect("");
+            } else {
+                session.setAttribute("used", "used username or password");
+                resp.sendRedirect("/registration");
+            }
+
         } else {
             addPasswordNotMatchToSession(session);
             resp.sendRedirect("/registration");
