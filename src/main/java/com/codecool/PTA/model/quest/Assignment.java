@@ -1,5 +1,6 @@
 package com.codecool.PTA.model.quest;
 
+import com.codecool.PTA.model.course.CourseType;
 import com.codecool.PTA.model.user.Level;
 
 import javax.persistence.*;
@@ -17,7 +18,7 @@ public abstract class Assignment {
     @Enumerated(EnumType.STRING)
     CourseType courseType;
 
-    @Column(unique = true, nullable = false)
+    @Column(nullable = false)
     private String assignmentTitle;
 
     @Column(nullable = false, length = 1023)

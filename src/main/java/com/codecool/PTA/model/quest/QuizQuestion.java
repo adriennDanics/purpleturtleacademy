@@ -1,8 +1,11 @@
 package com.codecool.PTA.model.quest;
 
+import com.codecool.PTA.model.course.CourseType;
 import com.codecool.PTA.model.user.Level;
 
-import javax.persistence.*;
+import javax.persistence.ElementCollection;
+import javax.persistence.Entity;
+import javax.persistence.MapKeyColumn;
 import java.util.HashMap;
 import java.util.Map;
 

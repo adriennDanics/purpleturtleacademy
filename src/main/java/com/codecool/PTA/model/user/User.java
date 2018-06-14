@@ -46,6 +46,7 @@ public abstract class User {
         this.email = email;
         this.registrationDate = dateNow;
         this.gender = gender;
+        this.image = gender.getImage();
     }
 
     public long getId() {
@@ -97,7 +98,7 @@ public abstract class User {
         this.image = gender.getImage();
     }
 
-    public void reSetDefaultImage(){
+    public void reSetDefaultImage() {
         this.image = gender.getImage();
     }
 
@@ -108,6 +109,7 @@ public abstract class User {
     public void setImage(String image) {
         this.image = image;
     }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;

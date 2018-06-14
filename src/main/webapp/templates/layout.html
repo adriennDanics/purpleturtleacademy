@@ -18,7 +18,11 @@
         <!--Our stuff-->
         <link href="https://fonts.googleapis.com/css?family=Gochi+Hand" rel="stylesheet">
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+        <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.9/css/all.css"
+              integrity="sha384-5SOiIsAziJl6AWe0HWRKTXlfcSHKmYV4RBF18PPJ173Kzn7jzMyFuTtk8JA7QQG1" crossorigin="anonymous"
+              defer>
         <link rel="stylesheet" type="text/css" href="/static/css/style.css">
+        <script src="static/js/layout.js" defer></script>
     </div>
 
         <nav th:fragment="navbar" class="navbar navbar-expand-lg fixed-top navbar-light bg-light">
@@ -52,9 +56,12 @@
                             <a class="dropdown-item" href="/list-users">User list</a>
                             <a class="dropdown-item" href="/friends">Friends</a>
                             <!--<div class="dropdown-divider"></div>-->
-                            <a class="dropdown-item" href="/friend-requests">Friend requests</a>
+                            <a class="dropdown-item" id="friend-request-button" href="/friend-requests">Friend requests</a>
                         </div>
                     </li>
+                    <div th:if="${session.newRequest}" id="notification_bell">
+                        <i class="fas fa-bell fa-2x mr-3" id="notification_element"></i>
+                    </div>
                 </ul>
                 <!--<form class="form-inline my-2 my-lg-0">
                     <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">

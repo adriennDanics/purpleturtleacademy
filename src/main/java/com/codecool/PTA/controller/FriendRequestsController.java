@@ -25,11 +25,10 @@ public class FriendRequestsController extends AbstractController {
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 
         if(checkLogin(req)) {
+            isNewFriendRequest(req);
             HttpSession session = req.getSession();
             Student student = (Student) session.getAttribute("student");
-
             Set<Student> friendRequests = student.getTaggedByOthers();
-
             WebContext context = new WebContext(req, resp, req.getServletContext());
             context.setVariable("student", student);
             context.setVariable("taggedBy", friendRequests);
@@ -38,5 +37,10 @@ public class FriendRequestsController extends AbstractController {
         } else {
             resp.sendRedirect("/login");
         }
+
+
+
+
+
     }
 }
