@@ -17,8 +17,10 @@
         <table>
             <tbody>
             <tr class="card" th:attr="data-id=${course.id}">
+                <div class="certi-link" th:unless="${orientation}">
                     <td><a href="/assignments" th:text="${course.name}">Name</a></td>
-                    <td th:text="${course.description}">Description</td>
+                        <td th:text="${course.description}">Description</td>
+                </div>
             </tr>
             </tbody>
         </table>

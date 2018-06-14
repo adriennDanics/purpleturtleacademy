@@ -2,6 +2,7 @@ package com.codecool.PTA.controller;
 
 import com.codecool.PTA.config.TemplateEngineUtil;
 import com.codecool.PTA.model.course.Course;
+import com.codecool.PTA.model.course.CourseType;
 import com.codecool.PTA.persistence.PersistenceImplementation;
 import com.codecool.PTA.model.user.Student;
 import org.thymeleaf.TemplateEngine;
@@ -29,6 +30,9 @@ public class IndexController extends AbstractController {
 
             Course course = persistenceImplementation.findCourseById(student.getCourse().getId());
             context.setVariable("course", course);
+            if(course.getName()== CourseType.ORIENTATION){
+                context.setVariable("orientation", "orientation");
+            }
             context.setVariable("student", student);
             TemplateEngine engine = TemplateEngineUtil.getTemplateEngine(req.getServletContext());
             engine.process("index/index.html", context, resp.getWriter());
