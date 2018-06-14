@@ -4,6 +4,7 @@ dom = {
     _correctAnswersList: [],
     _userAnswers: [],
     _responseDiv: "",
+    _xp: Number(document.getElementById("get-xp").dataset.xp),
 
     init: function () {
         dom.getCorrectAnswers();
@@ -64,20 +65,49 @@ dom = {
         dom._responseDiv.appendChild(responseParagraph);
         let submitButton = document.getElementById("submitFillInAnswer");
         submitButton.style.display = 'none';
+        dom._xp += 20;
+        let next = document.getElementById("get-next").dataset.next;
+        dom.checkIfNext(next);
     },
 
     wrongAnswerResponse: function() {
         let responseParagraph = document.createElement("p");
         responseParagraph.innerHTML = "Your answer is wrong!";
+        let xp = document.getElementById("get-xp");
+        xp.innerText = dom._xp + " XP";
         dom.clearResponseDiv();
         dom._responseDiv.appendChild(responseParagraph);
         dom._userAnswers = [];
+        dom._xp -= 10;
     },
 
     clearResponseDiv: function() {
         dom._responseDiv.innerHTML = "";
-    }
+    },
 
+    checkIfNext: function(next) {
+        if (next <= 0) {
+            dom.sendXP();
+            window.location.replace("/assignments");
+        } else {
+            dom.sendXP();
+            window.location.replace("http://localhost:8080/question?id="+String(next-1));
+        }
+    },
+
+    sendXP: function() {
+    $.ajax({
+        type: "POST",
+        url: "http://localhost:8080/quiz",
+        data: JSON.stringify({'xp': dom._xp}),
+        async: false,
+        contentType: "application/json; charset=utf-8",
+        dataType: 'json',
+        success: function () {
+
+        }
+    });
+}
 };
 
 dom.init();

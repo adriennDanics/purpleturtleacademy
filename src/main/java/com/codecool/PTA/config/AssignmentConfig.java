@@ -86,10 +86,71 @@ public class AssignmentConfig {
         questionList.add(quizQuestion4);
 
         Map<String, Boolean> answers5 = new HashMap<>();
-        answers5.put("curses.echo()", true);
-        answers5.put("curses.echo", false);
-        QuizQuestion quizQuestion5 = new QuizQuestion("What is the built-in function for entering echo mode in curses?", "Entering echo mode", Level.BEGINNER, CourseType.PYTHON, answers5);
+        answers5.put("List", true);
+        answers5.put("Dictionary", false);
+        answers5.put("Tuple", false);
+        answers5.put("Array", false);
+        QuizQuestion quizQuestion5 = new QuizQuestion("What data type is the object below ? <br> L = [1, 23, \'hello\', 1]?", "Data Types", Level.BEGINNER, CourseType.PYTHON, answers5);
         questionList.add(quizQuestion5);
+
+        Map<String, Boolean> answers6 = new HashMap<>();
+        answers6.put("curses.echo()", true);
+        answers6.put("curses.echo", false);
+        QuizQuestion quizQuestion6 = new QuizQuestion("What is the built-in function for entering echo mode in curses?", "Entering echo mode", Level.INTERMEDIATE, CourseType.PYTHON, answers6);
+        questionList.add(quizQuestion6);
+
+        Map<String, Boolean> answers7 = new HashMap<>();
+        answers7.put("1 only", false);
+        answers7.put("2 and 3 only", false);
+        answers7.put("1 and 3 only", true);
+        answers7.put("2 only", false);
+        answers7.put("None", false);
+        QuizQuestion quizQuestion7 = new QuizQuestion("Which of the following statement(s) is TRUE?" +"<br>"+
+                "1. A hash function takes a message of arbitrary length and generates a fixed length code." +"<br>"+
+                "2. A hash function takes a message of fixed length and generates a code of variable length." +"<br>"+
+                "3. A hash function may give the same hash value for distinct messages.", "Hash function", Level.INTERMEDIATE, CourseType.PYTHON, answers7);
+        questionList.add(quizQuestion7);
+
+        Map<String, Boolean> answers8 = new HashMap<>();
+        answers8.put("Hello (\'foo\', \'bin\') and (\'foo\', \'bin\')", false);
+        answers8.put("Error", false);
+        answers8.put("Hello foo and bin", true);
+        answers8.put("None of the above", false);
+        QuizQuestion quizQuestion8 = new QuizQuestion("What is the output of the following?\n" +
+                "<br>" +
+                "print(\"Hello {0[0]} and {0[1]}\".format((\'foo\', \'bin\')))\n", "Formatting strings", Level.INTERMEDIATE, CourseType.PYTHON, answers8);
+        questionList.add(quizQuestion8);
+
+        Map<String, Boolean> answers9 = new HashMap<>();
+        answers9.put("[\'a\',\'b\',\'c\',\'d\'].<br> [\'a\',\'b\',\'c\',\'d\'].", false);
+        answers9.put("[\'a\',\'@\',\'b\',\'@\',\'c\',\'@\',\'d\'].<br> [\'a\',\'b\',\'c\',\'d\'].", false);
+        answers9.put("[\'a\',\'@\',\'b@c@d\'].<br> [\'a\',\'b\',\'c\',\'d\'].", true);
+        answers9.put("[\'a\',\'@\',\'b@c@d\'].<br> [\'a\',\'@\',\'b\',\'@\',\'c\',\'@\',\'d\'].", false);
+        QuizQuestion quizQuestion9 = new QuizQuestion("What is the output of the following piece of code?\n" +
+                "<br>" +
+                "s=\"a@b@c@d\"<br>" +
+                "a=list(s.partition(\"@\"))<br>" +
+                "print(a)<br>" +
+                "b=list(s.split(\"@\",3))<br>" +
+                "print(b)", "Split v Partition", Level.ADVANCED, CourseType.PYTHON, answers9);
+        questionList.add(quizQuestion9);
+
+        Map<String, Boolean> answers10 = new HashMap<>();
+        answers10.put("Functions with an at sign in their names", false);
+        answers10.put("Functions that return themselves", false);
+        answers10.put("Functions that modify other functions", true);
+        QuizQuestion quizQuestion10 = new QuizQuestion("What are decorators?", "Decorators", Level.ADVANCED, CourseType.PYTHON, answers10);
+        questionList.add(quizQuestion10);
+
+        Map<String, Boolean> answers11 = new HashMap<>();
+        answers11.put("An error occurs", false);
+        answers11.put("[0, 1, 4]", false);
+        answers11.put("[1, 25, 81]", true);
+        answers11.put("[1, 25]", false);
+        QuizQuestion quizQuestion11 = new QuizQuestion("What is the output of this code?<br>" +
+                "sqs = [0, 1, 4, 9, 16, 25, 36, 49, 64, 81]<br>" +
+                "print(sqs[1::4])", "List slicing", Level.ADVANCED, CourseType.PYTHON, answers11);
+        questionList.add(quizQuestion11);
     }
 
     private void fillPAs() {
@@ -145,7 +206,61 @@ public class AssignmentConfig {
         persistenceImplementation.persist(answer2);
         persistenceImplementation.persist(answer3);
 
-        FillInTheBlank toFill3 = new FillInTheBlank(Level.BEGINNER,
+        FillInTheBlank toFill3 = new FillInTheBlank(Level.INTERMEDIATE,
+                CourseType.PYTHON,
+                "Fill in the blanks to read the contents of a file using the \"with\" statement.",
+                "<input type=\"text\" class=\"answer\" size=\"5\" > \n open(filename) <input type=\"text\" class=\"answer\" size=\"5\" > f:<br>" +
+                        "   text = f.read()");
+
+        FillInAnswer answer4 = new FillInAnswer("with", toFill3);
+        FillInAnswer answer5 = new FillInAnswer("as", toFill3);
+
+        persistenceImplementation.persist(toFill3);
+        persistenceImplementation.persist(answer4);
+        persistenceImplementation.persist(answer5);
+
+        FillInTheBlank toFill4 = new FillInTheBlank(Level.INTERMEDIATE,
+                CourseType.PYTHON,
+                "Create a list of multiples of 3 from 0 to 20.",
+                "a = [i for i in range(20) <input type=\"text\" class=\"answer\" size=\"5\" > i% <input type=\"text\" class=\"answer\" size=\"5\" > ==0]");
+
+        FillInAnswer answer7 = new FillInAnswer("if", toFill4);
+        FillInAnswer answer8 = new FillInAnswer("3", toFill4);
+
+
+        persistenceImplementation.persist(toFill4);
+        persistenceImplementation.persist(answer7);
+        persistenceImplementation.persist(answer8);
+
+
+        FillInTheBlank toFill5 = new FillInTheBlank(Level.ADVANCED,
+                CourseType.PYTHON,
+                "Fill in the blanks to import the cycle function from the itertools module.",
+                "<input type=\"text\" class=\"answer\" size=\"5\" > itertools import <input type=\"text\" class=\"answer\" size=\"5\" >");
+
+        FillInAnswer answer9 = new FillInAnswer("from", toFill5);
+        FillInAnswer answer10 = new FillInAnswer("cycle", toFill5);
+
+        persistenceImplementation.persist(toFill5);
+        persistenceImplementation.persist(answer9);
+        persistenceImplementation.persist(answer10);
+
+        FillInTheBlank toFill6 = new FillInTheBlank(Level.ADVANCED,
+                CourseType.PYTHON,
+                "Fill in the blanks to create a class and its constructor, taking one argument and assigning it to the \"name\" attribute. Then create an object of the class.",
+                "class Student:<br> def <input type=\"text\" class=\"answer\" size=\"5\" >(self, name):<br> " +
+                        "self <input type=\"text\" class=\"answer\" size=\"5\" > = name<br>" +
+                        "<br>" +
+                        "test = Student(\"Bob\")");
+
+        FillInAnswer answer12 = new FillInAnswer("__init__", toFill6);
+        FillInAnswer answer13 = new FillInAnswer(".name", toFill6);
+
+        persistenceImplementation.persist(toFill6);
+        persistenceImplementation.persist(answer12);
+        persistenceImplementation.persist(answer13);
+
+        FillInTheBlank toFill7 = new FillInTheBlank(Level.BEGINNER,
                                                     CourseType.PYTHON,
                                                     "Please fill the missing parts!",
                                                     "temperature = 30<br>" +
@@ -154,14 +269,14 @@ public class AssignmentConfig {
                                                             "<input type=\"text\" class=\"answer\" size=\"5\" >:<br>" +
                                                             ">>> print(\"It is ok.\")");
 
-        FillInAnswer answer4 = new FillInAnswer("if", toFill3);
-        FillInAnswer answer5 = new FillInAnswer("else", toFill3);
+        FillInAnswer answer14 = new FillInAnswer("if", toFill7);
+        FillInAnswer answer15 = new FillInAnswer("else", toFill7);
 
-        persistenceImplementation.persist(toFill3);
-        persistenceImplementation.persist(answer4);
-        persistenceImplementation.persist(answer5);
+        persistenceImplementation.persist(toFill7);
+        persistenceImplementation.persist(answer14);
+        persistenceImplementation.persist(answer15);
 
-        FillInTheBlank toFill4 = new FillInTheBlank(Level.BEGINNER,
+        FillInTheBlank toFill8 = new FillInTheBlank(Level.BEGINNER,
                                                     CourseType.PYTHON,
                                                     "Create a for loop to sum the numbers!",
                                                     "numbers = [1, 2, 3]<br>" +
@@ -169,25 +284,25 @@ public class AssignmentConfig {
                                                             "<input type=\"text\" class=\"answer\" size=\"5\" > number <input type=\"text\" class=\"answer\" size=\"5\" > numbers:<br>" +
                                                             ">>> sum += number");
 
-        FillInAnswer answer6 = new FillInAnswer("for", toFill4);
-        FillInAnswer answer7 = new FillInAnswer("in", toFill4);
+        FillInAnswer answer16 = new FillInAnswer("for", toFill8);
+        FillInAnswer answer17 = new FillInAnswer("in", toFill8);
 
-        persistenceImplementation.persist(toFill4);
-        persistenceImplementation.persist(answer6);
-        persistenceImplementation.persist(answer7);
+        persistenceImplementation.persist(toFill8);
+        persistenceImplementation.persist(answer16);
+        persistenceImplementation.persist(answer17);
 
-        FillInTheBlank toFill5 = new FillInTheBlank(Level.BEGINNER,
+        FillInTheBlank toFill9 = new FillInTheBlank(Level.BEGINNER,
                                                     CourseType.PYTHON,
                                                     "Create a function which adds two numbers",
                                                     "<input type=\"text\" class=\"answer\" size=\"5\" > sum_numbers<input type=\"text\" class=\"answer\" size=\"5\" ><br>" +
                                                             ">>> return a + b");
 
-        FillInAnswer answer8 = new FillInAnswer("def", toFill5);
-        FillInAnswer answer9 = new FillInAnswer("(a, b):", toFill5);
+        FillInAnswer answer18 = new FillInAnswer("def", toFill9);
+        FillInAnswer answer19 = new FillInAnswer("(a, b):", toFill9);
 
-        persistenceImplementation.persist(toFill5);
-        persistenceImplementation.persist(answer8);
-        persistenceImplementation.persist(answer9);
+        persistenceImplementation.persist(toFill9);
+        persistenceImplementation.persist(answer18);
+        persistenceImplementation.persist(answer19);
 
     }
 

@@ -4,9 +4,10 @@ import com.codecool.PTA.model.course.CourseType;
 import com.codecool.PTA.model.user.Level;
 
 import javax.persistence.*;
+import java.util.Objects;
 
 @MappedSuperclass
-public abstract class Assignment {
+public abstract class Assignment implements Comparable{
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -56,5 +57,31 @@ public abstract class Assignment {
 
     public void setAssignmentTitle(String assignmentTitle) {
         this.assignmentTitle = assignmentTitle;
+    }
+
+    @Override
+    public int compareTo(Object o) {
+        if(this.equals(o)){
+            return 0;
+        } else {
+            return 1;
+        }
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof Assignment)) return false;
+        Assignment that = (Assignment) o;
+        return getLevel() == that.getLevel() &&
+                getCourseType() == that.getCourseType() &&
+                Objects.equals(getAssignmentTitle(), that.getAssignmentTitle()) &&
+                Objects.equals(getQuestion(), that.getQuestion());
+    }
+
+    @Override
+    public int hashCode() {
+
+        return Objects.hash(getLevel(), getCourseType(), getAssignmentTitle(), getQuestion());
     }
 }

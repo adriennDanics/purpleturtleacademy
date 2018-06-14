@@ -8,14 +8,13 @@ let ID = document.getElementById("get-id").dataset.quizid;
 function main(){
     $(document).ready(function () {
         let answers = document.getElementsByClassName("quiz_answers");
+        let next = Number(document.getElementById("get-next").dataset.next);
         $.each(answers, function (i) {
             answers[i].addEventListener("click", function () {
                 if(answers[i].getAttribute("id") ==="true"){
                     answers[i].classList.add("greenback");
                     modifyXPPositive();
-                    setTimeout(function () {
-                        window.location.replace("http://localhost:8080/assignments")
-                    }, 1000);
+                    checkIfNext(next);
                 } else {
                     modifyXPNegative();
                     answers[i].classList.add("redback");
@@ -53,7 +52,7 @@ function sendXP() {
     $.ajax({
         type: "POST",
         url: "http://localhost:8080/quiz?id=" + ID,
-        data: JSON.stringify(XP),
+        data: JSON.stringify({'xp': XP}),
         async: false,
         contentType: "application/json; charset=utf-8",
         dataType: 'json',
@@ -61,6 +60,18 @@ function sendXP() {
 
         }
     });
+}
+
+function checkIfNext(next) {
+    if(next <= 0){
+        setTimeout(function () {
+            window.location.replace("/assignments");
+        }, 1000);
+    } else {
+        setTimeout(function () {
+            window.location.replace("http://localhost:8080/question?id="+String(next-1));
+        }, 1000);
+    }
 }
 
 main();

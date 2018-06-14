@@ -1,9 +1,9 @@
 package com.codecool.PTA.controller;
 
 import com.codecool.PTA.config.TemplateEngineUtil;
-import com.codecool.PTA.persistence.PersistenceImplementation;
 import com.codecool.PTA.model.quest.FillInTheBlank;
 import com.codecool.PTA.model.user.Student;
+import com.codecool.PTA.persistence.PersistenceImplementation;
 import org.thymeleaf.TemplateEngine;
 import org.thymeleaf.context.WebContext;
 
@@ -22,18 +22,22 @@ public class FillTheBlanksController extends AbstractController {
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        if(checkLogin(req)){
+            WebContext context = new WebContext(req, resp, req.getServletContext());
+            String id = req.getParameter("id");
         isNewFriendRequest(req);
-        WebContext context = new WebContext(req, resp, req.getServletContext());
 
-        //TODO: don't use magic numbers for question index
-        FillInTheBlank fill1 = persistenceImplementation.getEm().find(FillInTheBlank.class, 5L);
-        context.setVariable("fill", fill1);
+            FillInTheBlank fill1 = persistenceImplementation.getEm().find(FillInTheBlank.class, Long.valueOf(id));
+            context.setVariable("fill", fill1);
 
-        Student student = (Student) getLoggedInUser(req);
-        context.setVariable("student", student);
+            Student student = (Student) getLoggedInUser(req);
+            context.setVariable("student", student);
+            context.setVariable("left", req.getParameter("left"));
 
-        TemplateEngine engine = TemplateEngineUtil.getTemplateEngine(req.getServletContext());
-        engine.process("fillInTheBlank/fillInTheBlank.html", context, resp.getWriter());
-
+            TemplateEngine engine = TemplateEngineUtil.getTemplateEngine(req.getServletContext());
+            engine.process("fillInTheBlank/fillInTheBlank.html", context, resp.getWriter());
+        } else {
+            resp.sendRedirect("/login");
+        }
     }
 }
