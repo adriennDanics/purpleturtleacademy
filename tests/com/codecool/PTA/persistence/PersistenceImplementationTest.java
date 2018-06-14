@@ -37,9 +37,9 @@ class PersistenceImplementationTest {
         this.course = new Course(CourseType.PYTHON, "Python");
         this.student = new Student("username", "password", "first_name", "last_name", "email", course, gender);
         this.mentor = new Mentor("username", "password", "mentorFirstName", "mentorLastName", "mentorEmail", gender);
-        this.pa = new PA(Level.BEGINNER, CourseType.PYTHON, "PA title", "PA question");
+        this.pa = new PA(Level.BEGINNER, CourseType.PYTHON, "PA title", "PA question", false);
         createExampleQuizQuestion();
-        this.kata = new Kata(Level.BEGINNER, CourseType.PYTHON, "kata title", "kata question");
+        this.kata = new Kata(Level.BEGINNER, CourseType.PYTHON, "kata title", "kata question", false);
         createFillIn();
     }
 
