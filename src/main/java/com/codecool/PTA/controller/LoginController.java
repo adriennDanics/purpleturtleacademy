@@ -26,12 +26,10 @@ public class LoginController extends AbstractController {
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-
         WebContext context = new WebContext(req, resp, req.getServletContext());
 
         TemplateEngine engine = TemplateEngineUtil.getTemplateEngine(req.getServletContext());
         engine.process("login/login.html", context, resp.getWriter());
-
     }
 
     @Override
@@ -53,4 +51,5 @@ public class LoginController extends AbstractController {
         }
         resp.sendRedirect("/login");
     }
+
 }

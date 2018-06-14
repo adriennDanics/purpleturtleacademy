@@ -98,7 +98,7 @@ public abstract class User {
         this.image = gender.getImage();
     }
 
-    public void reSetDefaultImage(){
+    public void reSetDefaultImage() {
         this.image = gender.getImage();
     }
 
@@ -109,6 +109,7 @@ public abstract class User {
     public void setImage(String image) {
         this.image = image;
     }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;

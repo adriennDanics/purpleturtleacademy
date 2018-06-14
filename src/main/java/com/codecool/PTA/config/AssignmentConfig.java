@@ -7,7 +7,6 @@ import com.codecool.PTA.model.user.Student;
 import com.codecool.PTA.persistence.PersistenceImplementation;
 import com.codecool.PTA.model.course.CourseType;
 import com.codecool.PTA.model.user.Level;
-import com.codecool.PTA.persistence.PersistenceImplementation;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -39,7 +38,7 @@ public class AssignmentConfig {
         studentList.add(student3);
     }
 
-    private boolean fillData() {
+    boolean fillData() {
         try {
             fillQuizQuestions();
             fillPAs();
@@ -147,7 +146,7 @@ public class AssignmentConfig {
         persistenceImplementation.persist(answer3);
 
         FillInTheBlank toFill3 = new FillInTheBlank(Level.BEGINNER,
-                                                    CourseType.Python,
+                                                    CourseType.PYTHON,
                                                     "Please fill the missing parts!",
                                                     "temperature = 30<br>" +
                                                             "<input type=\"text\" class=\"answer\" size=\"5\" > temperatute >= 30:<br>" +
@@ -163,7 +162,7 @@ public class AssignmentConfig {
         persistenceImplementation.persist(answer5);
 
         FillInTheBlank toFill4 = new FillInTheBlank(Level.BEGINNER,
-                                                    CourseType.Python,
+                                                    CourseType.PYTHON,
                                                     "Create a for loop to sum the numbers!",
                                                     "numbers = [1, 2, 3]<br>" +
                                                             "sum = 0<br>" +
@@ -178,7 +177,7 @@ public class AssignmentConfig {
         persistenceImplementation.persist(answer7);
 
         FillInTheBlank toFill5 = new FillInTheBlank(Level.BEGINNER,
-                                                    CourseType.Python,
+                                                    CourseType.PYTHON,
                                                     "Create a function which adds two numbers",
                                                     "<input type=\"text\" class=\"answer\" size=\"5\" > sum_numbers<input type=\"text\" class=\"answer\" size=\"5\" ><br>" +
                                                             ">>> return a + b");
