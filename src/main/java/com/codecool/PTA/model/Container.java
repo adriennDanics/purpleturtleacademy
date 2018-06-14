@@ -7,6 +7,7 @@ import com.codecool.PTA.JSON.SendCourseInfo;
 import com.codecool.PTA.config.AssignmentConfig;
 import com.codecool.PTA.controller.*;
 import com.codecool.PTA.helper.Hash;
+import com.codecool.PTA.helper.RandomizeAssignment;
 import com.codecool.PTA.persistence.PersistenceImplementation;
 
 import javax.servlet.ServletContext;
@@ -17,6 +18,7 @@ public class Container {
     public void createObjects(ServletContextEvent sce) {
         PersistenceImplementation persistenceImplementation = new PersistenceImplementation();
         Hash hash = new Hash();
+        RandomizeAssignment randomAssignments = new RandomizeAssignment();
         new AssignmentConfig(persistenceImplementation);
         ServletContext servletContext = sce.getServletContext();
         servletContext.addServlet("loginController", new LoginController(persistenceImplementation, hash)).addMapping("/login");
@@ -35,6 +37,7 @@ public class Container {
         servletContext.addServlet("sendCourseInfo", new SendCourseInfo(persistenceImplementation)).addMapping("/courseinfo");
         servletContext.addServlet("receiveNewName", new ReceiveNewName(persistenceImplementation)).addMapping("/profile/newname");
         servletContext.addServlet("receiveNewPassword", new ReceiveNewPassword(persistenceImplementation, hash)).addMapping("/profile/newpassword");
+        servletContext.addServlet("questionController", new QuestionController(persistenceImplementation, randomAssignments)).addMapping("/question");
     }
     
 }

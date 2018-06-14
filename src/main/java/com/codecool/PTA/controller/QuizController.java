@@ -1,9 +1,10 @@
 package com.codecool.PTA.controller;
 
 import com.codecool.PTA.config.TemplateEngineUtil;
-import com.codecool.PTA.persistence.PersistenceImplementation;
 import com.codecool.PTA.model.quest.QuizQuestion;
 import com.codecool.PTA.model.user.Student;
+import com.codecool.PTA.persistence.PersistenceImplementation;
+import org.json.JSONObject;
 import org.thymeleaf.TemplateEngine;
 import org.thymeleaf.context.WebContext;
 
@@ -31,6 +32,7 @@ public class QuizController extends AbstractController {
             Student student = (Student) getLoggedInUser(req);
             context.setVariable("student", student);
             context.setVariable("question", question);
+            context.setVariable("left", req.getParameter("left"));
 
             TemplateEngine engine = TemplateEngineUtil.getTemplateEngine(req.getServletContext());
             engine.process("quiz/quizzes.html", context, resp.getWriter());
@@ -53,7 +55,9 @@ public class QuizController extends AbstractController {
 
         reader.close();
 
-        long xp = Long.valueOf(sb.toString().trim());
+        JSONObject xpInfo = new JSONObject(sb.toString());
+
+        long xp = Long.valueOf(xpInfo.get("xp").toString());
         student.setXp(xp);
         persistenceImplementation.merge(student);
     }

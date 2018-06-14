@@ -2,10 +2,7 @@ package com.codecool.PTA.persistence;
 
 import com.codecool.PTA.model.course.Course;
 import com.codecool.PTA.model.course.CourseType;
-import com.codecool.PTA.model.quest.FillInAnswer;
-import com.codecool.PTA.model.quest.Kata;
-import com.codecool.PTA.model.quest.PA;
-import com.codecool.PTA.model.quest.QuizQuestion;
+import com.codecool.PTA.model.quest.*;
 import com.codecool.PTA.model.user.Level;
 import com.codecool.PTA.model.user.Mentor;
 import com.codecool.PTA.model.user.Student;
@@ -171,4 +168,14 @@ public class PersistenceImplementation {
         return kataList;
     }
 
+    public List<FillInTheBlank> findAllFillInTheBlank(CourseType type, Level level){
+        EntityTransaction transaction = em.getTransaction();
+        transaction.begin();
+        Query query = em.createQuery("FROM FillInTheBlank WHERE courseType=:type AND level=:level", FillInTheBlank.class);
+        query.setParameter("type", type);
+        query.setParameter("level", level);
+        List<FillInTheBlank> fillInTheBlankList = query.getResultList();
+        transaction.commit();
+        return fillInTheBlankList;
+    }
 }

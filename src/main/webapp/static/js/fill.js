@@ -64,6 +64,8 @@ dom = {
         dom._responseDiv.appendChild(responseParagraph);
         let submitButton = document.getElementById("submitFillInAnswer");
         submitButton.style.display = 'none';
+        let next = document.getElementById("get-next").dataset.next;
+        dom.checkIfNext(next);
     },
 
     wrongAnswerResponse: function() {
@@ -76,8 +78,15 @@ dom = {
 
     clearResponseDiv: function() {
         dom._responseDiv.innerHTML = "";
-    }
+    },
 
+    checkIfNext: function(next) {
+        if (next <= 0) {
+            window.location.replace("/assignments");
+        } else {
+            window.location.replace("http://localhost:8080/question?id="+String(next-1));
+        }
+    }
 };
 
 dom.init();
