@@ -125,7 +125,7 @@ public class PersistenceImplementation {
         return courses;
     }
 
-    public List<QuizQuestion> findAllQuizQuestion(CourseType type, Level level) throws IOException {
+    public List<QuizQuestion> findAllQuizQuestions(CourseType type, Level level) throws IOException {
         EntityTransaction transaction = em.getTransaction();
         transaction.begin();
         Query query = em.createQuery("FROM QuizQuestion WHERE courseType=:type AND level=:level", QuizQuestion.class);

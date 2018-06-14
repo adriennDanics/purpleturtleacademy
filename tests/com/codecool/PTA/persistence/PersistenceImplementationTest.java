@@ -3,11 +3,15 @@ package com.codecool.PTA.persistence;
 import com.codecool.PTA.model.course.Course;
 import com.codecool.PTA.model.course.CourseType;
 import com.codecool.PTA.model.quest.PA;
+import com.codecool.PTA.model.quest.QuizQuestion;
 import com.codecool.PTA.model.user.GenderEnum;
 import com.codecool.PTA.model.user.Level;
 import com.codecool.PTA.model.user.Mentor;
 import com.codecool.PTA.model.user.Student;
 import org.junit.jupiter.api.*;
+
+import java.util.HashMap;
+import java.util.Map;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -19,21 +23,31 @@ class PersistenceImplementationTest {
     private Student student;
     private Mentor mentor;
     private Course course;
-    private GenderEnum gender;
     private PA pa;
+    private QuizQuestion quizQuestion;
 
     private void createExamples() {
+        GenderEnum gender = GenderEnum.OTHER;
         this.course = new Course(CourseType.PYTHON, "Python");
-        this.gender = GenderEnum.OTHER;
         this.student = new Student("username", "password", "first_name", "last_name", "email", course, gender);
         this.mentor = new Mentor("username", "password", "mentorFirstName", "mentorLastName", "mentorEmail", gender);
         this.pa = new PA(Level.BEGINNER, CourseType.PYTHON, "PA title", "PA question");
+        createExampleQuizQuestion();
+    }
+
+    private void createExampleQuizQuestion() {
+        Map<String, Boolean> quizQuestionAnswers = new HashMap<>();
+        quizQuestionAnswers.put("str.replace", true);
+        quizQuestionAnswers.put("str.replace()", false);
+        quizQuestionAnswers.put("str.replace(old, new[, count])", false);
+        quizQuestionAnswers.put("str.replace(old, new)", false);
+        this.quizQuestion = new QuizQuestion("What is the built-in function for replacing a substring in a string?", "Replacing substrings", Level.BEGINNER, CourseType.PYTHON, quizQuestionAnswers);
     }
 
     @BeforeAll
     void setup() {
-        createExamples();
         this.persistenceImplementation = new PersistenceImplementation("pta-testPU");
+        createExamples();
     }
 
     @Test
@@ -82,7 +96,7 @@ class PersistenceImplementationTest {
     void findExistingPaById() {
         persistenceImplementation.persist(pa);
 
-        PA paInDB = persistenceImplementation.findPaById(1);
+        PA paInDB = persistenceImplementation.findPaById(1L);
         assertEquals(pa, paInDB);
     }
 
@@ -92,8 +106,16 @@ class PersistenceImplementationTest {
     }
 
     @Test
-    void findQuizQuestionById() {
-        assertEquals(1, 2);
+    void findExistingQuizQuestionById() {
+        persistenceImplementation.persist(quizQuestion);
+
+        QuizQuestion quizQuestionInDB = persistenceImplementation.findQuizQuestionById(1L);
+        assertEquals(quizQuestion, quizQuestionInDB);
+    }
+
+    @Test
+    void findNonExistentQuizQuestionById() {
+        assertThrows(IllegalArgumentException.class, () -> persistenceImplementation.findQuizQuestionById(666L));
     }
 
     @Test
