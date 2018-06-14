@@ -135,14 +135,59 @@ public class AssignmentConfig {
         FillInTheBlank toFill2 = new FillInTheBlank(Level.BEGINNER,
                                                     CourseType.Python,
                                                     "Please fill in the blank to print: Hello World!",
-                                                    "<input type=\"text\" class=\"answer\" size=\"5\" >(\"Hello  + \" <input type=\"text\" class=\"answer\" size=\"5\" >)");
+                                                    "<input type=\"text\" class=\"answer\" size=\"5\" >(\"Hello \" + <input type=\"text\" class=\"answer\" size=\"5\" >)");
 
         FillInAnswer answer2 = new FillInAnswer("print", toFill2);
-        FillInAnswer answer3 = new FillInAnswer(" World!\"", toFill2);
+        FillInAnswer answer3 = new FillInAnswer("\"World!\"", toFill2);
 
         persistenceImplementation.persist(toFill2);
         persistenceImplementation.persist(answer2);
         persistenceImplementation.persist(answer3);
+
+        FillInTheBlank toFill3 = new FillInTheBlank(Level.BEGINNER,
+                                                    CourseType.Python,
+                                                    "Please fill the missing parts!",
+                                                    "temperature = 30<br>" +
+                                                            "<input type=\"text\" class=\"answer\" size=\"5\" > temperatute >= 30:<br>" +
+                                                            ">>> print(\"It is hot!\")<br>" +
+                                                            "<input type=\"text\" class=\"answer\" size=\"5\" >:<br>" +
+                                                            ">>> print(\"It is ok.\")");
+
+        FillInAnswer answer4 = new FillInAnswer("if", toFill3);
+        FillInAnswer answer5 = new FillInAnswer("else", toFill3);
+
+        persistenceImplementation.persist(toFill3);
+        persistenceImplementation.persist(answer4);
+        persistenceImplementation.persist(answer5);
+
+        FillInTheBlank toFill4 = new FillInTheBlank(Level.BEGINNER,
+                                                    CourseType.Python,
+                                                    "Create a for loop to sum the numbers!",
+                                                    "numbers = [1, 2, 3]<br>" +
+                                                            "sum = 0<br>" +
+                                                            "<input type=\"text\" class=\"answer\" size=\"5\" > number <input type=\"text\" class=\"answer\" size=\"5\" > numbers:<br>" +
+                                                            ">>> sum += number");
+
+        FillInAnswer answer6 = new FillInAnswer("for", toFill4);
+        FillInAnswer answer7 = new FillInAnswer("in", toFill4);
+
+        persistenceImplementation.persist(toFill4);
+        persistenceImplementation.persist(answer6);
+        persistenceImplementation.persist(answer7);
+
+        FillInTheBlank toFill5 = new FillInTheBlank(Level.BEGINNER,
+                                                    CourseType.Python,
+                                                    "Create a function which adds two numbers",
+                                                    "<input type=\"text\" class=\"answer\" size=\"5\" > sum_numbers<input type=\"text\" class=\"answer\" size=\"5\" ><br>" +
+                                                            ">>> return a + b");
+
+        FillInAnswer answer8 = new FillInAnswer("def", toFill5);
+        FillInAnswer answer9 = new FillInAnswer("(a, b):", toFill5);
+
+        persistenceImplementation.persist(toFill5);
+        persistenceImplementation.persist(answer8);
+        persistenceImplementation.persist(answer9);
+
     }
 
     private void fillKatas() {
