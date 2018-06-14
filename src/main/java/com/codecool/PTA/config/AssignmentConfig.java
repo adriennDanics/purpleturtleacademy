@@ -147,7 +147,7 @@ public class AssignmentConfig {
         persistenceImplementation.persist(answer3);
 
         FillInTheBlank toFill3 = new FillInTheBlank(Level.BEGINNER,
-                                                    CourseType.Python,
+                                                    CourseType.PYTHON,
                                                     "Please fill the missing parts!",
                                                     "temperature = 30<br>" +
                                                             "<input type=\"text\" class=\"answer\" size=\"5\" > temperatute >= 30:<br>" +
@@ -163,7 +163,7 @@ public class AssignmentConfig {
         persistenceImplementation.persist(answer5);
 
         FillInTheBlank toFill4 = new FillInTheBlank(Level.BEGINNER,
-                                                    CourseType.Python,
+                                                    CourseType.PYTHON,
                                                     "Create a for loop to sum the numbers!",
                                                     "numbers = [1, 2, 3]<br>" +
                                                             "sum = 0<br>" +
@@ -178,7 +178,7 @@ public class AssignmentConfig {
         persistenceImplementation.persist(answer7);
 
         FillInTheBlank toFill5 = new FillInTheBlank(Level.BEGINNER,
-                                                    CourseType.Python,
+                                                    CourseType.PYTHON,
                                                     "Create a function which adds two numbers",
                                                     "<input type=\"text\" class=\"answer\" size=\"5\" > sum_numbers<input type=\"text\" class=\"answer\" size=\"5\" ><br>" +
                                                             ">>> return a + b");
