@@ -116,7 +116,6 @@ public class PersistenceImplementation {
         return students;
     }
 
-
     public List<Course> findAllCourses() throws IOException {
         EntityTransaction transaction = em.getTransaction();
         transaction.begin();
