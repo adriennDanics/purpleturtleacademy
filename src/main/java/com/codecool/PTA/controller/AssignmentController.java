@@ -14,6 +14,7 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 
 public class AssignmentController extends AbstractController {
@@ -32,7 +33,13 @@ public class AssignmentController extends AbstractController {
             context.setVariable("quizQuestions", quizQuestions);
             List<Kata> kataList = persistenceImplementation.findAllKatas();
             context.setVariable("kataList", kataList);
-            List<PA> paList = persistenceImplementation.findAllPaAssignments();
+            List<PA> tempList = persistenceImplementation.findAllPaAssignments();
+            List<PA> paList = new ArrayList();
+            for (PA pa:tempList) {
+                if (pa.isItTemplate){
+                    paList.add(pa);
+                }
+            }
             context.setVariable("paList", paList);
             Student student = (Student) getLoggedInUser(req);
             context.setVariable("student", student);

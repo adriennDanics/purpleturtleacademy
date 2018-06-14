@@ -24,6 +24,7 @@ public class CoursesController extends AbstractController {
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        //super.doGet(req, resp);
         if(checkLogin(req)) {
             WebContext context = new WebContext(req, resp, req.getServletContext());
             List<Course> courses = persistenceImplementation.findAllCourses();

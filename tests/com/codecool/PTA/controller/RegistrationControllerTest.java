@@ -30,7 +30,7 @@ class RegistrationControllerTest {
 
     @BeforeEach
     private void init() {
-        createStudentExample();
+//        createStudentExample();
         createCourse();
         mockClasses();
     }
@@ -43,9 +43,9 @@ class RegistrationControllerTest {
         this.pim = mock(PersistenceImplementation.class);
     }
 
-    private void createStudentExample() {
-        this.student = new Student("username", "password", "first_name", "last_name", "email", course);
-    }
+//    private void createStudentExample() {
+//        this.student = new Student("username", "password", "first_name", "last_name", "email", course);
+//    }
 
     private void createCourse() {
         this.course = new Course(CourseType.ORIENTATION, "orientation");

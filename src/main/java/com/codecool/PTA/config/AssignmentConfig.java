@@ -88,7 +88,7 @@ public class AssignmentConfig {
                         "After the 2nd number input, the script should calculate the addition or subtraction and print it out. " +
                         "Then the program should run again with asking for the first number. " +
                         "The script should exit when the user enters a letter instead of a number. " +
-                        "Submit your python script file.");
+                        "Submit your python script file.", true);
         paList.add(pa);
 
         PA pa2 = new PA(Level.INTERMEDIATE, CourseType.Python, "Codewars assignment",
@@ -97,7 +97,7 @@ public class AssignmentConfig {
                         "7 kyu kata scores 2 points and " +
                         "6 kyu kata scores 4 points. " +
                         "For practice and getting more familiar with Python tricks we suggest you to check the solutions " +
-                        "(after completing a kata), understand the top ranked ones and rewrite your code from scratch based on the new insight.");
+                        "(after completing a kata), understand the top ranked ones and rewrite your code from scratch based on the new insight.", true);
         paList.add(pa2);
 
         PA pa3 = new PA(Level.ADVANCED, CourseType.Java, "Practice JPA",
@@ -107,7 +107,7 @@ public class AssignmentConfig {
                         "Check the configurations in persistence.xml! " +
                         "The following steps hint the annotation to use or to modify to get to the expected result. " +
                         "Read about those annotations in the documentation or in any other resource, and play with the options, " +
-                        "always checking the consequences in the database and in the state of the in-memory objects!");
+                        "always checking the consequences in the database and in the state of the in-memory objects!", true);
         paList.add(pa3);
     }
 

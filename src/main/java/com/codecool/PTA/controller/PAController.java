@@ -31,6 +31,7 @@ public class PAController extends AbstractController {
             HttpSession session = req.getSession();
             Student student = (Student) session.getAttribute("student");
             context.setVariable("student", student);
+
             context.setVariable("question", question);
 
             TemplateEngine engine = TemplateEngineUtil.getTemplateEngine(req.getServletContext());
@@ -44,12 +45,13 @@ public class PAController extends AbstractController {
     public void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         long id = Long.valueOf(req.getParameter("id"));
 
-        PA pa = persistenceImplementation.findPaById(id);
+        PA originalPa = persistenceImplementation.findPaById(id);
         String submission = req.getParameter("submission");
         Student student = (Student) getLoggedInUser(req);
-        pa.setSubmission(submission);
-        pa.addStudent(student);
-        persistenceImplementation.merge(pa);
+        PA newPa = new PA(student.getLevel(), originalPa.getCourseType(), originalPa.getAssignmentTitle(), originalPa.getQuestion(), false);
+        newPa.setSubmission(submission);
+        newPa.addStudent(student);
+        persistenceImplementation.persist(newPa);
         resp.sendRedirect("/assignments");
     }
 }
