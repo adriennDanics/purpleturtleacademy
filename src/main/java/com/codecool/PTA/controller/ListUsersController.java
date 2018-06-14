@@ -25,21 +25,26 @@ public class ListUsersController extends AbstractController {
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 
-        HttpSession session = req.getSession();
-        Student loggedInStudent = (Student) session.getAttribute("student");
-        Set<Student> pendingFriends = loggedInStudent.getPendingFriends();
-        Set<Student> friendList = loggedInStudent.getFriends();
+        if(checkLogin(req)) {
+            isNewFriendRequest(req);
+            HttpSession session = req.getSession();
+            Student loggedInStudent = (Student) session.getAttribute("student");
 
-        List<Student> studentList = persistenceImplementation.findAllStudents();
-        studentList.remove(loggedInStudent);
-        studentList.removeAll(pendingFriends);
-        studentList.removeAll(friendList);
+            List<Student> studentList = persistenceImplementation.findAllStudents();
+            studentList.remove(loggedInStudent);
+            studentList.removeAll(loggedInStudent.getPendingFriends());
+            studentList.removeAll(loggedInStudent.getFriends());
+            studentList.removeAll(loggedInStudent.getTaggedByOthers());
 
-        WebContext context = new WebContext(req, resp, req.getServletContext());
-        context.setVariable("studentList", studentList);
-        context.setVariable("student", loggedInStudent);
-        TemplateEngine engine = TemplateEngineUtil.getTemplateEngine(req.getServletContext());
-        engine.process("listStudents/listStudents.html", context, resp.getWriter());
+            WebContext context = new WebContext(req, resp, req.getServletContext());
+            context.setVariable("studentList", studentList);
+            context.setVariable("student", loggedInStudent);
+            TemplateEngine engine = TemplateEngineUtil.getTemplateEngine(req.getServletContext());
+            engine.process("listStudents/listStudents.html", context, resp.getWriter());
+        } else {
+            resp.sendRedirect("/login");
+
+        }
 
     }
 }

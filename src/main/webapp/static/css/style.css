@@ -106,3 +106,14 @@ img {
     position: relative;
     margin: 10px 50px 10px 50px !important;
 }
+#notification_element {
+    color: red;
+}
+#notification_div {
+    top: 14px;
+    position: relative;
+}
+#notification_bell {
+    text-decoration: none;
+    cursor: pointer;
+}

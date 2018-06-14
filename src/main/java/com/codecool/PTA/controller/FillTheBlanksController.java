@@ -22,6 +22,7 @@ public class FillTheBlanksController extends AbstractController {
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        isNewFriendRequest(req);
         WebContext context = new WebContext(req, resp, req.getServletContext());
 
         //TODO: don't use magic numbers for question index

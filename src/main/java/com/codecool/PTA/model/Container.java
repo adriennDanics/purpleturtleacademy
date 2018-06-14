@@ -12,7 +12,7 @@ import javax.servlet.ServletContextEvent;
 public class Container {
 
     public void createObjects(ServletContextEvent sce) {
-        PersistenceImplementation persistenceImplementation = new PersistenceImplementation();
+        PersistenceImplementation persistenceImplementation = new PersistenceImplementation("ptaPU");
         Hash hash = new Hash();
         new AssignmentConfig(persistenceImplementation);
         ServletContext servletContext = sce.getServletContext();
@@ -38,7 +38,7 @@ public class Container {
         servletContext.addServlet("friendRequestsController", new FriendRequestsController(persistenceImplementation)).addMapping("/friend-requests");
         servletContext.addServlet("acceptFriendRequest", new AcceptFriendRequest(persistenceImplementation)).addMapping("/accept-request");
         servletContext.addServlet("rejectRequestsController", new RejectFriendRequest(persistenceImplementation)).addMapping("/reject-request");
-
+        servletContext.addServlet("removeNotification", new RemoveNotification(persistenceImplementation)).addMapping("/remove-notification");
     }
     
 }

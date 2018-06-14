@@ -26,6 +26,7 @@ public class CoursesController extends AbstractController {
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         //super.doGet(req, resp);
         if(checkLogin(req)) {
+            isNewFriendRequest(req);
             WebContext context = new WebContext(req, resp, req.getServletContext());
             List<Course> courses = persistenceImplementation.findAllCourses();
             Student student = (Student) getLoggedInUser(req);

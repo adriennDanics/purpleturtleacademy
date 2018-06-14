@@ -6,6 +6,7 @@
         <setting name="validation-enabled" value="true" />
         <setting name="provider-name" value="" />
         <datasource-mapping>
+          <factory-entry name="pta-testPU" value="cb6b5044-6408-41cc-95c7-c839b27c10fe" />
           <factory-entry name="ptaPU" value="b2013128-ce59-4665-b184-26f89afe453d" />
         </datasource-mapping>
         <deploymentDescriptor name="persistence.xml" url="file://$MODULE_DIR$/src/main/resources/META-INF/persistence.xml" />

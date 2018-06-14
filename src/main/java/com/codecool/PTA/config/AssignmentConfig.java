@@ -7,7 +7,6 @@ import com.codecool.PTA.model.user.Student;
 import com.codecool.PTA.persistence.PersistenceImplementation;
 import com.codecool.PTA.model.course.CourseType;
 import com.codecool.PTA.model.user.Level;
-import com.codecool.PTA.persistence.PersistenceImplementation;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -39,7 +38,7 @@ public class AssignmentConfig {
         studentList.add(student3);
     }
 
-    private boolean fillData() {
+    boolean fillData() {
         try {
             fillQuizQuestions();
             fillPAs();
