@@ -1,10 +1,8 @@
-package com.codecool.PTA.JSON;
+package com.codecool.PTA.controller;
 
 import org.junit.jupiter.api.Test;
-
-import static org.junit.jupiter.api.Assertions.*;
 //TODO
-class GetFillInAnswersControllerTest {
+class GetFillInAnswersControllerTest extends ControllerTest{
 
     @Test
     void testJSONObjectNotEmpty() {}
