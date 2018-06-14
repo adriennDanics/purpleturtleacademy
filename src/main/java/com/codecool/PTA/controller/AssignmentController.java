@@ -3,12 +3,10 @@ package com.codecool.PTA.controller;
 import com.codecool.PTA.config.TemplateEngineUtil;
 import com.codecool.PTA.model.course.CourseType;
 import com.codecool.PTA.model.quest.Kata;
-import com.codecool.PTA.model.user.Level;
-import com.codecool.PTA.persistence.PersistenceImplementation;
 import com.codecool.PTA.model.quest.PA;
-import com.codecool.PTA.model.quest.QuizQuestion;
+import com.codecool.PTA.model.user.Level;
 import com.codecool.PTA.model.user.Student;
-
+import com.codecool.PTA.persistence.PersistenceImplementation;
 import org.thymeleaf.TemplateEngine;
 import org.thymeleaf.context.WebContext;
 
@@ -36,8 +34,6 @@ public class AssignmentController extends AbstractController {
             isNewFriendRequest(req);
             WebContext context = new WebContext(req, resp, req.getServletContext());
             try{
-                List<QuizQuestion> quizQuestions = persistenceImplementation.findAllQuizQuestions(courseName, levelName);
-
                 List<Kata> tempKataList = persistenceImplementation.findAllKatas(courseName, levelName);
                 List<Kata> kataList = new ArrayList<>();
                 for (Kata kata:tempKataList) {
@@ -45,7 +41,13 @@ public class AssignmentController extends AbstractController {
                         kataList.add(kata);
                     }
                 }
+                context.setVariable("kataList", kataList);
 
+            } catch (IOException ex){
+                context.setVariable("kataList", null);
+            }
+
+            try {
                 List<PA> tempPaList = persistenceImplementation.findAllPaAssignments(courseName, levelName);
                 List<PA> paList = new ArrayList();
                 for (PA pa:tempPaList) {
@@ -53,16 +55,11 @@ public class AssignmentController extends AbstractController {
                         paList.add(pa);
                     }
                 }
-                context.setVariable("quizQuestions", quizQuestions);
-                context.setVariable("kataList", kataList);
                 context.setVariable("paList", paList);
-
             } catch (IOException ex){
-                context.setVariable("quizQuestions", null);
-                context.setVariable("kataList", null);
                 context.setVariable("paList", null);
-                ex.getStackTrace();
             }
+
             context.setVariable("student", student);
 
             TemplateEngine engine = TemplateEngineUtil.getTemplateEngine(req.getServletContext());
