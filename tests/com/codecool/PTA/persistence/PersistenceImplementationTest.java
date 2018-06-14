@@ -53,7 +53,20 @@ class PersistenceImplementationTest {
     }
 
     @Test
-    void findStudentById() {
+    void testFindExistingStudentById() {
+        persistenceImplementation.persist(course);
+        persistenceImplementation.persist(student);
+
+        Student studentInDB = persistenceImplementation.findStudentById(1L);
+        assertEquals(student, studentInDB);
+    }
+
+    @Test
+    void testFindNonExistentStudentById() {
+        persistenceImplementation.persist(course);
+        persistenceImplementation.persist(student);
+
+        assertThrows(IllegalArgumentException.class, () -> persistenceImplementation.findStudentById(666L));
     }
 
     @Test
