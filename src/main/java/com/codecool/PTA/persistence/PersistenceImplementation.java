@@ -1,11 +1,12 @@
 package com.codecool.PTA.persistence;
 
 import com.codecool.PTA.model.course.Course;
-import com.codecool.PTA.model.quest.*;
 import com.codecool.PTA.model.course.CourseType;
+import com.codecool.PTA.model.quest.FillInAnswer;
 import com.codecool.PTA.model.quest.Kata;
 import com.codecool.PTA.model.quest.PA;
 import com.codecool.PTA.model.quest.QuizQuestion;
+import com.codecool.PTA.model.user.Level;
 import com.codecool.PTA.model.user.Mentor;
 import com.codecool.PTA.model.user.Student;
 
@@ -115,19 +116,25 @@ public class PersistenceImplementation {
         return results;
     }
 
-    public List<QuizQuestion> findAllQuizQuestion() {
+    public List<QuizQuestion> findAllQuizQuestion(CourseType type, Level level) {
         EntityTransaction transaction = em.getTransaction();
         transaction.begin();
-        List<QuizQuestion> quizQuestionList = em.createQuery("FROM QuizQuestion", QuizQuestion.class).getResultList();
+        Query query = em.createQuery("FROM QuizQuestion WHERE courseType=:type AND level=:level", QuizQuestion.class);
+        query.setParameter("type", type);
+        query.setParameter("level", level);
+        List<QuizQuestion> quizQuestionList = query.getResultList();
         transaction.commit();
         return quizQuestionList;
 
     }
 
-    public List<PA> findAllPaAssignments() {
+    public List<PA> findAllPaAssignments(CourseType type, Level level) {
         EntityTransaction transaction = em.getTransaction();
         transaction.begin();
-        List<PA> paList = em.createQuery("FROM PA", PA.class).getResultList();
+        Query query = em.createQuery("FROM PA WHERE courseType=:type AND level=:level", PA.class);
+        query.setParameter("type", type);
+        query.setParameter("level", level);
+        List<PA> paList = query.getResultList();
         transaction.commit();
         return paList;
 
@@ -154,10 +161,13 @@ public class PersistenceImplementation {
         return course;
     }
 
-    public List<Kata> findAllKatas(){
+    public List<Kata> findAllKatas(CourseType type, Level level){
         EntityTransaction transaction = em.getTransaction();
         transaction.begin();
-        List<Kata> kataList = em.createQuery("FROM Kata ", Kata.class).getResultList();
+        Query query = em.createQuery("FROM Kata WHERE courseType=:type AND level=:level", Kata.class);
+        query.setParameter("type", type);
+        query.setParameter("level", level);
+        List<Kata> kataList = query.getResultList();
         transaction.commit();
         return kataList;
     }

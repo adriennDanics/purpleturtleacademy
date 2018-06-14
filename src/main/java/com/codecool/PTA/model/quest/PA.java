@@ -1,5 +1,6 @@
 package com.codecool.PTA.model.quest;
 
+import com.codecool.PTA.model.course.CourseType;
 import com.codecool.PTA.model.user.Level;
 import com.codecool.PTA.model.user.Student;
 

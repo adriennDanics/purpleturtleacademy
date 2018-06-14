@@ -1,10 +1,13 @@
 package com.codecool.PTA.model.quest;
 
 
+import com.codecool.PTA.model.course.CourseType;
 import com.codecool.PTA.model.user.Level;
 import com.codecool.PTA.model.user.Student;
 
-import javax.persistence.*;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.ManyToMany;
 import java.util.Set;
 
 @Entity
@@ -30,6 +33,14 @@ public class Kata extends Assignment {
 
     public void setSubmission(String submission) {
         this.submission = submission;
+    }
+
+    public Set<Student> getStudent() {
+        return student;
+    }
+
+    public void addStudent(Student student) {
+        this.student.add(student);
     }
 
 }
