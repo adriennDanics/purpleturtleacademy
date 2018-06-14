@@ -2,6 +2,7 @@ package com.codecool.PTA.persistence;
 
 import com.codecool.PTA.model.course.Course;
 import com.codecool.PTA.model.course.CourseType;
+import com.codecool.PTA.model.quest.Kata;
 import com.codecool.PTA.model.quest.PA;
 import com.codecool.PTA.model.quest.QuizQuestion;
 import com.codecool.PTA.model.user.GenderEnum;
@@ -25,6 +26,7 @@ class PersistenceImplementationTest {
     private Course course;
     private PA pa;
     private QuizQuestion quizQuestion;
+    private Kata kata;
 
     private void createExamples() {
         GenderEnum gender = GenderEnum.OTHER;
@@ -33,6 +35,7 @@ class PersistenceImplementationTest {
         this.mentor = new Mentor("username", "password", "mentorFirstName", "mentorLastName", "mentorEmail", gender);
         this.pa = new PA(Level.BEGINNER, CourseType.PYTHON, "PA title", "PA question");
         createExampleQuizQuestion();
+        this.kata = new Kata(Level.BEGINNER, CourseType.PYTHON, "kata title", "kata question");
     }
 
     private void createExampleQuizQuestion() {
@@ -70,8 +73,7 @@ class PersistenceImplementationTest {
         persistenceImplementation.persist(course);
         persistenceImplementation.persist(student);
 
-        Student studentInDB = persistenceImplementation.findStudentById(1L);
-        assertEquals(student, studentInDB);
+        assertEquals(student, persistenceImplementation.findStudentById(1L));
     }
 
     @Test
@@ -83,8 +85,7 @@ class PersistenceImplementationTest {
     void findExistingMentorById() {
         persistenceImplementation.persist(mentor);
 
-        Mentor mentorInDB = persistenceImplementation.findMentorById(1L);
-        assertEquals(mentor, mentorInDB);
+        assertEquals(mentor, persistenceImplementation.findMentorById(1L));
     }
 
     @Test
@@ -96,8 +97,7 @@ class PersistenceImplementationTest {
     void findExistingPaById() {
         persistenceImplementation.persist(pa);
 
-        PA paInDB = persistenceImplementation.findPaById(1L);
-        assertEquals(pa, paInDB);
+        assertEquals(pa, persistenceImplementation.findPaById(1L));
     }
 
     @Test
@@ -109,8 +109,7 @@ class PersistenceImplementationTest {
     void findExistingQuizQuestionById() {
         persistenceImplementation.persist(quizQuestion);
 
-        QuizQuestion quizQuestionInDB = persistenceImplementation.findQuizQuestionById(1L);
-        assertEquals(quizQuestion, quizQuestionInDB);
+        assertEquals(quizQuestion, persistenceImplementation.findQuizQuestionById(1L));
     }
 
     @Test
@@ -119,13 +118,27 @@ class PersistenceImplementationTest {
     }
 
     @Test
-    void findKataById() {
-        assertEquals(1, 2);
+    void findExistingKataById() {
+        persistenceImplementation.persist(kata);
+
+        assertEquals(kata, persistenceImplementation.findKataById(1L));
     }
 
     @Test
-    void findCourseById() {
-        assertEquals(1, 2);
+    void findNonExistentKataById() {
+        assertThrows(IllegalArgumentException.class, () -> persistenceImplementation.findKataById(666L));
+    }
+
+    @Test
+    void findExistingCourseById() {
+        persistenceImplementation.persist(course);
+
+        assertEquals(course, persistenceImplementation.findCourseById(1L));
+    }
+
+    @Test
+    void findNonExistentCourseById() {
+        assertThrows(IllegalArgumentException.class, () -> persistenceImplementation.findCourseById(666L));
     }
 
     @Test
