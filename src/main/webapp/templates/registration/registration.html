@@ -6,7 +6,12 @@
     <div th:replace="layout.html :: head"></div>
 </head>
 <body>
-    <div>
+    <span>
+        <div th:if="${session.used}" >
+            <p class="warning">The username or the email address is already in use, please choose another one</p>
+        </div>
+    </span>
+    <span>
         <form class="form-group" action="/registration" method="POST">
             <label for="first_name">First name</label>
             <input class="form-control" type="text" name="first_name" id="first_name" required>
@@ -47,9 +52,7 @@
             <button class="btn" type="submit">Register</button>
             <a class="btn" href="/login">Back</a>
         </form>
-        <div th:if="${session.used}" >
-            <p>The username or the email address is already in use, please choose another one</p>
-        </div>
-    </div>
+    </span>
+
 </body>
 </html>
