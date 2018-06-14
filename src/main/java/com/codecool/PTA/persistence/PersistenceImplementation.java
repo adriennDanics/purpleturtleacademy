@@ -79,6 +79,7 @@ public class PersistenceImplementation {
         return pa;
     }
 
+
     public QuizQuestion findQuizQuestionById(long id) {
         EntityTransaction transaction = em.getTransaction();
         transaction.begin();

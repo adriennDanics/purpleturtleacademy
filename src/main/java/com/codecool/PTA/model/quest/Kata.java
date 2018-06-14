@@ -8,23 +8,28 @@ import com.codecool.PTA.model.user.Student;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.ManyToMany;
+import java.util.HashSet;
 import java.util.Set;
 
 @Entity
 public class Kata extends Assignment {
 
     @ManyToMany
-    private Set<Student> student;
+    private Set<Student> student = new HashSet<>();
 
     @Column(length = 1023)
     private String submission;
+
+    @Column
+    public boolean isItTemplate;
 
     protected Kata() {
         super();
     }
 
-    public Kata(Level level, CourseType courseType, String assignmentTitle, String question) {
+    public Kata(Level level, CourseType courseType, String assignmentTitle, String question, boolean isItTemplate) {
         super(level, courseType, assignmentTitle, question);
+        this.isItTemplate = isItTemplate;
     }
 
     public String getSubmission() {

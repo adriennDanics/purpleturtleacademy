@@ -99,7 +99,7 @@ public class AssignmentConfig {
                         "After the 2nd number input, the script should calculate the addition or subtraction and print it out. " +
                         "Then the program should run again with asking for the first number. " +
                         "The script should exit when the user enters a letter instead of a number. " +
-                        "Submit your python script file.");
+                        "Submit your python script file.", true);
         paList.add(pa);
 
         PA pa2 = new PA(Level.INTERMEDIATE, CourseType.PYTHON, "Codewars assignment",
@@ -108,7 +108,7 @@ public class AssignmentConfig {
                         "7 kyu kata scores 2 points and " +
                         "6 kyu kata scores 4 points. " +
                         "For practice and getting more familiar with Python tricks we suggest you to check the solutions " +
-                        "(after completing a kata), understand the top ranked ones and rewrite your code from scratch based on the new insight.");
+                        "(after completing a kata), understand the top ranked ones and rewrite your code from scratch based on the new insight.", true);
         paList.add(pa2);
 
         PA pa3 = new PA(Level.ADVANCED, CourseType.JAVA, "Practice JPA",
@@ -118,7 +118,7 @@ public class AssignmentConfig {
                         "Check the configurations in persistence.xml! " +
                         "The following steps hint the annotation to use or to modify to get to the expected result. " +
                         "Read about those annotations in the documentation or in any other resource, and play with the options, " +
-                        "always checking the consequences in the database and in the state of the in-memory objects!");
+                        "always checking the consequences in the database and in the state of the in-memory objects!", true);
         paList.add(pa3);
     }
 
@@ -199,11 +199,11 @@ public class AssignmentConfig {
                         "not consisting of 0. The limit will always be higher than the base. " +
                         "For example, if the parameters passed are (2, 6), the function should return [2, 4, 6] " +
                         "as 2, 4, and 6 are the multiples of 2 up to 6. " +
-                        "If you can, try writing it in only one line of code.");
+                        "If you can, try writing it in only one line of code.", true);
         kataList.add(kata);
         Kata kata2 = new Kata(Level.BEGINNER, CourseType.PYTHON, "Reverse words",
                 "Complete the function that accepts a string parameter, and reverses each word in the string. " +
-                        "All spaces in the string should be retained.");
+                        "All spaces in the string should be retained.", true);
         kataList.add(kata2);
     }
 

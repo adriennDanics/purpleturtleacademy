@@ -18,7 +18,7 @@ public abstract class Assignment {
     @Enumerated(EnumType.STRING)
     CourseType courseType;
 
-    @Column(unique = true, nullable = false)
+    @Column(nullable = false)
     private String assignmentTitle;
 
     @Column(nullable = false, length = 1023)

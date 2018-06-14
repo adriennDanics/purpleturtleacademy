@@ -4,8 +4,8 @@ import com.codecool.PTA.model.course.CourseType;
 import com.codecool.PTA.model.user.Level;
 import com.codecool.PTA.model.user.Student;
 
-import javax.persistence.Entity;
-import javax.persistence.ManyToMany;
+import javax.persistence.*;
+import java.util.HashSet;
 import java.util.Set;
 
 @Entity
@@ -14,14 +14,18 @@ public class PA extends Assignment{
     private String submission;
 
     @ManyToMany()
-    private Set<Student> student;
+    private Set<Student> student = new HashSet<>();
+
+    @Column
+    public boolean isItTemplate;
 
     protected PA() {
         super();
     }
 
-    public PA(Level level, CourseType courseType, String assignmentTitle, String question) {
+    public PA(Level level, CourseType courseType, String assignmentTitle, String question, boolean isItTemplate) {
         super(level, courseType, assignmentTitle, question);
+        this.isItTemplate = isItTemplate;
     }
 
     public String getSubmission() {

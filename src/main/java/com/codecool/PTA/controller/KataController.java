@@ -13,6 +13,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
+import java.util.List;
 
 public class KataController extends AbstractController {
 
@@ -31,8 +32,10 @@ public class KataController extends AbstractController {
             Kata kata = persistenceImplementation.findKataById(id);
             HttpSession session = req.getSession();
             Student student = (Student) session.getAttribute("student");
+//            List<Long> test = persistenceImplementation.findPaByStudentId(student.getId());
             context.setVariable("student", student);
             context.setVariable("kata", kata);
+//            context.setVariable("test", test);
 
             TemplateEngine engine = TemplateEngineUtil.getTemplateEngine(req.getServletContext());
             engine.process("kata/katas.html", context, resp.getWriter());
@@ -45,12 +48,13 @@ public class KataController extends AbstractController {
     public void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         long id = Long.valueOf(req.getParameter("id"));
 
-        Kata kata = persistenceImplementation.findKataById(id);
+        Kata originalKata = persistenceImplementation.findKataById(id);
         String submission = req.getParameter("submission");
         Student student = (Student) getLoggedInUser(req);
-        kata.setSubmission(submission);
-        kata.addStudent(student);
-        persistenceImplementation.merge(kata);
+        Kata newKata = new Kata(student.getLevel(), originalKata.getCourseType(), originalKata.getAssignmentTitle(), originalKata.getQuestion(), false);
+        newKata.setSubmission(submission);
+        newKata.addStudent(student);
+        persistenceImplementation.persist(newKata);
         resp.sendRedirect("/assignments");
     }
 

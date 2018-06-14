@@ -16,6 +16,7 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 
 public class AssignmentController extends AbstractController {
@@ -35,10 +36,25 @@ public class AssignmentController extends AbstractController {
             isNewFriendRequest(req);
             WebContext context = new WebContext(req, resp, req.getServletContext());
             List<QuizQuestion> quizQuestions = persistenceImplementation.findAllQuizQuestions(courseName, levelName);
+
+            List<Kata> tempKataList = persistenceImplementation.findAllKatas(courseName, levelName);
+            List<Kata> kataList = new ArrayList<>();
+            for (Kata kata:tempKataList) {
+                if (kata.isItTemplate){
+                    kataList.add(kata);
+                }
+            }
+
+            List<PA> tempPaList = persistenceImplementation.findAllPaAssignments(courseName, levelName);
+            List<PA> paList = new ArrayList();
+            for (PA pa:tempPaList) {
+                if (pa.isItTemplate){
+                    paList.add(pa);
+                }
+            }
+
             context.setVariable("quizQuestions", quizQuestions);
-            List<Kata> kataList = persistenceImplementation.findAllKatas(courseName, levelName);
             context.setVariable("kataList", kataList);
-            List<PA> paList = persistenceImplementation.findAllPaAssignments(courseName, levelName);
             context.setVariable("paList", paList);
             context.setVariable("student", student);
 
