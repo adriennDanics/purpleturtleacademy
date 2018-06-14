@@ -112,7 +112,7 @@ public class PersistenceImplementation {
         transaction.begin();
         List<Student> students = em.createQuery("FROM Student", Student.class).getResultList();
         transaction.commit();
-        if (students == null) throw new IOException("No students were found in DB.");
+        if (students.size() == 0) throw new IOException("No students were found in DB.");
         return students;
     }
 
@@ -121,7 +121,7 @@ public class PersistenceImplementation {
         transaction.begin();
         List<Course> courses = em.createQuery("FROM Course", Course.class).getResultList();
         transaction.commit();
-        if (courses == null) throw new IOException("No courses were found in DB.");
+        if (courses.size() == 0) throw new IOException("No courses were found in DB.");
         return courses;
     }
 
@@ -133,7 +133,7 @@ public class PersistenceImplementation {
         query.setParameter("level", level);
         List<QuizQuestion> quizQuestions = query.getResultList();
         transaction.commit();
-        if (quizQuestions == null) throw new IOException("No quiz questions were found in DB.");
+        if (quizQuestions.size() == 0) throw new IOException("No quiz questions were found in DB.");
         return quizQuestions;
 
     }
@@ -146,7 +146,7 @@ public class PersistenceImplementation {
         query.setParameter("level", level);
         List<PA> PAs = query.getResultList();
         transaction.commit();
-        if (PAs == null) throw new IOException("No PAs were found in DB.");
+        if (PAs.size() == 0) throw new IOException("No PAs were found in DB.");
         return PAs;
 
     }
@@ -159,7 +159,7 @@ public class PersistenceImplementation {
         query.setParameter("level", level);
         List<Kata> katas = query.getResultList();
         transaction.commit();
-        if (katas == null) throw new IOException("No katas were found in DB.");
+        if (katas.size() == 0) throw new IOException("No katas were found in DB.");
         return katas;
     }
 
@@ -171,7 +171,7 @@ public class PersistenceImplementation {
                 FillInAnswer.class
         ).setParameter("id", id).getResultList();
         transaction.commit();
-        if (answers == null) throw new IOException("No answers were found in DB.");
+        if (answers.size() == 0) throw new IOException("No answers were found in DB.");
         return answers;
     }
 

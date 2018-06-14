@@ -11,7 +11,10 @@ import com.codecool.PTA.model.user.Mentor;
 import com.codecool.PTA.model.user.Student;
 import org.junit.jupiter.api.*;
 
+import java.io.IOException;
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -142,8 +145,14 @@ class PersistenceImplementationTest {
     }
 
     @Test
-    void findAllStudents() {
-        assertEquals(1, 2);
+    void findAllStudentsIfExist() throws IOException {
+        persistenceImplementation.persist(course);
+        persistenceImplementation.persist(student);
+        List<Student> students = new ArrayList<>();
+        students.add(student);
+
+        List<Student> studentsInDB = persistenceImplementation.findAllStudents();
+        assertEquals(students, studentsInDB);
     }
 
     @Test
