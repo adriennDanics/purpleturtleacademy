@@ -139,11 +139,11 @@ public class AssignmentConfig {
                         "not consisting of 0. The limit will always be higher than the base. " +
                         "For example, if the parameters passed are (2, 6), the function should return [2, 4, 6] " +
                         "as 2, 4, and 6 are the multiples of 2 up to 6. " +
-                        "If you can, try writing it in only one line of code.");
+                        "If you can, try writing it in only one line of code.", true);
         kataList.add(kata);
         Kata kata2 = new Kata(Level.BEGINNER, CourseType.PYTHON, "Reverse words",
                 "Complete the function that accepts a string parameter, and reverses each word in the string. " +
-                        "All spaces in the string should be retained.");
+                        "All spaces in the string should be retained.", true);
         kataList.add(kata2);
     }
 

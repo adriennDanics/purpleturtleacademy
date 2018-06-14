@@ -99,6 +99,16 @@ public class PersistenceImplementation {
         return course;
     }
 
+    //TODO refactor query.
+//    public List<Long> findPaByStudentId(long id) {
+//        EntityTransaction transaction = em.getTransaction();
+//        transaction.begin();
+//        List<Long> paList = em.createQuery("FROM pa_student where student_id=:id").getResultList();
+//        transaction.commit();
+//        return paList;
+//    }
+
+
     public List<Student> findAllStudents() {
         EntityTransaction transaction = em.getTransaction();
         transaction.begin();

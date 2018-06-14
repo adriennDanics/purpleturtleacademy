@@ -35,16 +35,25 @@ public class AssignmentController extends AbstractController {
             Level levelName = student.getLevel();
             WebContext context = new WebContext(req, resp, req.getServletContext());
             List<QuizQuestion> quizQuestions = persistenceImplementation.findAllQuizQuestion(courseName, levelName);
-            context.setVariable("quizQuestions", quizQuestions);
-            List<Kata> kataList = persistenceImplementation.findAllKatas(courseName, levelName);
-            context.setVariable("kataList", kataList);
-            List<PA> tempList = persistenceImplementation.findAllPaAssignments();
+
+            List<Kata> tempKataList = persistenceImplementation.findAllKatas(courseName, levelName);
+            List<Kata> kataList = new ArrayList<>();
+            for (Kata kata:tempKataList) {
+                if (kata.isItTemplate){
+                    kataList.add(kata);
+                }
+            }
+
+            List<PA> tempPaList = persistenceImplementation.findAllPaAssignments(courseName, levelName);
             List<PA> paList = new ArrayList();
-            for (PA pa:tempList) {
+            for (PA pa:tempPaList) {
                 if (pa.isItTemplate){
                     paList.add(pa);
                 }
             }
+
+            context.setVariable("quizQuestions", quizQuestions);
+            context.setVariable("kataList", kataList);
             context.setVariable("paList", paList);
             context.setVariable("student", student);
 
