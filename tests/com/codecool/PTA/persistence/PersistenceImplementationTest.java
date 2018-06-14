@@ -44,7 +44,12 @@ class PersistenceImplementationTest {
     }
 
     @Test
-    void merge() {
+    void testMerge() {
+        persistenceImplementation.persist(course);
+        persistenceImplementation.persist(student);
+        student.setEmail("new@email.set");
+
+        assertTrue(persistenceImplementation.merge(student));
     }
 
     @Test
