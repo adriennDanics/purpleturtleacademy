@@ -32,6 +32,7 @@ public class AssignmentController extends AbstractController {
             Student student = (Student) getLoggedInUser(req);
             CourseType courseName = student.getCourse().getName();
             Level levelName = student.getLevel();
+            isNewFriendRequest(req);
             WebContext context = new WebContext(req, resp, req.getServletContext());
             List<QuizQuestion> quizQuestions = persistenceImplementation.findAllQuizQuestions(courseName, levelName);
             context.setVariable("quizQuestions", quizQuestions);

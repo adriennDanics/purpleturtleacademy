@@ -24,16 +24,22 @@ public class FriendsController extends AbstractController {
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 
-        HttpSession session = req.getSession();
-        Student student = (Student) session.getAttribute("student");
+        if(checkLogin(req)) {
+            isNewFriendRequest(req);
+            HttpSession session = req.getSession();
+            Student student = (Student) session.getAttribute("student");
 
-        Set<Student> friendList = student.getFriends();
+            Set<Student> friendList = student.getFriends();
 
-        WebContext context = new WebContext(req, resp, req.getServletContext());
-        context.setVariable("student", student);
-        context.setVariable("friends", friendList);
-        TemplateEngine engine = TemplateEngineUtil.getTemplateEngine(req.getServletContext());
-        engine.process("friends/friends.html", context, resp.getWriter());
+            WebContext context = new WebContext(req, resp, req.getServletContext());
+            context.setVariable("student", student);
+            context.setVariable("friends", friendList);
+            TemplateEngine engine = TemplateEngineUtil.getTemplateEngine(req.getServletContext());
+            engine.process("friends/friends.html", context, resp.getWriter());
+
+        } else {
+            resp.sendRedirect("/login");
+        }
 
     }
 }

@@ -25,6 +25,7 @@ public class IndexController extends AbstractController {
         if(checkLogin(req)){
             WebContext context = new WebContext(req, resp, req.getServletContext());
             Student student = (Student) getLoggedInUser(req);
+            isNewFriendRequest(req);
 
             Course course = persistenceImplementation.findCourseById(student.getCourse().getId());
             context.setVariable("course", course);

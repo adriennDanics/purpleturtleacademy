@@ -13,8 +13,10 @@
             <div th:data-requesterStudent="${student.getId()}" id="requesterStudent"></div>
             <div th:each="studentOf : ${studentList}">
                 <div th:id="student + ${studentOf.getId()}">
-                    <div th:text="${studentOf.getUsername()}">username</div>
-                    <button th:data-id ="${studentOf.getId()}" class="requestButtons">Send friend request</button>
+                    <span>
+                        <div th:text="${studentOf.getUsername()}">username</div>
+                        <button th:data-id ="${studentOf.getId()}" class="requestButtons">Send friend request</button>
+                    </span>
                 </div>
             </div>
         </span>
