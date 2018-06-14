@@ -2,9 +2,7 @@ package com.codecool.PTA.persistence;
 
 import com.codecool.PTA.model.course.Course;
 import com.codecool.PTA.model.course.CourseType;
-import com.codecool.PTA.model.quest.Kata;
-import com.codecool.PTA.model.quest.PA;
-import com.codecool.PTA.model.quest.QuizQuestion;
+import com.codecool.PTA.model.quest.*;
 import com.codecool.PTA.model.user.GenderEnum;
 import com.codecool.PTA.model.user.Level;
 import com.codecool.PTA.model.user.Mentor;
@@ -30,6 +28,9 @@ class PersistenceImplementationTest {
     private PA pa;
     private QuizQuestion quizQuestion;
     private Kata kata;
+    private FillInTheBlank fillInTheBlank;
+    private FillInAnswer fillInAnswer;
+
 
     private void createExamples() {
         GenderEnum gender = GenderEnum.OTHER;
@@ -39,6 +40,7 @@ class PersistenceImplementationTest {
         this.pa = new PA(Level.BEGINNER, CourseType.PYTHON, "PA title", "PA question");
         createExampleQuizQuestion();
         this.kata = new Kata(Level.BEGINNER, CourseType.PYTHON, "kata title", "kata question");
+        createFillIn();
     }
 
     private void createExampleQuizQuestion() {
@@ -48,6 +50,14 @@ class PersistenceImplementationTest {
         quizQuestionAnswers.put("str.replace(old, new[, count])", false);
         quizQuestionAnswers.put("str.replace(old, new)", false);
         this.quizQuestion = new QuizQuestion("What is the built-in function for replacing a substring in a string?", "Replacing substrings", Level.BEGINNER, CourseType.PYTHON, quizQuestionAnswers);
+    }
+
+    private void createFillIn() {
+        this.fillInTheBlank = new FillInTheBlank(Level.BEGINNER,
+                CourseType.PYTHON,
+                "Please fill in the blank to print!",
+                "<input type=\"text\" class=\"answer\" size=\"5\" >(\"Hello World!\")");
+        this.fillInAnswer = new FillInAnswer("print", fillInTheBlank);
     }
 
     @BeforeAll
@@ -85,67 +95,67 @@ class PersistenceImplementationTest {
     }
 
     @Test
-    void findExistingMentorById() {
+    void testFindExistingMentorById() {
         persistenceImplementation.persist(mentor);
 
         assertEquals(mentor, persistenceImplementation.findMentorById(1L));
     }
 
     @Test
-    void findNonExistentMentorById() {
+    void testFindNonExistentMentorById() {
         assertThrows(IllegalArgumentException.class, () -> persistenceImplementation.findMentorById(666L));
     }
 
     @Test
-    void findExistingPaById() {
+    void testFindExistingPaById() {
         persistenceImplementation.persist(pa);
 
         assertEquals(pa, persistenceImplementation.findPaById(1L));
     }
 
     @Test
-    void findNonExistentPaById() {
+    void testFindNonExistentPaById() {
         assertThrows(IllegalArgumentException.class, () -> persistenceImplementation.findPaById(666L));
     }
 
     @Test
-    void findExistingQuizQuestionById() {
+    void testFindExistingQuizQuestionById() {
         persistenceImplementation.persist(quizQuestion);
 
         assertEquals(quizQuestion, persistenceImplementation.findQuizQuestionById(1L));
     }
 
     @Test
-    void findNonExistentQuizQuestionById() {
+    void testFindNonExistentQuizQuestionById() {
         assertThrows(IllegalArgumentException.class, () -> persistenceImplementation.findQuizQuestionById(666L));
     }
 
     @Test
-    void findExistingKataById() {
+    void testFindExistingKataById() {
         persistenceImplementation.persist(kata);
 
         assertEquals(kata, persistenceImplementation.findKataById(1L));
     }
 
     @Test
-    void findNonExistentKataById() {
+    void testFindNonExistentKataById() {
         assertThrows(IllegalArgumentException.class, () -> persistenceImplementation.findKataById(666L));
     }
 
     @Test
-    void findExistingCourseById() {
+    void testFindExistingCourseById() {
         persistenceImplementation.persist(course);
 
         assertEquals(course, persistenceImplementation.findCourseById(1L));
     }
 
     @Test
-    void findNonExistentCourseById() {
+    void testFindNonExistentCourseById() {
         assertThrows(IllegalArgumentException.class, () -> persistenceImplementation.findCourseById(666L));
     }
 
     @Test
-    void findAllStudentsIfExist() throws IOException {
+    void testFindAllStudents() throws IOException {
         persistenceImplementation.persist(course);
         persistenceImplementation.persist(student);
         List<Student> students = new ArrayList<>();
@@ -156,27 +166,60 @@ class PersistenceImplementationTest {
     }
 
     @Test
-    void findAllCourses() {
-        assertEquals(1, 2);
+    void testFindAllCourses() throws IOException {
+        persistenceImplementation.persist(course);
+        List<Course> courses = new ArrayList<>();
+        courses.add(course);
+
+        List<Course> coursesInDB = persistenceImplementation.findAllCourses();
+        assertEquals(courses, coursesInDB);
     }
 
     @Test
-    void findAllQuizQuestion() {
-        assertEquals(1, 2);
+    void testFindAllQuizQuestion() throws IOException {
+        persistenceImplementation.persist(quizQuestion);
+        List<QuizQuestion> quizQuestions = new ArrayList<>();
+        quizQuestions.add(quizQuestion);
+
+        List<QuizQuestion> quizQuestionsInDB = persistenceImplementation.findAllQuizQuestions(CourseType.PYTHON, Level.BEGINNER);
+        assertEquals(quizQuestions, quizQuestionsInDB);
     }
 
     @Test
-    void findAllPaAssignments() {
-        assertEquals(1, 2);
+    void testFindAllPaAssignments() throws IOException {
+        persistenceImplementation.persist(pa);
+        List<PA> PAs = new ArrayList<>();
+        PAs.add(pa);
+
+        List<PA> PAsInDB = persistenceImplementation.findAllPaAssignments(CourseType.PYTHON, Level.BEGINNER);
+        assertEquals(PAs, PAsInDB);
     }
 
     @Test
-    void findFillInAnswersForQuestion() {
-        assertEquals(1, 2);
+    void testFindAllKatas() throws IOException {
+        persistenceImplementation.persist(kata);
+        List<Kata> katas = new ArrayList<>();
+        katas.add(kata);
+
+        List<Kata> katasInDB = persistenceImplementation.findAllKatas(CourseType.PYTHON, Level.BEGINNER);
+        assertEquals(katas, katasInDB);
     }
 
     @Test
-    void findCourseByName() {
-        assertEquals(1, 2);
+    void testFindFillInAnswersForQuestion() throws IOException {
+        persistenceImplementation.persist(fillInTheBlank);
+        persistenceImplementation.persist(fillInAnswer);
+        List<FillInAnswer> fillInAnswers = new ArrayList<>();
+        fillInAnswers.add(fillInAnswer);
+
+        List<FillInAnswer> fillInAnswersInDB = persistenceImplementation.findFillInAnswersForQuestion(1L);
+        assertEquals(fillInAnswers, fillInAnswersInDB);
+    }
+
+    @Test
+    void testFindCourseByName() {
+        persistenceImplementation.persist(course);
+
+        assertEquals(course, persistenceImplementation.findCourseByName(CourseType.PYTHON));
     }
 }
