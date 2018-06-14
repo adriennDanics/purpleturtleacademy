@@ -36,7 +36,8 @@ public class QuestionController extends AbstractController {
             List<QuizQuestion> idListQuiz = persistenceImplementation.findAllQuizQuestions(student.getCourse().getName(), student.getLevel());
 
             Assignment currentAssignment = randomizeAssignment.makeRandomList(idListQuiz, idList);
-            if(!questionsCompleted.isEmpty() && questionsCompleted.contains(currentAssignment)){
+
+            if(questionsCompleted.contains(currentAssignment)){
                 while(questionsCompleted.contains(currentAssignment)) {
                     currentAssignment = randomizeAssignment.makeRandomList(idListQuiz, idList);
                 }
