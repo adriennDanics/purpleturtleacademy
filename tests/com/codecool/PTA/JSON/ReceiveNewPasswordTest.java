@@ -15,7 +15,7 @@ import java.io.StringReader;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.Mockito.when;
 
-public class ReveiveNewPasswordTest extends JSONTest {
+public class ReceiveNewPasswordTest extends JSONTest {
 
     @BeforeEach
     void setup() {
@@ -30,14 +30,19 @@ public class ReveiveNewPasswordTest extends JSONTest {
     }
 
     @Test
-    void testGetNewNameForAppropriateStudentFromJSON() throws IOException, ServletException {
+    void testGetNewPasswordForAppropriateStudentFromJSON() throws IOException, ServletException {
+
         String json = "{old: password, new: new_password}";
+
         when(req.getParameter("password")).thenReturn(student.getPassword());
         when(req.getReader()).thenReturn(new BufferedReader(new StringReader(json)));
         when(req.getSession()).thenReturn(session);
         when(session.getAttribute("student")).thenReturn(student);
 
-        new ReceiveNewName(pim).doPost(req, resp);
+        when(hash.isPasswordCorrect("password", "password")).thenReturn(true);
+        when(hash.hashPassword("new_password")).thenReturn("new_password");
+
+        new ReceiveNewPassword(pim, hash).doPost(req, resp);
 
         assertEquals("new_password", student.getPassword());
     }
