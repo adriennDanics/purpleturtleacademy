@@ -12,6 +12,7 @@ public class RandomizeAssignment {
     private static List<Assignment> randomAssignments = new ArrayList<>();
 
     public Assignment makeRandomList(List<QuizQuestion> quizzes, List<FillInTheBlank> fillInTheBlank){
+        randomAssignments.clear();
         randomAssignments.addAll(fillInTheBlank);
         randomAssignments.addAll(quizzes);
         Collections.shuffle(randomAssignments);

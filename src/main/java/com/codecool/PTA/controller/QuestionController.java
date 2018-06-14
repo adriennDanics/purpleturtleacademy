@@ -28,30 +28,35 @@ public class QuestionController extends AbstractController {
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        Integer numberLeft = Integer.valueOf(req.getParameter("id"));
-        Student student = (Student) getLoggedInUser(req);
+        if(checkLogin(req)){
+            Integer numberLeft = Integer.valueOf(req.getParameter("id"));
+            Student student = (Student) getLoggedInUser(req);
 
-        List<FillInTheBlank> idList = persistenceImplementation.findAllFillInTheBlank(student.getCourse().getName(), student.getLevel());
-        List<QuizQuestion> idListQuiz = persistenceImplementation.findAllQuizQuestion(student.getCourse().getName(), student.getLevel());
+            List<FillInTheBlank> idList = persistenceImplementation.findAllFillInTheBlank(student.getCourse().getName(), student.getLevel());
+            List<QuizQuestion> idListQuiz = persistenceImplementation.findAllQuizQuestion(student.getCourse().getName(), student.getLevel());
 
-        Assignment currentAssignment = randomizeAssignment.makeRandomList(idListQuiz, idList);
-        if(!questionsCompleted.isEmpty() && questionsCompleted.contains(currentAssignment)){
-            while(questionsCompleted.contains(currentAssignment)) {
-                currentAssignment = randomizeAssignment.makeRandomList(idListQuiz, idList);
+            Assignment currentAssignment = randomizeAssignment.makeRandomList(idListQuiz, idList);
+            if(!questionsCompleted.isEmpty() && questionsCompleted.contains(currentAssignment)){
+                while(questionsCompleted.contains(currentAssignment)) {
+                    currentAssignment = randomizeAssignment.makeRandomList(idListQuiz, idList);
+                }
             }
-        }
-        if(numberLeft==0){
-            questionsCompleted.clear();
-        }
+            if(numberLeft==0){
+                questionsCompleted.clear();
+                randomizeAssignment.makeRandomList(idListQuiz, idList);
+            }
 
-        if(currentAssignment.getClass() == FillInTheBlank.class){
-            long next = currentAssignment.getId();
-            questionsCompleted.add(currentAssignment);
-            resp.sendRedirect("/fill?id=" + next + "&left=" + numberLeft);
+            if(currentAssignment.getClass() == FillInTheBlank.class){
+                long next = currentAssignment.getId();
+                questionsCompleted.add(currentAssignment);
+                resp.sendRedirect("/fill?id=" + next + "&left=" + numberLeft);
+            } else {
+                long nextQuiz = currentAssignment.getId();
+                questionsCompleted.add(currentAssignment);
+                resp.sendRedirect("/quiz?id="+nextQuiz + "&left=" + numberLeft);
+            }
         } else {
-            long nextQuiz = currentAssignment.getId();
-            questionsCompleted.add(currentAssignment);
-            resp.sendRedirect("/quiz?id="+nextQuiz + "&left=" + numberLeft);
+            resp.sendRedirect("/login");
         }
     }
 }
