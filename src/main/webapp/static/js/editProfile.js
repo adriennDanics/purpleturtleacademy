@@ -116,6 +116,9 @@ editProfileInfo={
         submitButton.setAttribute("id", "password-submit");
         submitButton.innerText = "Submit";
         submitButton.classList.add("btn");
+        if(document.getElementById("warning-text")){
+            document.getElementById("warning-text").remove();
+        }
         editProfileInfo.addEventListenerToSubmitNewPasswordButton(submitButton, inputField, inputFieldNewPass, inputFieldConfirmation);
         elementToAppendTo.appendChild(inputField);
         elementToAppendTo.appendChild(inputFieldNewPass);
@@ -136,6 +139,7 @@ editProfileInfo={
                     success: function (response) {
                         if(response.message){
                             let message = document.createElement("p");
+                            message.setAttribute("id", "warning-text");
                             message.innerText = response.message;
                             message.classList.add("warning");
                             newPass.parentElement.appendChild(message);
@@ -147,6 +151,7 @@ editProfileInfo={
             } else {
                 let message = document.createElement("p");
                 message.innerText = "New passwords don't match!";
+                message.setAttribute("id", "warning-text");
                 message.classList.add("warning");
                 newPass.parentElement.appendChild(message);
             }
@@ -158,6 +163,9 @@ editProfileInfo={
         document.getElementById("new-password").remove();
         document.getElementById("new-password-confirmation").remove();
         document.getElementById("password-submit").remove();
+        if(document.getElementById("warning-text")){
+            document.getElementById("warning-text").remove();
+        }
         let buttonToEditPassword = document.getElementById("change-password");
         buttonToEditPassword.removeAttribute("hidden");
     }
