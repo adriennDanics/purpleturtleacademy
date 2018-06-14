@@ -25,6 +25,7 @@ public class ListUsersController extends AbstractController {
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 
+        if(checkLogin(req)) {
         HttpSession session = req.getSession();
         Student loggedInStudent = (Student) session.getAttribute("student");
 
@@ -39,6 +40,10 @@ public class ListUsersController extends AbstractController {
         context.setVariable("student", loggedInStudent);
         TemplateEngine engine = TemplateEngineUtil.getTemplateEngine(req.getServletContext());
         engine.process("listStudents/listStudents.html", context, resp.getWriter());
+        } else {
+            resp.sendRedirect("/login");
+
+        }
 
     }
 }
