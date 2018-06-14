@@ -24,7 +24,7 @@ public class RejectFriendRequest extends AbstractController {
         Student requesterStudent = persistenceImplementation.findStudentById(Long.valueOf(req.getParameter("requesterId")));
 
         loggedInStudent.removeFromTaggedByOthers(requesterStudent);
-        requesterStudent.removeFromTaggedByOthers(loggedInStudent);
+        requesterStudent.removeFromPendingFriends(loggedInStudent);
 
         persistenceImplementation.merge(loggedInStudent);
         persistenceImplementation.merge(requesterStudent);

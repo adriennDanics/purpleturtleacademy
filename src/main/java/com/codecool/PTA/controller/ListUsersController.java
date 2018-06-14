@@ -27,13 +27,12 @@ public class ListUsersController extends AbstractController {
 
         HttpSession session = req.getSession();
         Student loggedInStudent = (Student) session.getAttribute("student");
-        Set<Student> pendingFriends = loggedInStudent.getPendingFriends();
-        Set<Student> friendList = loggedInStudent.getFriends();
 
         List<Student> studentList = persistenceImplementation.findAllStudents();
         studentList.remove(loggedInStudent);
-        studentList.removeAll(pendingFriends);
-        studentList.removeAll(friendList);
+        studentList.removeAll(loggedInStudent.getPendingFriends());
+        studentList.removeAll(loggedInStudent.getFriends());
+        studentList.removeAll(loggedInStudent.getTaggedByOthers());
 
         WebContext context = new WebContext(req, resp, req.getServletContext());
         context.setVariable("studentList", studentList);
