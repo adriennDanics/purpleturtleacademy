@@ -1,9 +1,6 @@
 package com.codecool.PTA.model;
 
-import com.codecool.PTA.JSON.GetFillInAnswersController;
-import com.codecool.PTA.JSON.ReceiveNewName;
-import com.codecool.PTA.JSON.ReceiveNewPassword;
-import com.codecool.PTA.JSON.SendCourseInfo;
+import com.codecool.PTA.JSON.*;
 import com.codecool.PTA.config.AssignmentConfig;
 import com.codecool.PTA.controller.*;
 import com.codecool.PTA.helper.Hash;
@@ -16,7 +13,7 @@ import javax.servlet.ServletContextEvent;
 public class Container {
 
     public void createObjects(ServletContextEvent sce) {
-        PersistenceImplementation persistenceImplementation = new PersistenceImplementation();
+        PersistenceImplementation persistenceImplementation = new PersistenceImplementation("ptaPU");
         Hash hash = new Hash();
         RandomizeAssignment randomAssignments = new RandomizeAssignment();
         new AssignmentConfig(persistenceImplementation);
@@ -37,6 +34,13 @@ public class Container {
         servletContext.addServlet("sendCourseInfo", new SendCourseInfo(persistenceImplementation)).addMapping("/courseinfo");
         servletContext.addServlet("receiveNewName", new ReceiveNewName(persistenceImplementation)).addMapping("/profile/newname");
         servletContext.addServlet("receiveNewPassword", new ReceiveNewPassword(persistenceImplementation, hash)).addMapping("/profile/newpassword");
+        servletContext.addServlet("listUsersController", new ListUsersController(persistenceImplementation)).addMapping("/list-users");
+        servletContext.addServlet("handleFriendRequests", new HandleFriendRequests(persistenceImplementation)).addMapping("/save-friend-request");
+        servletContext.addServlet("friendsController", new FriendsController(persistenceImplementation)).addMapping("/friends");
+        servletContext.addServlet("friendRequestsController", new FriendRequestsController(persistenceImplementation)).addMapping("/friend-requests");
+        servletContext.addServlet("acceptFriendRequest", new AcceptFriendRequest(persistenceImplementation)).addMapping("/accept-request");
+        servletContext.addServlet("rejectRequestsController", new RejectFriendRequest(persistenceImplementation)).addMapping("/reject-request");
+        servletContext.addServlet("removeNotification", new RemoveNotification(persistenceImplementation)).addMapping("/remove-notification");
         servletContext.addServlet("questionController", new QuestionController(persistenceImplementation, randomAssignments)).addMapping("/question");
     }
     

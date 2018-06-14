@@ -9,43 +9,38 @@ import org.thymeleaf.context.WebContext;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 import java.io.IOException;
+import java.util.Set;
 
-public class ProfileController extends AbstractController {
+public class FriendRequestsController extends AbstractController {
 
     private PersistenceImplementation persistenceImplementation;
 
-    public ProfileController(PersistenceImplementation persistenceImplementation) {
+    public FriendRequestsController(PersistenceImplementation persistenceImplementation) {
         this.persistenceImplementation = persistenceImplementation;
     }
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+
         if(checkLogin(req)) {
             isNewFriendRequest(req);
+            HttpSession session = req.getSession();
+            Student student = (Student) session.getAttribute("student");
+            Set<Student> friendRequests = student.getTaggedByOthers();
             WebContext context = new WebContext(req, resp, req.getServletContext());
-            Student student = (Student) getLoggedInUser(req);
             context.setVariable("student", student);
-
+            context.setVariable("taggedBy", friendRequests);
             TemplateEngine engine = TemplateEngineUtil.getTemplateEngine(req.getServletContext());
-            engine.process("profile/profile.html", context, resp.getWriter());
+            engine.process("friends/friendRequests.html", context, resp.getWriter());
         } else {
             resp.sendRedirect("/login");
         }
-    }
 
-    @Override
-    protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        Student student = (Student) getLoggedInUser(req);
-        String newImage = req.getParameter("new-image");
 
-        if(!newImage.equals("")){
-            student.setImage(newImage);
-        } else {
-            student.reSetDefaultImage();
-        }
 
-        persistenceImplementation.merge(student);
-        resp.sendRedirect("/profile");
+
+
     }
 }

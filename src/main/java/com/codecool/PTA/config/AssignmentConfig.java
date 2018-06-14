@@ -1,15 +1,19 @@
 package com.codecool.PTA.config;
 
 import com.codecool.PTA.model.course.Course;
-import com.codecool.PTA.model.course.CourseType;
 import com.codecool.PTA.model.quest.*;
-import com.codecool.PTA.model.user.Level;
+import com.codecool.PTA.model.user.GenderEnum;
+import com.codecool.PTA.model.user.Student;
 import com.codecool.PTA.persistence.PersistenceImplementation;
+import com.codecool.PTA.model.course.CourseType;
+import com.codecool.PTA.model.user.Level;
 
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+
+import static com.codecool.PTA.model.course.CourseType.ORIENTATION;
 
 public class AssignmentConfig {
     
@@ -19,18 +23,29 @@ public class AssignmentConfig {
     private List<PA> paList = new ArrayList<>();
     private List<Kata> kataList = new ArrayList<>();
     private List<Course> courseList = new ArrayList<>();
+    private List<Student> studentList = new ArrayList<>();
 
     public AssignmentConfig(PersistenceImplementation persistenceImplementation) {
         this.persistenceImplementation = persistenceImplementation;
     }
 
-    private boolean fillData() {
+    private void fillStudents() {
+        Student student1 = new Student("aladar", "1", "Aladar", "Aradi", "em@ail.com", courseList.get(2), GenderEnum.MALE);
+        studentList.add(student1);
+        Student student2 = new Student("bea", "1", "Bea", "Biro", "bea@email.hu", courseList.get(2), GenderEnum.FEMALE);
+        studentList.add(student2);
+        Student student3 = new Student("cecil(ia)", "1", "Cecil(ia)", "Céges", "cecil(ia)@email.com", courseList.get(2), GenderEnum.OTHER);
+        studentList.add(student3);
+    }
+
+    boolean fillData() {
         try {
             fillQuizQuestions();
             fillPAs();
             fillKatas();
             fillCourses();
             fillFillInTheBlankDb();
+            fillStudents();
             return true;
         } catch (Exception e) {
             return false;
@@ -145,7 +160,7 @@ public class AssignmentConfig {
                         "After the 2nd number input, the script should calculate the addition or subtraction and print it out. " +
                         "Then the program should run again with asking for the first number. " +
                         "The script should exit when the user enters a letter instead of a number. " +
-                        "Submit your python script file.");
+                        "Submit your python script file.", true);
         paList.add(pa);
 
         PA pa2 = new PA(Level.INTERMEDIATE, CourseType.PYTHON, "Codewars assignment",
@@ -154,7 +169,7 @@ public class AssignmentConfig {
                         "7 kyu kata scores 2 points and " +
                         "6 kyu kata scores 4 points. " +
                         "For practice and getting more familiar with Python tricks we suggest you to check the solutions " +
-                        "(after completing a kata), understand the top ranked ones and rewrite your code from scratch based on the new insight.");
+                        "(after completing a kata), understand the top ranked ones and rewrite your code from scratch based on the new insight.", true);
         paList.add(pa2);
 
         PA pa3 = new PA(Level.ADVANCED, CourseType.JAVA, "Practice JPA",
@@ -164,7 +179,7 @@ public class AssignmentConfig {
                         "Check the configurations in persistence.xml! " +
                         "The following steps hint the annotation to use or to modify to get to the expected result. " +
                         "Read about those annotations in the documentation or in any other resource, and play with the options, " +
-                        "always checking the consequences in the database and in the state of the in-memory objects!");
+                        "always checking the consequences in the database and in the state of the in-memory objects!", true);
         paList.add(pa3);
     }
 
@@ -182,10 +197,10 @@ public class AssignmentConfig {
         FillInTheBlank toFill2 = new FillInTheBlank(Level.BEGINNER,
                                                     CourseType.PYTHON,
                                                     "Please fill in the blank to print: Hello World!",
-                                                    "<input type=\"text\" class=\"answer\" size=\"5\" >(\"Hello  + \" <input type=\"text\" class=\"answer\" size=\"5\" >)");
+                                                    "<input type=\"text\" class=\"answer\" size=\"5\" >(\"Hello \" + <input type=\"text\" class=\"answer\" size=\"5\" >)");
 
         FillInAnswer answer2 = new FillInAnswer("print", toFill2);
-        FillInAnswer answer3 = new FillInAnswer(" World!\"", toFill2);
+        FillInAnswer answer3 = new FillInAnswer("\"World!\"", toFill2);
 
         persistenceImplementation.persist(toFill2);
         persistenceImplementation.persist(answer2);
@@ -244,6 +259,51 @@ public class AssignmentConfig {
         persistenceImplementation.persist(toFill6);
         persistenceImplementation.persist(answer12);
         persistenceImplementation.persist(answer13);
+
+        FillInTheBlank toFill7 = new FillInTheBlank(Level.BEGINNER,
+                                                    CourseType.PYTHON,
+                                                    "Please fill the missing parts!",
+                                                    "temperature = 30<br>" +
+                                                            "<input type=\"text\" class=\"answer\" size=\"5\" > temperatute >= 30:<br>" +
+                                                            ">>> print(\"It is hot!\")<br>" +
+                                                            "<input type=\"text\" class=\"answer\" size=\"5\" >:<br>" +
+                                                            ">>> print(\"It is ok.\")");
+
+        FillInAnswer answer14 = new FillInAnswer("if", toFill7);
+        FillInAnswer answer15 = new FillInAnswer("else", toFill7);
+
+        persistenceImplementation.persist(toFill7);
+        persistenceImplementation.persist(answer14);
+        persistenceImplementation.persist(answer15);
+
+        FillInTheBlank toFill8 = new FillInTheBlank(Level.BEGINNER,
+                                                    CourseType.PYTHON,
+                                                    "Create a for loop to sum the numbers!",
+                                                    "numbers = [1, 2, 3]<br>" +
+                                                            "sum = 0<br>" +
+                                                            "<input type=\"text\" class=\"answer\" size=\"5\" > number <input type=\"text\" class=\"answer\" size=\"5\" > numbers:<br>" +
+                                                            ">>> sum += number");
+
+        FillInAnswer answer16 = new FillInAnswer("for", toFill8);
+        FillInAnswer answer17 = new FillInAnswer("in", toFill8);
+
+        persistenceImplementation.persist(toFill8);
+        persistenceImplementation.persist(answer16);
+        persistenceImplementation.persist(answer17);
+
+        FillInTheBlank toFill9 = new FillInTheBlank(Level.BEGINNER,
+                                                    CourseType.PYTHON,
+                                                    "Create a function which adds two numbers",
+                                                    "<input type=\"text\" class=\"answer\" size=\"5\" > sum_numbers<input type=\"text\" class=\"answer\" size=\"5\" ><br>" +
+                                                            ">>> return a + b");
+
+        FillInAnswer answer18 = new FillInAnswer("def", toFill9);
+        FillInAnswer answer19 = new FillInAnswer("(a, b):", toFill9);
+
+        persistenceImplementation.persist(toFill9);
+        persistenceImplementation.persist(answer18);
+        persistenceImplementation.persist(answer19);
+
     }
 
     private void fillKatas() {
@@ -254,11 +314,11 @@ public class AssignmentConfig {
                         "not consisting of 0. The limit will always be higher than the base. " +
                         "For example, if the parameters passed are (2, 6), the function should return [2, 4, 6] " +
                         "as 2, 4, and 6 are the multiples of 2 up to 6. " +
-                        "If you can, try writing it in only one line of code.");
+                        "If you can, try writing it in only one line of code.", true);
         kataList.add(kata);
         Kata kata2 = new Kata(Level.BEGINNER, CourseType.PYTHON, "Reverse words",
                 "Complete the function that accepts a string parameter, and reverses each word in the string. " +
-                        "All spaces in the string should be retained.");
+                        "All spaces in the string should be retained.", true);
         kataList.add(kata2);
     }
 
@@ -271,7 +331,7 @@ public class AssignmentConfig {
                 "language, as are C, Fortran, BASIC, PHP, etc. Some specific features of Python are as follows: "+
                 "an interpreted (as opposed to compiled) language.");
         courseList.add(course2);
-        Course course3 = new Course(com.codecool.PTA.model.course.CourseType.ORIENTATION, "Please choose a course "+
+        Course course3 = new Course(ORIENTATION, "Please choose a course "+
                 "to pursue!");
         courseList.add(course3);
     }
@@ -289,6 +349,9 @@ public class AssignmentConfig {
         }
         for (Course course : courseList) {
             persistenceImplementation.persist(course);
+        }
+        for (Student student : studentList) {
+            persistenceImplementation.persist(student);
         }
     }
 }

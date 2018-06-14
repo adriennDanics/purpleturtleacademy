@@ -19,7 +19,7 @@ public abstract class Assignment implements Comparable{
     @Enumerated(EnumType.STRING)
     CourseType courseType;
 
-    @Column(unique = true, nullable = false)
+    @Column(nullable = false)
     private String assignmentTitle;
 
     @Column(nullable = false, length = 1023)
