@@ -1,62 +1,31 @@
 package com.codecool.PTA.controller;
 
-import com.codecool.PTA.helper.Hash;
 import com.codecool.PTA.model.course.Course;
 import com.codecool.PTA.model.course.CourseType;
 import com.codecool.PTA.model.user.GenderEnum;
 import com.codecool.PTA.model.user.Student;
-import com.codecool.PTA.persistence.PersistenceImplementation;
-import org.junit.jupiter.api.*;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 import org.mockito.ArgumentCaptor;
 
 import javax.servlet.ServletException;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
-
 import java.io.IOException;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.Mockito.*;
 
-class RegistrationControllerTest {
-
-    private Student student;
-    private Course course;
-    private GenderEnum gender;
-
-    private HttpServletRequest req;
-    private HttpServletResponse resp;
-    private HttpSession session;
-    private Hash hash;
-    private PersistenceImplementation pim;
+class RegistrationControllerTest extends ControllerTest {
 
     @BeforeEach
-    private void init() {
-        createCourse();
-        createGender();
-        createStudentExample();
-        mockClasses();
+    private void setup() {
+        createExamples();
+        super.mockClasses();
     }
 
-    private void mockClasses() {
-        this.req = mock(HttpServletRequest.class);
-        this.resp = mock(HttpServletResponse.class);
-        this.session = mock(HttpSession.class);
-        this.hash = mock(Hash.class);
-        this.pim = mock(PersistenceImplementation.class);
-    }
-
-    private void createStudentExample() {
+    private void createExamples() {
+        Course course = new Course(CourseType.ORIENTATION, "orientation");
+        GenderEnum gender = GenderEnum.OTHER;
         this.student = new Student("username", "password", "first_name", "last_name", "email", course, gender);
-    }
-
-    private void createCourse() {
-        this.course = new Course(CourseType.ORIENTATION, "orientation");
-    }
-
-    private void createGender() {
-        this.gender = GenderEnum.OTHER;
     }
 
     @Test
