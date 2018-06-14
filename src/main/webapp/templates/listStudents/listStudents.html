@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <div th:replace="layout.html :: head"></div>
+    <script src="static/js/friends.js" defer></script>
+
+</head>
+<body>
+    <div id="studentListBox">
+        <div th:replace="layout.html :: navbar"></div>
+        <span>
+            <div th:data-requesterStudent="${student.getId()}" id="requesterStudent"></div>
+            <div th:each="studentOf : ${studentList}">
+                <div th:id="student + ${studentOf.getId()}">
+                    <div th:text="${studentOf.getUsername()}">username</div>
+                    <button th:data-id ="${studentOf.getId()}" class="requestButtons">Send friend request</button>
+                </div>
+            </div>
+        </span>
+    </div>
+
+
+</body>
+</html>
