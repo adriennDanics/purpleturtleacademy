@@ -37,7 +37,7 @@ public class Container {
         servletContext.addServlet("friendRequestsController", new FriendRequestsController(persistenceImplementation)).addMapping("/friend-requests");
         servletContext.addServlet("acceptFriendRequest", new AcceptFriendRequest(persistenceImplementation)).addMapping("/accept-request");
         servletContext.addServlet("rejectRequestsController", new RejectFriendRequest(persistenceImplementation)).addMapping("/reject-request");
-
+        servletContext.addServlet("removeNotification", new RemoveNotification(persistenceImplementation)).addMapping("/remove-notification");
     }
     
 }

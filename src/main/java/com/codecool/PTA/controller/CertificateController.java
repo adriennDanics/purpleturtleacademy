@@ -16,6 +16,7 @@ public class CertificateController extends AbstractController {
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         if(checkLogin(req)){
+            isNewFriendRequest(req);
             WebContext context = new WebContext(req, resp, req.getServletContext());
             Student student = (Student) getLoggedInUser(req);
             Certificate certificate = student.getCertificate();
