@@ -4,12 +4,32 @@
     <meta charset="UTF-8">
 
     <div th:replace="layout.html :: head"></div>
+    <script src="static/js/editProfile.js" defer></script>
 
 </head>
 <body>
 <div th:replace="layout.html :: navbar"></div>
 <br><br><br>
-<a class="card" href="/profile/certificate">Certificate</a>
+<div>
+    <div>
+        <h4 id="name-form" th:text="${student.getUsername()}">Name</h4>
+    </div>
+    <div class="profile-picture">
+        <img th:attr="src=${student.getImage()}" alt="image">
+        <form method="post" action="/profile" id="image-form">
+            <button id="change-image" class="btn" type="button">Change image</button>
+        </form>
+        <button id="change-user-name" class="btn" type="button">Change username</button>
+        <form method="post" action="/profile" id="password-form">
+            <button id="change-password" class="btn" type="button">Change password</button>
+        </form>
+    </div>
+    <br>
+    <br>
+    <div class="certi-link" th:if="${student.getCertificate()}">
+        <a class="btn" href="/profile/certificate">Certificate</a>
+    </div>
+</div>
 
 </body>
 </html>

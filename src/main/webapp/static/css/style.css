@@ -1,6 +1,6 @@
 body {
     background-image: url("/static/bcg.jpg");
-    color: #30415d;
+    color: #6C6488;
     background-repeat: no-repeat;
     background-attachment: fixed;
     width: 80%;
@@ -15,8 +15,9 @@ h2.title {
     margin: 60px 0 0 35px;
 }
 
-h4.warning {
-    background-color: #CF6766;
+h4.warning, p.warning {
+    background-color: #6C6488;
+    color: white;
     width: fit-content;
 }
 
@@ -40,7 +41,7 @@ img {
     position: absolute;
     top: 127px;
     right: -255px;
-    color: #30415d;
+    color: #6C6488;
     padding-left: 10px;
     padding-right: 20px;
     font-size: 22px;
@@ -61,12 +62,24 @@ img {
     height: 60px;
 }
 
+#input {
+    display:inline;
+}
+
+#fillBox, #studentListBox {
+    margin:150px;
+}
+
+#fillInId {
+    display: none;
+}
+
 .greenback {
     background-color: #67ba46;
 }
 
 .redback {
-    background-color: #CF6766;
+    background-color: #6C6488;
 }
 
 .badge.badge-primary {
@@ -74,7 +87,7 @@ img {
 }
 
 .badge.badge-info {
-    background-color: #95598c;
+    background-color: #B6A19E;
 }
 
 .nav-link, a:active, a:hover, a:visited, a:link {
@@ -87,4 +100,20 @@ img {
 
 .quiz_answers.btn {
     margin: 10px;
+}
+
+.profile-picture img, .certi-link , .profile-picture form , input#new-user-name, button#change-user-name, h4#name-form {
+    position: relative;
+    margin: 10px 50px 10px 50px !important;
+}
+#notification_element {
+    color: red;
+}
+#notification_div {
+    top: 14px;
+    position: relative;
+}
+#notification_bell {
+    text-decoration: none;
+    cursor: pointer;
 }
