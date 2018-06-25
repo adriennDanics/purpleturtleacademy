@@ -22,7 +22,7 @@ public class KataController extends AbstractController {
     public KataController(PersistenceImplementation persistenceImplementation) {
         this.persistenceImplementation = persistenceImplementation;
     }
-
+//TODO
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         if(checkLogin(req)) {

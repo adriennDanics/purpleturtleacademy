@@ -1,4 +1,4 @@
-package com.codecool.PTA.JSON;
+package com.codecool.PTA.api;
 
 import com.codecool.PTA.controller.AbstractController;
 import com.codecool.PTA.model.user.Student;
@@ -9,11 +9,11 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
-public class RejectFriendRequest extends AbstractController {
+public class AcceptFriendRequest extends AbstractController {
 
     private PersistenceImplementation persistenceImplementation;
 
-    public RejectFriendRequest(PersistenceImplementation persistenceImplementation) {
+    public AcceptFriendRequest(PersistenceImplementation persistenceImplementation) {
         this.persistenceImplementation = persistenceImplementation;
     }
 
@@ -23,10 +23,14 @@ public class RejectFriendRequest extends AbstractController {
         Student loggedInStudent = persistenceImplementation.findStudentById(Long.valueOf(req.getParameter("loggedInStudentId")));
         Student requesterStudent = persistenceImplementation.findStudentById(Long.valueOf(req.getParameter("requesterId")));
 
-        loggedInStudent.removeFromTaggedByOthers(requesterStudent);
+        loggedInStudent.addToFriends(requesterStudent);
+        requesterStudent.addToFriends(loggedInStudent);
+
         requesterStudent.removeFromPendingFriends(loggedInStudent);
+        loggedInStudent.removeFromTaggedByOthers(requesterStudent);
 
         persistenceImplementation.merge(loggedInStudent);
         persistenceImplementation.merge(requesterStudent);
+
     }
 }

@@ -1,4 +1,4 @@
-package com.codecool.PTA.JSON;
+package com.codecool.PTA.api;
 
 import com.codecool.PTA.controller.AbstractController;
 import com.codecool.PTA.persistence.PersistenceImplementation;

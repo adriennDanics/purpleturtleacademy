@@ -5,6 +5,8 @@ import com.codecool.PTA.model.course.Course;
 import com.codecool.PTA.model.course.CourseType;
 import com.codecool.PTA.persistence.PersistenceImplementation;
 import com.codecool.PTA.model.user.Student;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.thymeleaf.TemplateEngine;
 import org.thymeleaf.context.WebContext;
 
@@ -19,6 +21,11 @@ public class IndexController extends AbstractController {
 
     public IndexController(PersistenceImplementation persistenceImplementation) {
         this.persistenceImplementation = persistenceImplementation;
+    }
+
+    @GetMapping({"", "index"})
+    public String displayIndexPage(Model model) {
+        return "index/index";
     }
 
     @Override

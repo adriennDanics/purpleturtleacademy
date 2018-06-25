@@ -23,7 +23,7 @@ public class LoginController extends AbstractController {
         this.persistenceImplementation = persistenceImplementation;
         this.hash = hash;
     }
-
+//TODO
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         WebContext context = new WebContext(req, resp, req.getServletContext());

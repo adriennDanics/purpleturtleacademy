@@ -25,7 +25,7 @@ public class QuestionController extends AbstractController {
         this.persistenceImplementation = persistenceImplementation;
         this.randomizeAssignment = randomAssignments;
     }
-
+//TODO completely re-write
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         if(checkLogin(req)){

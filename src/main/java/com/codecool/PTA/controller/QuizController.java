@@ -21,7 +21,7 @@ public class QuizController extends AbstractController {
     public QuizController(PersistenceImplementation persistenceImplementation) {
         this.persistenceImplementation = persistenceImplementation;
     }
-
+//TODO
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         if (checkLogin(req)) {

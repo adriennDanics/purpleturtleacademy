@@ -7,7 +7,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
-public abstract class AbstractController extends HttpServlet {
+public abstract class AbstractController {
 
     public static void setFirstNotification(boolean firstNotification) {
         AbstractController.firstNotification = firstNotification;

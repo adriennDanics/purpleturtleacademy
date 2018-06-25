@@ -5,6 +5,8 @@ import com.codecool.PTA.config.TemplateEngineUtil;
 import com.codecool.PTA.model.course.Course;
 import com.codecool.PTA.persistence.PersistenceImplementation;
 import com.codecool.PTA.model.user.Student;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.thymeleaf.TemplateEngine;
 import org.thymeleaf.context.WebContext;
 
@@ -22,6 +24,11 @@ public class CoursesController extends AbstractController {
         this.persistenceImplementation = persistenceImplementation;
     }
 
+    @GetMapping
+    public String listCourses(Model model) {
+        return "courses/courses";
+    }
+    //TODO
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         //super.doGet(req, resp);

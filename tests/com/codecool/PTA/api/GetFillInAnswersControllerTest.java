@@ -1,4 +1,4 @@
-package com.codecool.PTA.JSON;
+package com.codecool.PTA.api;
 
 import org.junit.jupiter.api.Test;
 //TODO

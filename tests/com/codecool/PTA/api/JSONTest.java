@@ -1,4 +1,4 @@
-package com.codecool.PTA.JSON;
+package com.codecool.PTA.api;
 
 import com.codecool.PTA.helper.Hash;
 import com.codecool.PTA.model.user.Student;

@@ -20,7 +20,7 @@ public class FriendRequestsController extends AbstractController {
     public FriendRequestsController(PersistenceImplementation persistenceImplementation) {
         this.persistenceImplementation = persistenceImplementation;
     }
-
+//TODO
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 

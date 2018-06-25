@@ -1,6 +1,6 @@
 package com.codecool.PTA.model;
 
-import com.codecool.PTA.JSON.*;
+import com.codecool.PTA.api.*;
 import com.codecool.PTA.config.AssignmentConfig;
 import com.codecool.PTA.controller.*;
 import com.codecool.PTA.helper.Hash;

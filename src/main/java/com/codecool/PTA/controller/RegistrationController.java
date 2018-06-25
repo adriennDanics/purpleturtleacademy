@@ -25,7 +25,7 @@ public class RegistrationController extends AbstractController {
         this.persistenceImplementation = persistenceImplementation;
         this.hash = hash;
     }
-
+//TODO
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         WebContext context = new WebContext(req, resp, req.getServletContext());
@@ -56,7 +56,7 @@ public class RegistrationController extends AbstractController {
             resp.sendRedirect("/registration");
         }
     }
-
+//TODO create abstract class with these helper methods
     private void addPasswordNotMatchToSession(HttpSession session) {
         session.setAttribute("passwordNotMatch", "The passwords you entered are not matching!");
     }
