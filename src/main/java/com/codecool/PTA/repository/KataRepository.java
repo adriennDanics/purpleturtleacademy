@@ -1,6 +1,5 @@
 package com.codecool.PTA.repository;
 
-import com.codecool.PTA.model.course.Course;
 import com.codecool.PTA.model.course.CourseType;
 import com.codecool.PTA.model.quest.Kata;
 import com.codecool.PTA.model.user.Level;
@@ -10,6 +9,6 @@ import java.util.List;
 
 public interface KataRepository extends JpaRepository<Kata, Long> {
 
-    List<Kata> getByCourseTypeAndLevel(CourseType courseType, Level level);
+    List<Kata> getByCourseTypeAndLevelAndTemplate(CourseType courseType, Level level, boolean isTemplate);
 
 }

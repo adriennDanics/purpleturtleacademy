@@ -15,7 +15,7 @@ public class PaService {
     @Autowired
     private PARepository paRepository;
 
-    public List<PA> findPasByCourseNameAndLevelName(CourseType courseType, Level level) {
-        return paRepository.getByCourseTypeAndLevel(courseType, level);
+    public List<PA> findPaTemplatesByCourseNameAndLevelName(CourseType courseType, Level level) {
+        return paRepository.getByCourseTypeAndLevelAndTemplate(courseType, level, true);
     }
 }

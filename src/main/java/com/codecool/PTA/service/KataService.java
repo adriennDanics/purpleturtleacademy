@@ -1,6 +1,5 @@
 package com.codecool.PTA.service;
 
-import com.codecool.PTA.model.course.Course;
 import com.codecool.PTA.model.course.CourseType;
 import com.codecool.PTA.model.quest.Kata;
 import com.codecool.PTA.model.user.Level;
@@ -16,7 +15,7 @@ public class KataService {
     @Autowired
     private KataRepository kataRepository;
 
-    public List<Kata> findKatasByCourseNameAndLevelName(CourseType courseType, Level level) {
-        return kataRepository.getByCourseTypeAndLevel(courseType, level);
+    public List<Kata> findKataTemplatesByCourseNameAndLevelName(CourseType courseType, Level level) {
+        return kataRepository.getByCourseTypeAndLevelAndTemplate(courseType, level, true);
     }
 }

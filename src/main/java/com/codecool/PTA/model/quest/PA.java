@@ -17,15 +17,15 @@ public class PA extends Assignment{
     private Set<Student> student = new HashSet<>();
 
     @Column
-    public boolean isItTemplate;
+    public boolean isTemplate;
 
     protected PA() {
         super();
     }
 
-    public PA(Level level, CourseType courseType, String assignmentTitle, String question, boolean isItTemplate) {
+    public PA(Level level, CourseType courseType, String assignmentTitle, String question, boolean isTemplate) {
         super(level, courseType, assignmentTitle, question);
-        this.isItTemplate = isItTemplate;
+        this.isTemplate = isTemplate;
     }
 
     public String getSubmission() {
