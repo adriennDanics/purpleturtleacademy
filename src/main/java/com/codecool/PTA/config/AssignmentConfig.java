@@ -108,7 +108,7 @@ public class AssignmentConfig {
         QuizQuestion quizQuestion7 = new QuizQuestion("Which of the following statement(s) is TRUE?" +"<br>"+
                 "1. A hash function takes a message of arbitrary length and generates a fixed length code." +"<br>"+
                 "2. A hash function takes a message of fixed length and generates a code of variable length." +"<br>"+
-                "3. A hash function may give the same hash value for distinct messages.", "Hash function", Level.INTERMEDIATE, CourseType.PYTHON, answers7);
+                "3. A hash function may give the same hash value for distinct messages.", "PasswordHashing function", Level.INTERMEDIATE, CourseType.PYTHON, answers7);
         questionList.add(quizQuestion7);
 
         Map<String, Boolean> answers8 = new HashMap<>();

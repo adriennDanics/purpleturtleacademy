@@ -1,6 +1,6 @@
 package com.codecool.PTA.api;
 
-import com.codecool.PTA.helper.Hash;
+import com.codecool.PTA.helper.PasswordHashing;
 import com.codecool.PTA.model.user.Student;
 import com.codecool.PTA.persistence.PersistenceImplementation;
 
@@ -13,7 +13,7 @@ import static org.mockito.Mockito.mock;
 abstract class JSONTest {
 
     Student student;
-    Hash hash;
+    PasswordHashing passwordHashing;
     HttpServletRequest req;
     HttpServletResponse resp;
     HttpSession session;
@@ -21,7 +21,7 @@ abstract class JSONTest {
     PersistenceImplementation pim;
 
     void mockClasses() {
-        this.hash = mock(Hash.class);
+        this.passwordHashing = mock(PasswordHashing.class);
         this.req = mock(HttpServletRequest.class);
         this.resp = mock(HttpServletResponse.class);
         this.session = mock(HttpSession.class);

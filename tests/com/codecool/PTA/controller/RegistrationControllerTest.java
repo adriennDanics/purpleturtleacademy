@@ -44,12 +44,12 @@ class RegistrationControllerTest extends ControllerTest {
         ArgumentCaptor<Student> captor = ArgumentCaptor.forClass(Student.class);
         doNothing().when(session).setAttribute(anyString(), captor.capture());
 
-        when(hash.hashPassword(anyString())).thenReturn("password");
+        when(passwordHashing.hashPassword(anyString())).thenReturn("password");
 
         when(pim.persist(any(Student.class))).thenReturn(true);
         when(pim.findCourseByName(any())).thenReturn(new Course(CourseType.ORIENTATION, "orientation"));
 
-        new RegistrationController(pim, hash).doPost(req, resp);
+        new RegistrationController(pim, passwordHashing).doPost(req, resp);
 
         Student sessionStudent = captor.getValue();
 

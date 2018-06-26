@@ -1,6 +1,6 @@
 package com.codecool.PTA.api;
 
-import com.codecool.PTA.helper.Hash;
+import com.codecool.PTA.helper.PasswordHashing;
 import com.codecool.PTA.model.user.Student;
 import com.codecool.PTA.persistence.PersistenceImplementation;
 import org.json.JSONObject;
@@ -16,11 +16,11 @@ import java.io.IOException;
 public class ReceiveNewPassword extends HttpServlet {
 
     private PersistenceImplementation persistenceImplementation;
-    private Hash hash;
+    private PasswordHashing passwordHashing;
 
-    public ReceiveNewPassword(PersistenceImplementation persistenceImplementation, Hash hash) {
+    public ReceiveNewPassword(PersistenceImplementation persistenceImplementation, PasswordHashing passwordHashing) {
         this.persistenceImplementation = persistenceImplementation;
-        this.hash = hash;
+        this.passwordHashing = passwordHashing;
     }
 
     @Override
@@ -38,9 +38,9 @@ public class ReceiveNewPassword extends HttpServlet {
         reader.close();
 
         JSONObject passwords = new JSONObject(sb.toString());
-        if(hash.isPasswordCorrect(passwords.get("old").toString(), student.getPassword())){
+        if(passwordHashing.isPasswordCorrect(passwords.get("old").toString(), student.getPassword())){
             String password = passwords.get("new").toString();
-            student.setPassword(hash.hashPassword(password));
+            student.setPassword(passwordHashing.hashPassword(password));
             persistenceImplementation.merge(student);
         } else {
             JSONObject denial = new JSONObject();

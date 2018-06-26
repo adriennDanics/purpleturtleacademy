@@ -42,12 +42,12 @@ class LoginControllerTest extends ControllerTest {
         students.add(student);
         when(pim.findAllStudents()).thenReturn(students);
 
-        when(hash.isPasswordCorrect(anyString(), anyString())).thenReturn(true);
+        when(passwordHashing.isPasswordCorrect(anyString(), anyString())).thenReturn(true);
 
         ArgumentCaptor<Student> captor = ArgumentCaptor.forClass(Student.class);
         doNothing().when(session).setAttribute(anyString(), captor.capture());
 
-        new LoginController(pim, hash).doPost(req, resp);
+        new LoginController(pim, passwordHashing).doPost(req, resp);
 
         Student sessionStudent = captor.getValue();
 

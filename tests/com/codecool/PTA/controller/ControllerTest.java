@@ -1,6 +1,6 @@
 package com.codecool.PTA.controller;
 
-import com.codecool.PTA.helper.Hash;
+import com.codecool.PTA.helper.PasswordHashing;
 import com.codecool.PTA.model.user.Student;
 import com.codecool.PTA.persistence.PersistenceImplementation;
 
@@ -13,7 +13,7 @@ import static org.mockito.Mockito.mock;
 abstract class ControllerTest {
 
     Student student;
-    Hash hash;
+    PasswordHashing passwordHashing;
     HttpServletRequest req;
     HttpServletResponse resp;
     HttpSession session;
@@ -25,7 +25,7 @@ abstract class ControllerTest {
         this.resp = mock(HttpServletResponse.class);
         this.session = mock(HttpSession.class);
         this.pim = mock(PersistenceImplementation.class);
-        this.hash = mock(Hash.class);
+        this.passwordHashing = mock(PasswordHashing.class);
     }
 
 }

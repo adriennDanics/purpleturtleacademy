@@ -39,10 +39,10 @@ public class ReceiveNewPasswordTest extends JSONTest {
         when(req.getSession()).thenReturn(session);
         when(session.getAttribute("student")).thenReturn(student);
 
-        when(hash.isPasswordCorrect("password", "password")).thenReturn(true);
-        when(hash.hashPassword("new_password")).thenReturn("new_password");
+        when(passwordHashing.isPasswordCorrect("password", "password")).thenReturn(true);
+        when(passwordHashing.hashPassword("new_password")).thenReturn("new_password");
 
-        new ReceiveNewPassword(pim, hash).doPost(req, resp);
+        new ReceiveNewPassword(pim, passwordHashing).doPost(req, resp);
 
         assertEquals("new_password", student.getPassword());
     }

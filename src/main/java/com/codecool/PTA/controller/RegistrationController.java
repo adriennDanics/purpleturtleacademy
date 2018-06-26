@@ -1,7 +1,7 @@
 package com.codecool.PTA.controller;
 
 import com.codecool.PTA.config.TemplateEngineUtil;
-import com.codecool.PTA.helper.Hash;
+import com.codecool.PTA.helper.PasswordHashing;
 import com.codecool.PTA.model.course.Course;
 import com.codecool.PTA.model.course.CourseType;
 import com.codecool.PTA.model.user.GenderEnum;
@@ -19,11 +19,11 @@ import java.io.IOException;
 public class RegistrationController extends AbstractController {
 
     private PersistenceImplementation persistenceImplementation;
-    private Hash hash;
+    private PasswordHashing passwordHashing;
 
-    public RegistrationController(PersistenceImplementation persistenceImplementation, Hash hash) {
+    public RegistrationController(PersistenceImplementation persistenceImplementation, PasswordHashing passwordHashing) {
         this.persistenceImplementation = persistenceImplementation;
-        this.hash = hash;
+        this.passwordHashing = passwordHashing;
     }
 //TODO
     @Override
@@ -91,7 +91,7 @@ public class RegistrationController extends AbstractController {
     }
 
     private Student createNewlyRegisteredStudent(HttpServletRequest req) {
-        String hashedPassword = hash.hashPassword(req.getParameter("password"));
+        String hashedPassword = passwordHashing.hashPassword(req.getParameter("password"));
         Course course = persistenceImplementation.findCourseByName(CourseType.ORIENTATION);
         GenderEnum gender = translateGender(req.getParameter("gender"));
 

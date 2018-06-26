@@ -2,7 +2,7 @@ package com.codecool.PTA.helper;
 
 import org.mindrot.jbcrypt.BCrypt;
 
-public class Hash {
+public class PasswordHashing {
 
     public String hashPassword(String password) {
         return BCrypt.hashpw(password, BCrypt.gensalt());

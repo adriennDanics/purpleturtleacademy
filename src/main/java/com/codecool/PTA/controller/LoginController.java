@@ -1,7 +1,7 @@
 package com.codecool.PTA.controller;
 
 import com.codecool.PTA.config.TemplateEngineUtil;
-import com.codecool.PTA.helper.Hash;
+import com.codecool.PTA.helper.PasswordHashing;
 import com.codecool.PTA.persistence.PersistenceImplementation;
 import com.codecool.PTA.model.user.Student;
 import org.thymeleaf.TemplateEngine;
@@ -17,11 +17,11 @@ import java.util.List;
 public class LoginController extends AbstractController {
 
     private PersistenceImplementation persistenceImplementation;
-    private Hash hash;
+    private PasswordHashing passwordHashing;
 
-    public LoginController(PersistenceImplementation persistenceImplementation, Hash hash) {
+    public LoginController(PersistenceImplementation persistenceImplementation, PasswordHashing passwordHashing) {
         this.persistenceImplementation = persistenceImplementation;
-        this.hash = hash;
+        this.passwordHashing = passwordHashing;
     }
 //TODO
     @Override
@@ -43,7 +43,7 @@ public class LoginController extends AbstractController {
 
         //TODO: error handling
         for (Student student : studentList) {
-            if (username.equals(student.getUsername()) && hash.isPasswordCorrect(password, student.getPassword())) {
+            if (username.equals(student.getUsername()) && passwordHashing.isPasswordCorrect(password, student.getPassword())) {
                 session.setAttribute("student", student);
                 resp.sendRedirect("/index");
                 return;
