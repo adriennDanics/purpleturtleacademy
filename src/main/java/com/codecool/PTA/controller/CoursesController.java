@@ -15,6 +15,7 @@ public class CoursesController extends AbstractController {
 
     @GetMapping
     public String listCourses(Model model) {
+        isNewFriendRequest();
         Student student = getLoggedInUser();
         model.addAttribute("courses", courseService.findAll());
         model.addAttribute("student", student);

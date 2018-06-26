@@ -1,18 +1,28 @@
 package com.codecool.PTA.controller;
 
 import com.codecool.PTA.model.user.Student;
+import com.codecool.PTA.service.StudentService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+
 //TODO
 @Controller
-public class UserController {
+public class UserController extends AbstractController {
+
+    @Autowired
+    private StudentService studentService;
 
     @GetMapping("student/{id}")
     public String displayProfile(@PathVariable("id") Long id, Model model) {
+        isNewFriendRequest();
+        //TODO: returns Optional, must change that
+        model.addAttribute("student", studentService.findById(id));
+
         return "profile/profile";
     }
 
