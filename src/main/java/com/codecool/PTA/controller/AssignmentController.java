@@ -7,6 +7,10 @@ import com.codecool.PTA.model.quest.PA;
 import com.codecool.PTA.model.user.Level;
 import com.codecool.PTA.model.user.Student;
 import com.codecool.PTA.persistence.PersistenceImplementation;
+import com.codecool.PTA.repository.KataRepository;
+import com.codecool.PTA.service.KataService;
+import com.codecool.PTA.service.PaService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -25,9 +29,46 @@ import java.util.List;
 @Controller
 public class AssignmentController extends AbstractController {
 
+    @Autowired
+    private KataService kataService;
+
+    @Autowired
+    private PaService paService;
+
     @GetMapping("/assignments")
     public String listAssignments(Model model) {
-        return "assignments/assignments";
+        Student student = getLoggedInUser();
+        CourseType courseName = student.getCourse().getName();
+        Level levelName = student.getLevel();
+        try{
+            List<Kata> tempKataList = kataService.findKatasByCourseNameAndLevelName(courseName, levelName);
+            List<Kata> kataList = new ArrayList<>();
+            for (Kata kata:tempKataList) {
+                if (kata.isItTemplate){
+                    kataList.add(kata);
+                }
+            }
+            model.addAttribute("kataList", kataList);
+        } catch (Exception e){
+            model.addAttribute("kataList", null);
+        }
+
+        try {
+            List<PA> tempPaList = paService.findPasByCourseNameAndLevelName(courseName, levelName);
+            List<PA> paList = new ArrayList();
+            for (PA pa:tempPaList) {
+                if (pa.isItTemplate){
+                    paList.add(pa);
+                }
+            }
+            model.addAttribute("paList", paList);
+        } catch (Exception ex){
+            model.addAttribute("paList", null);
+
+        }
+        model.addAttribute("student", student);
+
+        return "assignments";
     }
 
     @GetMapping("/fill")
