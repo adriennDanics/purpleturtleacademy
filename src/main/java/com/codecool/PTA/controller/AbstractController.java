@@ -1,9 +1,8 @@
 package com.codecool.PTA.controller;
 
 import com.codecool.PTA.model.user.Student;
-import com.codecool.PTA.model.user.User;
+import org.springframework.security.core.context.SecurityContextHolder;
 
-import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
@@ -20,9 +19,8 @@ public abstract class AbstractController {
         return !(session.getAttribute("student") == null);
     }
 
-    User getLoggedInUser(HttpServletRequest req) {
-        HttpSession session = req.getSession();
-        return (User) session.getAttribute("student");
+    Student getLoggedInUser() {
+        return (Student) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
     }
 
     boolean isNewFriendRequest(HttpServletRequest req) {
