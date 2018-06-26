@@ -42,6 +42,7 @@ public class Container {
         servletContext.addServlet("rejectRequestsController", new RejectFriendRequest(persistenceImplementation)).addMapping("/reject-request");
         servletContext.addServlet("removeNotification", new RemoveNotification(persistenceImplementation)).addMapping("/remove-notification");
         servletContext.addServlet("questionController", new QuestionController(persistenceImplementation, randomAssignments)).addMapping("/question");
+        servletContext.addServlet("deleteFriendController", new DeleteFriendController(persistenceImplementation)).addMapping("/delete-friend");
     }
     
 }

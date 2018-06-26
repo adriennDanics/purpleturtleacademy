@@ -10,14 +10,18 @@
 <div id="studentListBox">
     <div th:replace="layout.html :: navbar"></div>
     <span>
-            <div th:each="student : ${friends}">
-                <div th:id="student + ${student.getId()}">
-                    <div th:text="${student.getUsername()}">username</div>
-                </div>
+        <div th:each="user : ${friends}">
+            <div th:id="student + ${student.getId()}">
+                <div th:text="${user.getUsername()}">username</div>
+                <form action="/delete-friend" method="POST">
+                    <input type="hidden" name="deletingStudent" id="deletingStudent" th:value="${student.getId()}">
+                    <input type="hidden" name="studentToDelete" id="studentToDelete" th:value="${user.getId()}">
+                    <button type="submit" >Delete friend</button>
+                </form>
             </div>
-        </span>
+        </div>
+    </span>
 </div>
-
 
 </body>
 </html>
