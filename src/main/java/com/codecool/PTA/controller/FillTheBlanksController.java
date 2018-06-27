@@ -25,7 +25,7 @@ public class FillTheBlanksController extends AbstractController {
         if(checkLogin(req)){
             WebContext context = new WebContext(req, resp, req.getServletContext());
             String id = req.getParameter("id");
-            isNewFriendRequest(req);
+            checkForNewFriendRequest(req);
 
             FillInTheBlank fill1 = persistenceImplementation.getEm().find(FillInTheBlank.class, Long.valueOf(id));
             context.setVariable("fill", fill1);

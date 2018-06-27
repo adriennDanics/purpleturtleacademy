@@ -40,7 +40,7 @@ public class AssignmentController extends AbstractController {
         Student student = getLoggedInUser();
         CourseType courseName = student.getCourse().getName();
         Level levelName = student.getLevel();
-        isNewFriendRequest();
+        checkForNewFriendRequest();
 
         model.addAttribute("kataList", kataService.findKataTemplatesByCourseNameAndLevelName(courseName, levelName));
         model.addAttribute("paList", paService.findPaTemplatesByCourseNameAndLevelName(courseName, levelName));
@@ -51,7 +51,7 @@ public class AssignmentController extends AbstractController {
 
     @GetMapping("/fill/{id}/{left}")
     public String displayFillAssignment(@PathVariable Long id, @PathVariable String left, Model model) {
-        isNewFriendRequest();
+        checkForNewFriendRequest();
         model.addAttribute("student", getLoggedInUser());
         model.addAttribute("fill", fillInTheBlankService.findById(id));
         model.addAttribute("left", left);
@@ -108,7 +108,7 @@ public class AssignmentController extends AbstractController {
 //            Student student = (Student) getLoggedInUser(req);
 //            CourseType courseName = student.getCourse().getName();
 //            Level levelName = student.getLevel();
-//            isNewFriendRequest(req);
+//            checkForNewFriendRequest(req);
 //            WebContext context = new WebContext(req, resp, req.getServletContext());
 //            try{
 //                List<Kata> tempKataList = persistenceImplementation.findAllKatas(courseName, levelName);
