@@ -1,51 +1,27 @@
 package com.codecool.PTA.controller;
 
-import com.codecool.PTA.config.TemplateEngineUtil;
 import com.codecool.PTA.model.course.Course;
 import com.codecool.PTA.model.course.CourseType;
 import com.codecool.PTA.model.user.Student;
-import com.codecool.PTA.persistence.PersistenceImplementation;
+import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.thymeleaf.TemplateEngine;
-import org.thymeleaf.context.WebContext;
 
-import javax.servlet.ServletException;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-import java.io.IOException;
-
+@Controller
 public class IndexController extends AbstractController {
-
-    private PersistenceImplementation persistenceImplementation;
-
-    public IndexController(PersistenceImplementation persistenceImplementation) {
-        this.persistenceImplementation = persistenceImplementation;
-    }
 
     @GetMapping({"", "index"})
     public String displayIndexPage(Model model) {
+        checkForNewFriendRequest();
+        Student student = getLoggedInUser();
+        Course course = student.getCourse();
+        final boolean IS_ORIENTATION_ACTIVE = course.getName() == CourseType.ORIENTATION;
+        if (IS_ORIENTATION_ACTIVE) {
+            model.addAttribute("orientation", "orientation");
+        }
+        model.addAttribute("student", student);
+        model.addAttribute("course", course);
         return "index/index";
     }
 
-    //TODO
-    @Override
-    protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        if (checkLogin(req)) {
-            WebContext context = new WebContext(req, resp, req.getServletContext());
-            Student student = (Student) getLoggedInUser(req);
-            checkForNewFriendRequest(req);
-
-            Course course = persistenceImplementation.findCourseById(student.getCourse().getId());
-            context.setVariable("course", course);
-            if (course.getName() == CourseType.ORIENTATION) {
-                context.setVariable("orientation", "orientation");
-            }
-            context.setVariable("student", student);
-            TemplateEngine engine = TemplateEngineUtil.getTemplateEngine(req.getServletContext());
-            engine.process("index/index.html", context, resp.getWriter());
-        } else {
-            resp.sendRedirect("/login");
-        }
-    }
 }
