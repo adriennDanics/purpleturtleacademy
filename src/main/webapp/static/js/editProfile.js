@@ -27,6 +27,7 @@ editProfileInfo={
         inputField.setAttribute("id", idString);
         inputField.setAttribute("name", idString);
         inputField.setAttribute("type", "text");
+        inputField.setAttribute("th:field", "*{image}");
         inputField.setAttribute("placeholder", "Leave the field blank for default picture");
         inputField.classList.add("form-control");
 
