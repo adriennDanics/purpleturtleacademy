@@ -1,11 +1,11 @@
 package com.codecool.PTA.controller;
 
 import com.codecool.PTA.model.course.CourseType;
-import com.codecool.PTA.model.quest.Kata;
-import com.codecool.PTA.model.quest.PA;
+import com.codecool.PTA.model.quest.*;
 import com.codecool.PTA.model.user.Level;
 import com.codecool.PTA.model.user.Student;
 import com.codecool.PTA.service.*;
+import com.codecool.PTA.helper.RandomizeAssignment;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -13,6 +13,10 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+
+import java.util.List;
+import java.util.Set;
+import java.util.TreeSet;
 
 //TODO
 @Controller
@@ -33,6 +37,10 @@ public class AssignmentController extends AbstractController {
     @Autowired
     private StudentService studentService;
 
+    @Autowired
+    private RandomizeAssignment randomizeAssignment;
+
+    private static Set<Assignment> questionsCompleted = new TreeSet<>();
 
     @GetMapping("/assignments")
     public String listAssignments(Model model) {
@@ -85,7 +93,42 @@ public class AssignmentController extends AbstractController {
     }
 
     //TODO rewrite 5-question quiz
-    //@GetMapping("/question")
+    @GetMapping("/question")
+    public String getQuestion(@PathVariable Long numberLeft) {
+
+        Student student = getLoggedInUser();
+        CourseType studentCoure = student.getCourse().getName();
+        Level studentLevel = student.getLevel();
+
+        List<FillInTheBlank> fillInQuestionList = fillInTheBlankService.findFillInTheBlanksByCourseTypeAndLevel(studentCoure, studentLevel);
+        List<QuizQuestion> quizQuestionList = quizQuestionService.findFillInTheBlanksByCourseTypeAndLevel(studentCoure, studentLevel);
+
+        Assignment currentAssignment = randomizeAssignment.makeRandomList(quizQuestionList, fillInQuestionList);
+
+        if(questionsCompleted.contains(currentAssignment)){
+            while(questionsCompleted.contains(currentAssignment)) {
+                currentAssignment = randomizeAssignment.makeRandomList(quizQuestionList, fillInQuestionList);
+            }
+        }
+        if(numberLeft==0){
+            questionsCompleted.clear();
+            randomizeAssignment.makeRandomList(quizQuestionList, fillInQuestionList);
+        }
+
+        String returnUrl = null;
+
+        if(currentAssignment.getClass() == FillInTheBlank.class){
+            long next = currentAssignment.getId();
+            questionsCompleted.add(currentAssignment);
+            returnUrl = "/fill?id=" + next + "&left=" + numberLeft;
+        } else {
+            long nextQuiz = currentAssignment.getId();
+            questionsCompleted.add(currentAssignment);
+            returnUrl = "/quiz?id="+nextQuiz + "&left=" + numberLeft;
+        }
+        return returnUrl;
+    }
+
 
     @GetMapping("/quiz/{id}/{left}")
     public String displayQuizAssignment(@PathVariable Long id, @PathVariable String left, Model model) {
