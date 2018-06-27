@@ -1,7 +1,6 @@
 package com.codecool.PTA.controller;
 
 import com.codecool.PTA.model.course.CourseType;
-import com.codecool.PTA.model.quest.FillInTheBlank;
 import com.codecool.PTA.model.quest.Kata;
 import com.codecool.PTA.model.quest.PA;
 import com.codecool.PTA.model.user.Level;
@@ -44,7 +43,7 @@ public class AssignmentController extends AbstractController {
         return "assignments/assignments";
     }
 
-    @GetMapping("/fill/{id}")
+    @GetMapping("/fill/{id}/{left}")
     public String displayFillAssignment(@PathVariable Long id, @PathVariable String left, Model model) {
         isNewFriendRequest();
         model.addAttribute("stundent", getLoggedInUser());
@@ -62,17 +61,21 @@ public class AssignmentController extends AbstractController {
 
     @PostMapping("/kata")
     public String submitKataAssignment(@ModelAttribute Kata kata) {
-        kataService.updateById(kata);
+        kataService.update(kata);
         return "redirect:assignments/assignments";
     }
 
-    @GetMapping("/pa")
-    public String displayPAAssignment(Model model) {
+    @GetMapping("/pa/{id}")
+    public String displayPAAssignment(@PathVariable Long id,  Model model) {
+        isNewFriendRequest();
+        model.addAttribute("student", getLoggedInUser());
+        model.addAttribute("question", paService.findById(id));
         return "pa/pas";
     }
 
     @PostMapping("/pa")
     public String submitPAAssignment(@ModelAttribute PA pa) {
+        paService.update(pa);
         return "redirect:assignments/assignments";
     }
 

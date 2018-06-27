@@ -21,5 +21,5 @@ public class KataService {
 
     public Kata findById(Long id) { return kataRepository.getOne(id); }
 
-    public void updateById(Kata kata) { kataRepository.save(kata); }
+    public void update(Kata kata) { kataRepository.save(kata); }
 }

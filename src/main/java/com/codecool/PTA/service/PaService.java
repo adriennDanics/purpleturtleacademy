@@ -18,4 +18,8 @@ public class PaService {
     public List<PA> findPaTemplatesByCourseNameAndLevelName(CourseType courseType, Level level) {
         return paRepository.getByCourseTypeAndLevelAndTemplate(courseType, level, true);
     }
+
+    public PA findById(Long id) { return paRepository.getOne(id); }
+
+    public void update(PA pa) { paRepository.save(pa); }
 }
