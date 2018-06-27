@@ -19,15 +19,16 @@ public class SendCourseInfo extends AbstractController {
 
     @Autowired
     private CourseService courseService;
+
     @Autowired
     private StudentService studentService;
 
     @GetMapping("/courseinfo")
     public ResponseEntity<JSONObject> getCourseInfo(@RequestParam("id") Long id) {
-        Map<String, String> courses = new HashMap<>() ;
+        Map<String, String> courses = new HashMap<>();
+        Course course = courseService.findById(id);
         courses.put("name", course.getName().toString());
         courses.put("description", course.getDescription());
-        Course course = courseService.findById(id);
         JSONObject response = new JSONObject(courses);
         return new ResponseEntity<>(response, HttpStatus.OK);
     }
