@@ -2,17 +2,19 @@ package com.codecool.PTA.controller;
 
 import com.codecool.PTA.model.user.Student;
 import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.web.context.request.RequestContextHolder;
+import org.springframework.web.context.request.ServletRequestAttributes;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 public abstract class AbstractController {
 
-    public static void setFirstNotification(boolean firstNotification) {
-        AbstractController.firstNotification = firstNotification;
+    public static void setIsFirstNotification(boolean isFirstNotification) {
+        AbstractController.isFirstNotification = isFirstNotification;
     }
 
-    static boolean firstNotification = true;
+    private static boolean isFirstNotification = true;
 
     boolean checkLogin(HttpServletRequest req) {
         HttpSession session = req.getSession(true);
@@ -23,15 +25,17 @@ public abstract class AbstractController {
         return (Student) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
     }
 
-    boolean isNewFriendRequest(HttpServletRequest req) {
-        HttpSession session = req.getSession();
-
-        Student student = (Student) session.getAttribute("student");
-        if(student.getTaggedByOthers().size() != 0) {
-            if(firstNotification) {
-                session.setAttribute("newRequest", "new");
-            }
+    void checkForNewFriendRequest() {
+        Student student = getLoggedInUser();
+        final boolean hasBeenTagged = student.getTaggedByOthers().size() != 0;
+        if (hasBeenTagged && isFirstNotification) {
+            HttpSession session = getHttpSession();
+            session.setAttribute("newRequest", "new");
         }
-        return (student.getTaggedByOthers().size() != 0);
+    }
+
+    private HttpSession getHttpSession() {
+        ServletRequestAttributes attr = (ServletRequestAttributes) RequestContextHolder.currentRequestAttributes();
+        return attr.getRequest().getSession(true);
     }
 }

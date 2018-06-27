@@ -22,6 +22,6 @@ public class RemoveNotification extends AbstractController {
 
         HttpSession session = req.getSession();
         session.removeAttribute("newRequest");
-        AbstractController.setFirstNotification(false);
+        AbstractController.setIsFirstNotification(false);
     }
 }

@@ -16,7 +16,7 @@
     </div>
     <div class="profile-picture">
         <img th:attr="src=${student.getImage()}" alt="image">
-        <form method="post" action="/profile" id="image-form">
+        <form method="post" th:action="@{/changeImage}" th:object="${student}" id="image-form">
             <button id="change-image" class="btn" type="button">Change image</button>
         </form>
         <button id="change-user-name" class="btn" type="button">Change username</button>

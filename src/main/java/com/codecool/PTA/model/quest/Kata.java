@@ -1,6 +1,5 @@
 package com.codecool.PTA.model.quest;
 
-
 import com.codecool.PTA.model.course.CourseType;
 import com.codecool.PTA.model.user.Level;
 import com.codecool.PTA.model.user.Student;
@@ -21,15 +20,15 @@ public class Kata extends Assignment {
     private String submission;
 
     @Column
-    public boolean isItTemplate;
+    public boolean isTemplate;
 
     protected Kata() {
         super();
     }
 
-    public Kata(Level level, CourseType courseType, String assignmentTitle, String question, boolean isItTemplate) {
+    public Kata(Level level, CourseType courseType, String assignmentTitle, String question, boolean isTemplate) {
         super(level, courseType, assignmentTitle, question);
-        this.isItTemplate = isItTemplate;
+        this.isTemplate = isTemplate;
     }
 
     public String getSubmission() {

@@ -1,42 +1,62 @@
 package com.codecool.PTA.controller;
 
-import com.codecool.PTA.config.TemplateEngineUtil;
 import com.codecool.PTA.model.course.CourseType;
 import com.codecool.PTA.model.quest.Kata;
 import com.codecool.PTA.model.quest.PA;
 import com.codecool.PTA.model.user.Level;
 import com.codecool.PTA.model.user.Student;
-import com.codecool.PTA.persistence.PersistenceImplementation;
+import com.codecool.PTA.service.FillInTheBlankService;
+import com.codecool.PTA.service.KataService;
+import com.codecool.PTA.service.PaService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.thymeleaf.TemplateEngine;
-import org.thymeleaf.context.WebContext;
 
-import javax.servlet.ServletException;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-import java.io.IOException;
-import java.util.ArrayList;
-import java.util.List;
 //TODO
 @Controller
 public class AssignmentController extends AbstractController {
 
+    @Autowired
+    private KataService kataService;
+
+    @Autowired
+    private PaService paService;
+
+    @Autowired
+    private FillInTheBlankService fillInTheBlankService;
+
     @GetMapping("/assignments")
     public String listAssignments(Model model) {
+        Student student = getLoggedInUser();
+        CourseType courseName = student.getCourse().getName();
+        Level levelName = student.getLevel();
+        checkForNewFriendRequest();
+
+        model.addAttribute("kataList", kataService.findKataTemplatesByCourseNameAndLevelName(courseName, levelName));
+        model.addAttribute("paList", paService.findPaTemplatesByCourseNameAndLevelName(courseName, levelName));
+        model.addAttribute("student", student);
+
         return "assignments/assignments";
     }
 
-    @GetMapping("/fill")
-    public String displayFillAssignment(Model model) {
+    @GetMapping("/fill/{id}")
+    public String displayFillAssignment(@PathVariable Long id, @PathVariable String left, Model model) {
+        checkForNewFriendRequest();
+        model.addAttribute("stundent", getLoggedInUser());
+        model.addAttribute("fill", fillInTheBlankService.findById(id));
+        model.addAttribute("left", left);
         return "fillInTheBlank/fillInTheBlank";
     }
 
     @GetMapping("/kata")
-    public String displayKataAssignment(Model model) {
+    public String displayKataAssignment(@PathVariable Long id, Model model) {
+        model.addAttribute("student", getLoggedInUser());
+        model.addAttribute("kata", kataService.findById(id));
+
         return "kata/katas";
     }
 
@@ -67,9 +87,6 @@ public class AssignmentController extends AbstractController {
 //    @PostMapping("/quiz")
 
 
-
-
-
     // TODO: assignment GET
 //    @Override
 //    protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
@@ -77,13 +94,13 @@ public class AssignmentController extends AbstractController {
 //            Student student = (Student) getLoggedInUser(req);
 //            CourseType courseName = student.getCourse().getName();
 //            Level levelName = student.getLevel();
-//            isNewFriendRequest(req);
+//            checkForNewFriendRequest(req);
 //            WebContext context = new WebContext(req, resp, req.getServletContext());
 //            try{
 //                List<Kata> tempKataList = persistenceImplementation.findAllKatas(courseName, levelName);
 //                List<Kata> kataList = new ArrayList<>();
 //                for (Kata kata:tempKataList) {
-//                    if (kata.isItTemplate){
+//                    if (kata.isTemplate){
 //                        kataList.add(kata);
 //                    }
 //                }
@@ -97,7 +114,7 @@ public class AssignmentController extends AbstractController {
 //                List<PA> tempPaList = persistenceImplementation.findAllPaAssignments(courseName, levelName);
 //                List<PA> paList = new ArrayList();
 //                for (PA pa:tempPaList) {
-//                    if (pa.isItTemplate){
+//                    if (pa.isTemplate){
 //                        paList.add(pa);
 //                    }
 //                }

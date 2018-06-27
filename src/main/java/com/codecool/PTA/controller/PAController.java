@@ -24,7 +24,7 @@ public class PAController extends AbstractController {
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         if(checkLogin(req)) {
-            isNewFriendRequest(req);
+            checkForNewFriendRequest(req);
             long id = Long.valueOf(req.getParameter("id"));
 
             WebContext context = new WebContext(req, resp, req.getServletContext());
