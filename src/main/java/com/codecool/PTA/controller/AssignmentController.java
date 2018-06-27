@@ -46,7 +46,7 @@ public class AssignmentController extends AbstractController {
     @GetMapping("/fill/{id}/{left}")
     public String displayFillAssignment(@PathVariable Long id, @PathVariable String left, Model model) {
         isNewFriendRequest();
-        model.addAttribute("stundent", getLoggedInUser());
+        model.addAttribute("student", getLoggedInUser());
         model.addAttribute("fill", fillInTheBlankService.findById(id));
         model.addAttribute("left", left);
         return "fillInTheBlank/fillInTheBlank";
