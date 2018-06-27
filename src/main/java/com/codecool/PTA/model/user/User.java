@@ -1,10 +1,14 @@
 package com.codecool.PTA.model.user;
 
+import com.codecool.PTA.model.role.Role;
+
 import javax.persistence.*;
 import java.time.LocalDate;
 import java.time.ZoneId;
 import java.util.Date;
+import java.util.HashSet;
 import java.util.Objects;
+import java.util.Set;
 
 @MappedSuperclass
 public abstract class User {
@@ -31,6 +35,15 @@ public abstract class User {
     private GenderEnum gender;
 
     private String image;
+
+    @ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    @JoinTable(
+            name = "roles",
+            joinColumns = {@JoinColumn(name = "id")},
+            inverseJoinColumns = {@JoinColumn(name = "role_id")}
+    )
+
+    private Set<Role> roles = new HashSet<>();
 
     protected User() {
     }
