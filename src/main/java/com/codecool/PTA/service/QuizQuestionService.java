@@ -12,7 +12,7 @@ public class QuizQuestionService {
     private QuizQuestionRepository quizQuestionRepository;
 
 
-    public void saveQuizQuestion(QuizQuestion question) {
+    public void save(QuizQuestion question) {
         quizQuestionRepository.save(question);
     }
     public QuizQuestion findById(Long id) { return quizQuestionRepository.findOne(id); }
