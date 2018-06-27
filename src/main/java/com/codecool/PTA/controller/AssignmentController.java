@@ -8,7 +8,9 @@ import com.codecool.PTA.model.user.Student;
 import com.codecool.PTA.service.FillInTheBlankService;
 import com.codecool.PTA.service.KataService;
 import com.codecool.PTA.service.PaService;
+import com.codecool.PTA.service.QuizQuestionService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.parameters.P;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -28,6 +30,10 @@ public class AssignmentController extends AbstractController {
 
     @Autowired
     private FillInTheBlankService fillInTheBlankService;
+
+    @Autowired
+    private QuizQuestionService quizQuestionService;
+
 
     @GetMapping("/assignments")
     public String listAssignments(Model model) {
@@ -82,8 +88,12 @@ public class AssignmentController extends AbstractController {
     //TODO rewrite 5-question quiz
     //@GetMapping("/question")
 
-    @GetMapping("/quiz")
-    public String displayQuizAssignment(Model model) {
+    @GetMapping("/quiz/{id}/{left}")
+    public String displayQuizAssignment(@PathVariable Long id, @PathVariable String left, Model model) {
+        isNewFriendRequest();
+        model.addAttribute("student", getLoggedInUser());
+        model.addAttribute("question", quizQuestionService.findById(id));
+        model.addAttribute("left", left);
         return "quiz/quizzes";
     }
 
