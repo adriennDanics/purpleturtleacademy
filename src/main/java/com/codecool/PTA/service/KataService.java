@@ -18,4 +18,6 @@ public class KataService {
     public List<Kata> findKataTemplatesByCourseNameAndLevelName(CourseType courseType, Level level) {
         return kataRepository.getByCourseTypeAndLevelAndTemplate(courseType, level, true);
     }
+
+    public Kata findById(Long id) { return kataRepository.getOne(id); }
 }

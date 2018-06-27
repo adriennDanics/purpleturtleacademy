@@ -1,10 +1,12 @@
 package com.codecool.PTA.controller;
 
 import com.codecool.PTA.model.course.CourseType;
+import com.codecool.PTA.model.quest.FillInTheBlank;
 import com.codecool.PTA.model.quest.Kata;
 import com.codecool.PTA.model.quest.PA;
 import com.codecool.PTA.model.user.Level;
 import com.codecool.PTA.model.user.Student;
+import com.codecool.PTA.service.FillInTheBlankService;
 import com.codecool.PTA.service.KataService;
 import com.codecool.PTA.service.PaService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,6 +14,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 
 //TODO
@@ -24,11 +27,15 @@ public class AssignmentController extends AbstractController {
     @Autowired
     private PaService paService;
 
+    @Autowired
+    private FillInTheBlankService fillInTheBlankService;
+
     @GetMapping("/assignments")
     public String listAssignments(Model model) {
         Student student = getLoggedInUser();
         CourseType courseName = student.getCourse().getName();
         Level levelName = student.getLevel();
+        isNewFriendRequest();
 
         model.addAttribute("kataList", kataService.findKataTemplatesByCourseNameAndLevelName(courseName, levelName));
         model.addAttribute("paList", paService.findPaTemplatesByCourseNameAndLevelName(courseName, levelName));
@@ -37,13 +44,20 @@ public class AssignmentController extends AbstractController {
         return "assignments/assignments";
     }
 
-    @GetMapping("/fill")
-    public String displayFillAssignment(Model model) {
+    @GetMapping("/fill/{id}")
+    public String displayFillAssignment(@PathVariable Long id, @PathVariable String left, Model model) {
+        isNewFriendRequest();
+        model.addAttribute("stundent", getLoggedInUser());
+        model.addAttribute("fill", fillInTheBlankService.findById(id));
+        model.addAttribute("left", left);
         return "fillInTheBlank/fillInTheBlank";
     }
 
     @GetMapping("/kata")
-    public String displayKataAssignment(Model model) {
+    public String displayKataAssignment(@PathVariable Long id, Model model) {
+        model.addAttribute("student", getLoggedInUser());
+        model.addAttribute("kata", kataService.findById(id));
+
         return "kata/katas";
     }
 
