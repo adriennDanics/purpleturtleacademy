@@ -9,7 +9,6 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
-//TODO
 @Controller
 public class UserController extends AbstractController {
 
@@ -18,7 +17,7 @@ public class UserController extends AbstractController {
 
     @GetMapping("student/{id}")
     public String displayProfile(@PathVariable("id") Long id, Model model) {
-        isNewFriendRequest();
+        checkForNewFriendRequest();
         model.addAttribute("student", studentService.findById(id));
 
         return "profile/profile";
@@ -37,7 +36,7 @@ public class UserController extends AbstractController {
 
     @GetMapping("student/{id}/certificate")
     public String displayCertificate(@PathVariable("id") Long id, Model model) {
-        isNewFriendRequest();
+        checkForNewFriendRequest();
         model.addAttribute("student", studentService.findById(id));
         model.addAttribute("certificate", studentService.findCertificateByStudentId(id));
 
@@ -46,7 +45,7 @@ public class UserController extends AbstractController {
 
     @GetMapping("student/{id}/friends")
     public String listFriends(@PathVariable("id") Long id, Model model) {
-        isNewFriendRequest();
+        checkForNewFriendRequest();
         Student student = studentService.findById(id);
         model.addAttribute("student", student);
         model.addAttribute("friends", student.getFriends());
@@ -56,7 +55,7 @@ public class UserController extends AbstractController {
 
     @GetMapping("student/{id}/friend-requests")
     public String listFriendRequests(@PathVariable("id") Long id, Model model) {
-        isNewFriendRequest();
+        checkForNewFriendRequest();
         Student student = studentService.findById(id);
         model.addAttribute("student", student);
         model.addAttribute("taggedBy", student.getTaggedByOthers());
@@ -66,7 +65,7 @@ public class UserController extends AbstractController {
 
     @GetMapping("student/{id}/friendable-students")
     public String listFriendableStudents(@PathVariable("id") Long id, Model model) {
-        isNewFriendRequest();
+        checkForNewFriendRequest();
         Student student = studentService.findById(id);
 
         model.addAttribute("student", student);

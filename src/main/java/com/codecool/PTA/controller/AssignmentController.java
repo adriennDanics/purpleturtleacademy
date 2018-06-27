@@ -1,7 +1,6 @@
 package com.codecool.PTA.controller;
 
 import com.codecool.PTA.model.course.CourseType;
-import com.codecool.PTA.model.quest.FillInTheBlank;
 import com.codecool.PTA.model.quest.Kata;
 import com.codecool.PTA.model.quest.PA;
 import com.codecool.PTA.model.user.Level;
@@ -35,7 +34,7 @@ public class AssignmentController extends AbstractController {
         Student student = getLoggedInUser();
         CourseType courseName = student.getCourse().getName();
         Level levelName = student.getLevel();
-        isNewFriendRequest();
+        checkForNewFriendRequest();
 
         model.addAttribute("kataList", kataService.findKataTemplatesByCourseNameAndLevelName(courseName, levelName));
         model.addAttribute("paList", paService.findPaTemplatesByCourseNameAndLevelName(courseName, levelName));
@@ -46,7 +45,7 @@ public class AssignmentController extends AbstractController {
 
     @GetMapping("/fill/{id}")
     public String displayFillAssignment(@PathVariable Long id, @PathVariable String left, Model model) {
-        isNewFriendRequest();
+        checkForNewFriendRequest();
         model.addAttribute("stundent", getLoggedInUser());
         model.addAttribute("fill", fillInTheBlankService.findById(id));
         model.addAttribute("left", left);
@@ -95,7 +94,7 @@ public class AssignmentController extends AbstractController {
 //            Student student = (Student) getLoggedInUser(req);
 //            CourseType courseName = student.getCourse().getName();
 //            Level levelName = student.getLevel();
-//            isNewFriendRequest(req);
+//            checkForNewFriendRequest(req);
 //            WebContext context = new WebContext(req, resp, req.getServletContext());
 //            try{
 //                List<Kata> tempKataList = persistenceImplementation.findAllKatas(courseName, levelName);
