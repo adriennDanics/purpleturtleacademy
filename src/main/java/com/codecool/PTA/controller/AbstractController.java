@@ -10,11 +10,8 @@ import javax.servlet.http.HttpSession;
 
 public abstract class AbstractController {
 
-    public static void setIsFirstNotification(boolean isFirstNotification) {
-        AbstractController.isFirstNotification = isFirstNotification;
-    }
-
-    private static boolean isFirstNotification = true;
+    protected final static String SUCCESS = "success";
+    protected static boolean isFirstNotification = true;
 
     boolean checkLogin(HttpServletRequest req) {
         HttpSession session = req.getSession(true);
@@ -25,6 +22,11 @@ public abstract class AbstractController {
         return (Student) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
     }
 
+    protected HttpSession getHttpSession() {
+        ServletRequestAttributes attr = (ServletRequestAttributes) RequestContextHolder.currentRequestAttributes();
+        return attr.getRequest().getSession(true);
+    }
+
     void checkForNewFriendRequest() {
         Student student = getLoggedInUser();
         final boolean hasBeenTagged = student.getTaggedByOthers().size() != 0;
@@ -32,11 +34,6 @@ public abstract class AbstractController {
             HttpSession session = getHttpSession();
             session.setAttribute("newRequest", "new");
         }
-    }
-
-    private HttpSession getHttpSession() {
-        ServletRequestAttributes attr = (ServletRequestAttributes) RequestContextHolder.currentRequestAttributes();
-        return attr.getRequest().getSession(true);
     }
 
 }

@@ -17,8 +17,6 @@ import java.util.Map;
 @RestController
 public class SendCourseInfo extends AbstractController {
 
-    private final static String SUCCESS = "success";
-
     @Autowired
     private CourseService courseService;
     @Autowired
