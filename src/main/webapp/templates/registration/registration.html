@@ -12,11 +12,11 @@
         </div>
     </span>
     <span>
-        <form class="form-group" action="/registration" method="POST">
+        <form class="form-group" th:action="@{/registration}" th:object="${student}" method="POST">
             <label for="first_name">First name</label>
-            <input class="form-control" type="text" name="first_name" id="first_name" required>
+            <input class="form-control" type="text" name="first_name" id="first_name" th:field="firstName" required>
             <label for="last_name">Last name</label>
-            <input class="form-control" type="text" name="last_name" id="last_name">
+            <input class="form-control" type="text" name="last_name" id="last_name" th:field="lastName">
             <fieldset class="form-group">
                 <legend>Gender</legend>
                 <div class="form-check">
@@ -39,11 +39,11 @@
                 </div>
             </fieldset>
             <label for="email">Email</label>
-            <input class="form-control" type="email" name="email" id="email" required>
+            <input class="form-control" type="email" name="email" id="email" th:field="email" required>
             <label for="username">Username</label>
-            <input class="form-control" type="text" name="username" id="username" required>
+            <input class="form-control" type="text" name="username" id="username" th:field="username" required>
             <label for="password">Password</label>
-            <input class="form-control" type="password" name="password" id="password" required>
+            <input class="form-control" type="password" name="password" id="password" th:field="password" required>
             <div th:if="${session.passwordNotMatch}">
                 <p class="warning">The passwords you entered are not matching!</p>
             </div>
