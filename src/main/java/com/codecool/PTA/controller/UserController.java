@@ -29,7 +29,7 @@ public class UserController extends AbstractController {
         if (NO_IMAGE_PROVIDED) {
             student.reSetDefaultImage();
         }
-        studentService.saveStudent(student);
+        studentService.save(student);
 
         return "redirect:profile/profile";
     }
@@ -51,6 +51,20 @@ public class UserController extends AbstractController {
         model.addAttribute("friends", student.getFriends());
 
         return "friends/friends";
+    }
+
+    @PostMapping("delete-friend")
+    public String deleteFriend(@RequestParam("deletingStudent") Long deleterId, @RequestParam("studentToDelete") Long deletedId) {
+        Student deleter = studentService.findById(deleterId);
+        Student deleted = studentService.findById(deletedId);
+
+        deleter.removeFromFriends(deleted);
+        deleted.removeFromFriends(deleter);
+
+        studentService.save(deleter);
+        studentService.save(deleted);
+
+        return "redirect:friends/friends";
     }
 
     @GetMapping("student/{id}/friend-requests")

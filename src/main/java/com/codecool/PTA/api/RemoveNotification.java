@@ -1,27 +1,19 @@
 package com.codecool.PTA.api;
 
 import com.codecool.PTA.controller.AbstractController;
-import com.codecool.PTA.persistence.PersistenceImplementation;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RestController;
 
-import javax.servlet.ServletException;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
-import java.io.IOException;
-
+@RestController
 public class RemoveNotification extends AbstractController {
 
-    private PersistenceImplementation persistenceImplementation;
-
-    public RemoveNotification(PersistenceImplementation persistenceImplementation) {
-        this.persistenceImplementation = persistenceImplementation;
+    @PostMapping("/remove-notification")
+    public ResponseEntity<String> removeNotification() {
+        getHttpSession().removeAttribute("newRequest");
+        isFirstNotification = false;
+        return new ResponseEntity<>(SUCCESS, HttpStatus.OK);
     }
 
-    @Override
-    protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-
-        HttpSession session = req.getSession();
-        session.removeAttribute("newRequest");
-        AbstractController.setIsFirstNotification(false);
-    }
 }

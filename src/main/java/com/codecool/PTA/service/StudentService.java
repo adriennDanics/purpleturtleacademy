@@ -21,11 +21,15 @@ public class StudentService {
         return studentRepository.findAll();
     }
 
+    public Student findByUsername(String username){
+        return studentRepository.findByUsername(username);
+    }
+
     public Student findById(Long id) {
         return studentRepository.findOne(id);
     }
 
-    public void saveStudent(Student student) {
+    public void save(Student student) {
         studentRepository.save(student);
     }
 

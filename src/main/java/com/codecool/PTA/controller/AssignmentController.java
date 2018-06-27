@@ -74,7 +74,7 @@ public class AssignmentController extends AbstractController {
 
     @PostMapping("/kata")
     public String submitKataAssignment(@ModelAttribute Kata kata) {
-        kataService.saveKata(kata);
+        kataService.save(kata);
         return "redirect:assignments/assignments";
     }
 
@@ -88,7 +88,7 @@ public class AssignmentController extends AbstractController {
 
     @PostMapping("/pa")
     public String submitPAAssignment(@ModelAttribute PA pa) {
-        paService.savePa(pa);
+        paService.save(pa);
         return "redirect:assignments/assignments";
     }
 
