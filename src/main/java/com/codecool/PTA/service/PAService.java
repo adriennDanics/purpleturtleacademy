@@ -10,7 +10,7 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 
 @Service
-public class PaService {
+public class PAService {
 
     @Autowired
     private PARepository paRepository;
@@ -19,7 +19,10 @@ public class PaService {
         return paRepository.getByCourseTypeAndLevelAndTemplate(courseType, level, true);
     }
 
-    public PA findById(Long id) { return paRepository.getOne(id); }
+    public void savePa(PA pa) {
+        paRepository.save(pa);
+    }
 
-    public void update(PA pa) { paRepository.save(pa); }
+    public PA findById(Long id) { return paRepository.findOne(id); }
+
 }

@@ -1,30 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<module org.jetbrains.idea.maven.project.MavenProjectsManager.isMavenModule="true" version="4">
+<module version="4">
   <component name="FacetManager">
-    <facet type="jpa" name="JPA">
-      <configuration>
-        <setting name="validation-enabled" value="true" />
-        <setting name="provider-name" value="" />
-        <datasource-mapping>
-          <factory-entry name="entityManagerFactory" />
-          <factory-entry name="pta-testPU" value="cb6b5044-6408-41cc-95c7-c839b27c10fe" />
-          <factory-entry name="ptaPU" value="b2013128-ce59-4665-b184-26f89afe453d" />
-        </datasource-mapping>
-        <deploymentDescriptor name="persistence.xml" url="file://$MODULE_DIR$/src/main/resources/META-INF/persistence.xml" />
-      </configuration>
-    </facet>
     <facet type="Spring" name="Spring">
       <configuration />
-    </facet>
-    <facet type="web" name="Web">
-      <configuration>
-        <webroots />
-        <sourceRoots>
-          <root url="file://$MODULE_DIR$/src/main/java" />
-          <root url="file://$MODULE_DIR$/src/main/resources" />
-          <root url="file://$MODULE_DIR$/src/main/webapp" />
-        </sourceRoots>
-      </configuration>
     </facet>
   </component>
   <component name="NewModuleRootManager" LANGUAGE_LEVEL="JDK_1_8">
@@ -54,6 +32,7 @@
     <orderEntry type="library" name="Maven: org.slf4j:slf4j-api:1.7.25" level="project" />
     <orderEntry type="library" name="Maven: nz.net.ultraq.thymeleaf:thymeleaf-layout-dialect:1.4.0" level="project" />
     <orderEntry type="library" name="Maven: org.codehaus.groovy:groovy:2.4.12" level="project" />
+    <orderEntry type="library" name="Maven: org.springframework.boot:thymleaf-extras-springbootsecurity4:unknown" level="project" />
     <orderEntry type="library" name="Maven: org.springframework.boot:spring-boot-starter-data-jpa:1.5.8.RELEASE" level="project" />
     <orderEntry type="library" name="Maven: org.springframework.boot:spring-boot-starter-aop:1.5.8.RELEASE" level="project" />
     <orderEntry type="library" name="Maven: org.aspectj:aspectjweaver:1.8.11" level="project" />
@@ -129,7 +108,5 @@
     <orderEntry type="library" scope="TEST" name="Maven: net.bytebuddy:byte-buddy:1.7.9" level="project" />
     <orderEntry type="library" scope="TEST" name="Maven: net.bytebuddy:byte-buddy-agent:1.7.9" level="project" />
     <orderEntry type="library" scope="TEST" name="Maven: org.objenesis:objenesis:2.6" level="project" />
-    <orderEntry type="library" name="jquery" level="application" />
-    <orderEntry type="library" name="jquery-3.3.1.slim" level="application" />
   </component>
 </module>

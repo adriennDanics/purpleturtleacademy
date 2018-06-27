@@ -11,6 +11,11 @@ public class FillInTheBlankService {
     @Autowired
     private FillInTheBlankRepository fillInTheBlankRepository;
 
-    public FillInTheBlank findById(Long id) {return fillInTheBlankRepository.findOne(id)}
+    public FillInTheBlank findById(Long id) {
+        return fillInTheBlankRepository.findOne(id);
+    }
 
+    public void saveFillInTheBlank(FillInTheBlank fillInTheBlank) {
+        fillInTheBlankRepository.save(fillInTheBlank);
+    }
 }

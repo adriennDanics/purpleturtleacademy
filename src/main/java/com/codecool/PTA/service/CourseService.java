@@ -17,4 +17,8 @@ public class CourseService {
         return courseRepository.findAll();
     }
 
+    public void saveCourse(Course course) {
+        courseRepository.save(course);
+    }
+
 }
