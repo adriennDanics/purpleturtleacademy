@@ -10,7 +10,6 @@ import com.codecool.PTA.service.KataService;
 import com.codecool.PTA.service.PAService;
 import com.codecool.PTA.service.QuizQuestionService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.core.parameters.P;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -26,7 +25,7 @@ public class AssignmentController extends AbstractController {
     private KataService kataService;
 
     @Autowired
-    private PAService PAService;
+    private PAService paService;
 
     @Autowired
     private FillInTheBlankService fillInTheBlankService;
@@ -43,7 +42,7 @@ public class AssignmentController extends AbstractController {
         checkForNewFriendRequest();
 
         model.addAttribute("kataList", kataService.findKataTemplatesByCourseNameAndLevelName(courseName, levelName));
-        model.addAttribute("paList", PAService.findPaTemplatesByCourseNameAndLevelName(courseName, levelName));
+        model.addAttribute("paList", paService.findPaTemplatesByCourseNameAndLevelName(courseName, levelName));
         model.addAttribute("student", student);
 
         return "assignments/assignments";
@@ -67,13 +66,13 @@ public class AssignmentController extends AbstractController {
 
     @PostMapping("/kata")
     public String submitKataAssignment(@ModelAttribute Kata kata) {
-        kataService.update(kata);
+        kataService.saveKata(kata);
         return "redirect:assignments/assignments";
     }
 
     @GetMapping("/pa/{id}")
     public String displayPAAssignment(@PathVariable Long id,  Model model) {
-        isNewFriendRequest();
+        checkForNewFriendRequest();
         model.addAttribute("student", getLoggedInUser());
         model.addAttribute("question", paService.findById(id));
         return "pa/pas";
@@ -81,7 +80,7 @@ public class AssignmentController extends AbstractController {
 
     @PostMapping("/pa")
     public String submitPAAssignment(@ModelAttribute PA pa) {
-        paService.update(pa);
+        paService.savePa(pa);
         return "redirect:assignments/assignments";
     }
 
@@ -90,7 +89,7 @@ public class AssignmentController extends AbstractController {
 
     @GetMapping("/quiz/{id}/{left}")
     public String displayQuizAssignment(@PathVariable Long id, @PathVariable String left, Model model) {
-        isNewFriendRequest();
+        checkForNewFriendRequest();
         model.addAttribute("student", getLoggedInUser());
         model.addAttribute("question", quizQuestionService.findById(id));
         model.addAttribute("left", left);
