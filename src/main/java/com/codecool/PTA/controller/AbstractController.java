@@ -38,4 +38,5 @@ public abstract class AbstractController {
         ServletRequestAttributes attr = (ServletRequestAttributes) RequestContextHolder.currentRequestAttributes();
         return attr.getRequest().getSession(true);
     }
+
 }
