@@ -15,4 +15,5 @@ public class QuizQuestionService {
     public void saveQuizQuestion(QuizQuestion question) {
         quizQuestionRepository.save(question);
     }
+    public QuizQuestion findById(Long id) { return quizQuestionRepository.findOne(id); }
 }

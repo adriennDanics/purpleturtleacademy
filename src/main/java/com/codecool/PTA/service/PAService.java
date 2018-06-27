@@ -22,4 +22,7 @@ public class PAService {
     public void savePa(PA pa) {
         paRepository.save(pa);
     }
+
+    public PA findById(Long id) { return paRepository.findOne(id); }
+
 }

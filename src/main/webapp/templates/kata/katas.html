@@ -10,9 +10,9 @@
         <div th:replace="layout.html :: navbar"></div>
         <h2 class="title" th:text="${kata.assignmentTitle}">Title</h2>
         <h4 class="description" th:text="${kata.question}"> Description</h4>
-        <form class="form-group" th:attr="action='/kata?id='+${kata.getId()}" method="POST">
+        <form class="form-group" th:attr="action='/kata?id='+${kata.getId()}" th:object="${kata}" method="POST">
             <label for="submission">Submission</label>
-            <input class="form-control" type="text" name="submission" id="submission" th:attr="value=${kata.getSubmission()}" required>
+            <input class="form-control" type="text" name="submission" id="submission" th:field="*{submission}" th:attr="value=${kata.getSubmission()}" required>
             <button type="submit">Submit a link to your repo!</button>
         </form>
     </body>

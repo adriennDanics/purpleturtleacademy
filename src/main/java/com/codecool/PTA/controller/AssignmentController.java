@@ -8,7 +8,9 @@ import com.codecool.PTA.model.user.Student;
 import com.codecool.PTA.service.FillInTheBlankService;
 import com.codecool.PTA.service.KataService;
 import com.codecool.PTA.service.PAService;
+import com.codecool.PTA.service.QuizQuestionService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.parameters.P;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -29,6 +31,10 @@ public class AssignmentController extends AbstractController {
     @Autowired
     private FillInTheBlankService fillInTheBlankService;
 
+    @Autowired
+    private QuizQuestionService quizQuestionService;
+
+
     @GetMapping("/assignments")
     public String listAssignments(Model model) {
         Student student = getLoggedInUser();
@@ -43,10 +49,10 @@ public class AssignmentController extends AbstractController {
         return "assignments/assignments";
     }
 
-    @GetMapping("/fill/{id}")
+    @GetMapping("/fill/{id}/{left}")
     public String displayFillAssignment(@PathVariable Long id, @PathVariable String left, Model model) {
         checkForNewFriendRequest();
-        model.addAttribute("stundent", getLoggedInUser());
+        model.addAttribute("student", getLoggedInUser());
         model.addAttribute("fill", fillInTheBlankService.findById(id));
         model.addAttribute("left", left);
         return "fillInTheBlank/fillInTheBlank";
@@ -56,30 +62,38 @@ public class AssignmentController extends AbstractController {
     public String displayKataAssignment(@PathVariable Long id, Model model) {
         model.addAttribute("student", getLoggedInUser());
         model.addAttribute("kata", kataService.findById(id));
-
         return "kata/katas";
     }
 
     @PostMapping("/kata")
     public String submitKataAssignment(@ModelAttribute Kata kata) {
+        kataService.update(kata);
         return "redirect:assignments/assignments";
     }
 
-    @GetMapping("/pa")
-    public String displayPAAssignment(Model model) {
+    @GetMapping("/pa/{id}")
+    public String displayPAAssignment(@PathVariable Long id,  Model model) {
+        isNewFriendRequest();
+        model.addAttribute("student", getLoggedInUser());
+        model.addAttribute("question", paService.findById(id));
         return "pa/pas";
     }
 
     @PostMapping("/pa")
     public String submitPAAssignment(@ModelAttribute PA pa) {
+        paService.update(pa);
         return "redirect:assignments/assignments";
     }
 
     //TODO rewrite 5-question quiz
     //@GetMapping("/question")
 
-    @GetMapping("/quiz")
-    public String displayQuizAssignment(Model model) {
+    @GetMapping("/quiz/{id}/{left}")
+    public String displayQuizAssignment(@PathVariable Long id, @PathVariable String left, Model model) {
+        isNewFriendRequest();
+        model.addAttribute("student", getLoggedInUser());
+        model.addAttribute("question", quizQuestionService.findById(id));
+        model.addAttribute("left", left);
         return "quiz/quizzes";
     }
 
