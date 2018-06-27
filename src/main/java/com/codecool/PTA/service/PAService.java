@@ -10,12 +10,16 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 
 @Service
-public class PaService {
+public class PAService {
 
     @Autowired
     private PARepository paRepository;
 
     public List<PA> findPaTemplatesByCourseNameAndLevelName(CourseType courseType, Level level) {
         return paRepository.getByCourseTypeAndLevelAndTemplate(courseType, level, true);
+    }
+
+    public void savePa(PA pa) {
+        paRepository.save(pa);
     }
 }

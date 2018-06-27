@@ -1,12 +1,12 @@
-package com.codecool.PTA.config;
+package com.codecool.PTA.service;
 
 import com.codecool.PTA.model.course.Course;
+import com.codecool.PTA.model.course.CourseType;
 import com.codecool.PTA.model.quest.*;
 import com.codecool.PTA.model.user.GenderEnum;
-import com.codecool.PTA.model.user.Student;
-import com.codecool.PTA.persistence.PersistenceImplementation;
-import com.codecool.PTA.model.course.CourseType;
 import com.codecool.PTA.model.user.Level;
+import com.codecool.PTA.model.user.Student;
+import org.springframework.stereotype.Component;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -15,19 +15,16 @@ import java.util.Map;
 
 import static com.codecool.PTA.model.course.CourseType.ORIENTATION;
 
-public class AssignmentConfig {
-    
-    private PersistenceImplementation persistenceImplementation;
+@Component
+public class ExampleEntityCreator {
 
-    private List<QuizQuestion> questionList = new ArrayList<>();
-    private List<PA> paList = new ArrayList<>();
-    private List<Kata> kataList = new ArrayList<>();
-    private List<Course> courseList = new ArrayList<>();
-    private List<Student> studentList = new ArrayList<>();
-
-    public AssignmentConfig(PersistenceImplementation persistenceImplementation) {
-        this.persistenceImplementation = persistenceImplementation;
-    }
+    List<QuizQuestion> questionList = new ArrayList<>();
+    List<PA> paList = new ArrayList<>();
+    List<Kata> kataList = new ArrayList<>();
+    List<FillInTheBlank> fillInTheBlankList = new ArrayList<>();
+    List<FillInAnswer> fillInAnswerList = new ArrayList<>();
+    List<Course> courseList = new ArrayList<>();
+    List<Student> studentList = new ArrayList<>();
 
     private void fillStudents() {
         Student student1 = new Student("aladar", "1", "Aladar", "Aradi", "em@ail.com", courseList.get(2), GenderEnum.MALE);
@@ -105,9 +102,9 @@ public class AssignmentConfig {
         answers7.put("1 and 3 only", true);
         answers7.put("2 only", false);
         answers7.put("None", false);
-        QuizQuestion quizQuestion7 = new QuizQuestion("Which of the following statement(s) is TRUE?" +"<br>"+
-                "1. A hash function takes a message of arbitrary length and generates a fixed length code." +"<br>"+
-                "2. A hash function takes a message of fixed length and generates a code of variable length." +"<br>"+
+        QuizQuestion quizQuestion7 = new QuizQuestion("Which of the following statement(s) is TRUE?" + "<br>" +
+                "1. A hash function takes a message of arbitrary length and generates a fixed length code." + "<br>" +
+                "2. A hash function takes a message of fixed length and generates a code of variable length." + "<br>" +
                 "3. A hash function may give the same hash value for distinct messages.", "PasswordHashing function", Level.INTERMEDIATE, CourseType.PYTHON, answers7);
         questionList.add(quizQuestion7);
 
@@ -185,26 +182,25 @@ public class AssignmentConfig {
 
     private void fillFillInTheBlankDb() {
         FillInTheBlank toFill1 = new FillInTheBlank(Level.BEGINNER,
-                                                    CourseType.PYTHON,
-                                                    "Please fill in the blank to print!",
-                                                    "<input type=\"text\" class=\"answer\" size=\"5\" >(\"Hello World!\")");
+                CourseType.PYTHON,
+                "Please fill in the blank to print!",
+                "<input type=\"text\" class=\"answer\" size=\"5\" >(\"Hello World!\")");
 
         FillInAnswer answer1 = new FillInAnswer("print", toFill1);
-
-        persistenceImplementation.persist(toFill1);
-        persistenceImplementation.persist(answer1);
+        fillInTheBlankList.add(toFill1);
+        fillInAnswerList.add(answer1);
 
         FillInTheBlank toFill2 = new FillInTheBlank(Level.BEGINNER,
-                                                    CourseType.PYTHON,
-                                                    "Please fill in the blank to print: Hello World!",
-                                                    "<input type=\"text\" class=\"answer\" size=\"5\" >(\"Hello \" + <input type=\"text\" class=\"answer\" size=\"5\" >)");
+                CourseType.PYTHON,
+                "Please fill in the blank to print: Hello World!",
+                "<input type=\"text\" class=\"answer\" size=\"5\" >(\"Hello \" + <input type=\"text\" class=\"answer\" size=\"5\" >)");
 
         FillInAnswer answer2 = new FillInAnswer("print", toFill2);
         FillInAnswer answer3 = new FillInAnswer("\"World!\"", toFill2);
 
-        persistenceImplementation.persist(toFill2);
-        persistenceImplementation.persist(answer2);
-        persistenceImplementation.persist(answer3);
+        fillInTheBlankList.add(toFill2);
+        fillInAnswerList.add(answer2);
+        fillInAnswerList.add(answer3);
 
         FillInTheBlank toFill3 = new FillInTheBlank(Level.INTERMEDIATE,
                 CourseType.PYTHON,
@@ -215,9 +211,9 @@ public class AssignmentConfig {
         FillInAnswer answer4 = new FillInAnswer("with", toFill3);
         FillInAnswer answer5 = new FillInAnswer("as", toFill3);
 
-        persistenceImplementation.persist(toFill3);
-        persistenceImplementation.persist(answer4);
-        persistenceImplementation.persist(answer5);
+        fillInTheBlankList.add(toFill3);
+        fillInAnswerList.add(answer4);
+        fillInAnswerList.add(answer5);
 
         FillInTheBlank toFill4 = new FillInTheBlank(Level.INTERMEDIATE,
                 CourseType.PYTHON,
@@ -227,11 +223,9 @@ public class AssignmentConfig {
         FillInAnswer answer7 = new FillInAnswer("if", toFill4);
         FillInAnswer answer8 = new FillInAnswer("3", toFill4);
 
-
-        persistenceImplementation.persist(toFill4);
-        persistenceImplementation.persist(answer7);
-        persistenceImplementation.persist(answer8);
-
+        fillInTheBlankList.add(toFill4);
+        fillInAnswerList.add(answer7);
+        fillInAnswerList.add(answer8);
 
         FillInTheBlank toFill5 = new FillInTheBlank(Level.ADVANCED,
                 CourseType.PYTHON,
@@ -241,9 +235,9 @@ public class AssignmentConfig {
         FillInAnswer answer9 = new FillInAnswer("from", toFill5);
         FillInAnswer answer10 = new FillInAnswer("cycle", toFill5);
 
-        persistenceImplementation.persist(toFill5);
-        persistenceImplementation.persist(answer9);
-        persistenceImplementation.persist(answer10);
+        fillInTheBlankList.add(toFill5);
+        fillInAnswerList.add(answer9);
+        fillInAnswerList.add(answer10);
 
         FillInTheBlank toFill6 = new FillInTheBlank(Level.ADVANCED,
                 CourseType.PYTHON,
@@ -256,53 +250,53 @@ public class AssignmentConfig {
         FillInAnswer answer12 = new FillInAnswer("__init__", toFill6);
         FillInAnswer answer13 = new FillInAnswer(".name", toFill6);
 
-        persistenceImplementation.persist(toFill6);
-        persistenceImplementation.persist(answer12);
-        persistenceImplementation.persist(answer13);
+        fillInTheBlankList.add(toFill6);
+        fillInAnswerList.add(answer12);
+        fillInAnswerList.add(answer13);
 
         FillInTheBlank toFill7 = new FillInTheBlank(Level.BEGINNER,
-                                                    CourseType.PYTHON,
-                                                    "Please fill the missing parts!",
-                                                    "temperature = 30<br>" +
-                                                            "<input type=\"text\" class=\"answer\" size=\"5\" > temperatute >= 30:<br>" +
-                                                            ">>> print(\"It is hot!\")<br>" +
-                                                            "<input type=\"text\" class=\"answer\" size=\"5\" >:<br>" +
-                                                            ">>> print(\"It is ok.\")");
+                CourseType.PYTHON,
+                "Please fill the missing parts!",
+                "temperature = 30<br>" +
+                        "<input type=\"text\" class=\"answer\" size=\"5\" > temperatute >= 30:<br>" +
+                        ">>> print(\"It is hot!\")<br>" +
+                        "<input type=\"text\" class=\"answer\" size=\"5\" >:<br>" +
+                        ">>> print(\"It is ok.\")");
 
         FillInAnswer answer14 = new FillInAnswer("if", toFill7);
         FillInAnswer answer15 = new FillInAnswer("else", toFill7);
 
-        persistenceImplementation.persist(toFill7);
-        persistenceImplementation.persist(answer14);
-        persistenceImplementation.persist(answer15);
+        fillInTheBlankList.add(toFill7);
+        fillInAnswerList.add(answer14);
+        fillInAnswerList.add(answer15);
 
         FillInTheBlank toFill8 = new FillInTheBlank(Level.BEGINNER,
-                                                    CourseType.PYTHON,
-                                                    "Create a for loop to sum the numbers!",
-                                                    "numbers = [1, 2, 3]<br>" +
-                                                            "sum = 0<br>" +
-                                                            "<input type=\"text\" class=\"answer\" size=\"5\" > number <input type=\"text\" class=\"answer\" size=\"5\" > numbers:<br>" +
-                                                            ">>> sum += number");
+                CourseType.PYTHON,
+                "Create a for loop to sum the numbers!",
+                "numbers = [1, 2, 3]<br>" +
+                        "sum = 0<br>" +
+                        "<input type=\"text\" class=\"answer\" size=\"5\" > number <input type=\"text\" class=\"answer\" size=\"5\" > numbers:<br>" +
+                        ">>> sum += number");
 
         FillInAnswer answer16 = new FillInAnswer("for", toFill8);
         FillInAnswer answer17 = new FillInAnswer("in", toFill8);
 
-        persistenceImplementation.persist(toFill8);
-        persistenceImplementation.persist(answer16);
-        persistenceImplementation.persist(answer17);
+        fillInTheBlankList.add(toFill8);
+        fillInAnswerList.add(answer16);
+        fillInAnswerList.add(answer17);
 
         FillInTheBlank toFill9 = new FillInTheBlank(Level.BEGINNER,
-                                                    CourseType.PYTHON,
-                                                    "Create a function which adds two numbers",
-                                                    "<input type=\"text\" class=\"answer\" size=\"5\" > sum_numbers<input type=\"text\" class=\"answer\" size=\"5\" ><br>" +
-                                                            ">>> return a + b");
+                CourseType.PYTHON,
+                "Create a function which adds two numbers",
+                "<input type=\"text\" class=\"answer\" size=\"5\" > sum_numbers<input type=\"text\" class=\"answer\" size=\"5\" ><br>" +
+                        ">>> return a + b");
 
         FillInAnswer answer18 = new FillInAnswer("def", toFill9);
         FillInAnswer answer19 = new FillInAnswer("(a, b):", toFill9);
 
-        persistenceImplementation.persist(toFill9);
-        persistenceImplementation.persist(answer18);
-        persistenceImplementation.persist(answer19);
+        fillInTheBlankList.add(toFill9);
+        fillInAnswerList.add(answer18);
+        fillInAnswerList.add(answer19);
 
     }
 
@@ -322,36 +316,18 @@ public class AssignmentConfig {
         kataList.add(kata2);
     }
 
-    private void fillCourses(){
-        Course course1 = new Course(com.codecool.PTA.model.course.CourseType.JAVA, "Java is a simple and yet "+
+    private void fillCourses() {
+        Course course1 = new Course(com.codecool.PTA.model.course.CourseType.JAVA, "Java is a simple and yet " +
                 "powerful object oriented programming language and it is in many respects similar to C++.");
         courseList.add(course1);
 
-        Course course2 = new Course(com.codecool.PTA.model.course.CourseType.PYTHON, "Python is a programming "+
-                "language, as are C, Fortran, BASIC, PHP, etc. Some specific features of Python are as follows: "+
+        Course course2 = new Course(com.codecool.PTA.model.course.CourseType.PYTHON, "Python is a programming " +
+                "language, as are C, Fortran, BASIC, PHP, etc. Some specific features of Python are as follows: " +
                 "an interpreted (as opposed to compiled) language.");
         courseList.add(course2);
-        Course course3 = new Course(ORIENTATION, "Please choose a course "+
+        Course course3 = new Course(ORIENTATION, "Please choose a course " +
                 "to pursue!");
         courseList.add(course3);
     }
 
-    public void fillDB() {
-        fillData();
-        for (QuizQuestion question : questionList) {
-            persistenceImplementation.persist(question);
-        }
-        for (PA pa : paList) {
-            persistenceImplementation.persist(pa);
-        }
-        for (Kata kata : kataList) {
-            persistenceImplementation.persist(kata);
-        }
-        for (Course course : courseList) {
-            persistenceImplementation.persist(course);
-        }
-        for (Student student : studentList) {
-            persistenceImplementation.persist(student);
-        }
-    }
 }

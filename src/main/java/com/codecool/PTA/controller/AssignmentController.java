@@ -7,7 +7,7 @@ import com.codecool.PTA.model.user.Level;
 import com.codecool.PTA.model.user.Student;
 import com.codecool.PTA.service.FillInTheBlankService;
 import com.codecool.PTA.service.KataService;
-import com.codecool.PTA.service.PaService;
+import com.codecool.PTA.service.PAService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -24,7 +24,7 @@ public class AssignmentController extends AbstractController {
     private KataService kataService;
 
     @Autowired
-    private PaService paService;
+    private PAService PAService;
 
     @Autowired
     private FillInTheBlankService fillInTheBlankService;
@@ -37,7 +37,7 @@ public class AssignmentController extends AbstractController {
         checkForNewFriendRequest();
 
         model.addAttribute("kataList", kataService.findKataTemplatesByCourseNameAndLevelName(courseName, levelName));
-        model.addAttribute("paList", paService.findPaTemplatesByCourseNameAndLevelName(courseName, levelName));
+        model.addAttribute("paList", PAService.findPaTemplatesByCourseNameAndLevelName(courseName, levelName));
         model.addAttribute("student", student);
 
         return "assignments/assignments";
