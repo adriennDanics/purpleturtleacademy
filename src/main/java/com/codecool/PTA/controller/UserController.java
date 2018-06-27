@@ -29,11 +29,15 @@ public class UserController extends AbstractController {
             student.reSetDefaultImage();
         }
         studentService.saveStudent(student);
+
         return "redirect:profile/profile";
     }
 
     @GetMapping("student/{id}/certificate")
     public String displayCertificate(@PathVariable("id") Long id, Model model) {
+        model.addAttribute("student", studentService.findById(id));
+        model.addAttribute("certificate", studentService.findCertificateByStudentId(id));
+
         return "profile/certificate";
     }
 
