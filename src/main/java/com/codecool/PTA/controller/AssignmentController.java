@@ -57,12 +57,12 @@ public class AssignmentController extends AbstractController {
     public String displayKataAssignment(@PathVariable Long id, Model model) {
         model.addAttribute("student", getLoggedInUser());
         model.addAttribute("kata", kataService.findById(id));
-
         return "kata/katas";
     }
 
     @PostMapping("/kata")
     public String submitKataAssignment(@ModelAttribute Kata kata) {
+        kataService.updateById(kata);
         return "redirect:assignments/assignments";
     }
 
