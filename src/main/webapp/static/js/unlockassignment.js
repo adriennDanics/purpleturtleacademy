@@ -51,7 +51,7 @@ function modifyXPPositive() {
 function sendXP() {
     $.ajax({
         type: "POST",
-        url: "http://localhost:8080/quiz?id=" + ID,
+        url: "http://localhost:8080/quiz?id=" + ID + "?xp=" + XP,
         data: JSON.stringify({'xp': XP}),
         async: false,
         contentType: "application/json; charset=utf-8",

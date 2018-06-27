@@ -21,7 +21,7 @@ public abstract class AbstractController {
         return !(session.getAttribute("student") == null);
     }
 
-    Student getLoggedInUser() {
+    public Student getLoggedInUser() {
         return (Student) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
     }
 
