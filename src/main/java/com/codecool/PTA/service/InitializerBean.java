@@ -19,13 +19,13 @@ public class InitializerBean {
             PAService paService
     ) {
         exampleEntityCreator.fillData();
-        exampleEntityCreator.studentList.forEach(student -> studentService.saveStudent(student));
-        exampleEntityCreator.courseList.forEach(course -> courseService.saveCourse(course));
-        exampleEntityCreator.fillInAnswerList.forEach(fillInAnswer-> fillInAnswerService.saveFillInAnswer(fillInAnswer));
-        exampleEntityCreator.fillInTheBlankList.forEach(fillInTheBlank-> fillInTheBlankService.saveFillInTheBlank(fillInTheBlank));
-        exampleEntityCreator.questionList.forEach(question -> quizQuestionService.saveQuizQuestion(question));
-        exampleEntityCreator.kataList.forEach(kata -> kataService.saveKata(kata));
-        exampleEntityCreator.paList.forEach(pa -> paService.savePa(pa));
+        exampleEntityCreator.studentList.forEach(student -> studentService.save(student));
+        exampleEntityCreator.courseList.forEach(course -> courseService.save(course));
+        exampleEntityCreator.fillInAnswerList.forEach(fillInAnswer-> fillInAnswerService.save(fillInAnswer));
+        exampleEntityCreator.fillInTheBlankList.forEach(fillInTheBlank-> fillInTheBlankService.save(fillInTheBlank));
+        exampleEntityCreator.questionList.forEach(question -> quizQuestionService.save(question));
+        exampleEntityCreator.kataList.forEach(kata -> kataService.save(kata));
+        exampleEntityCreator.paList.forEach(pa -> paService.save(pa));
     }
 
 }

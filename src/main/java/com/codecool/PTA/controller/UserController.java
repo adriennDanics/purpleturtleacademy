@@ -29,7 +29,7 @@ public class UserController extends AbstractController {
         if (NO_IMAGE_PROVIDED) {
             student.reSetDefaultImage();
         }
-        studentService.saveStudent(student);
+        studentService.save(student);
 
         return "redirect:profile/profile";
     }

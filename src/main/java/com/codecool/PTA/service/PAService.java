@@ -19,7 +19,7 @@ public class PAService {
         return paRepository.getByCourseTypeAndLevelAndTemplate(courseType, level, true);
     }
 
-    public void savePa(PA pa) {
+    public void save(PA pa) {
         paRepository.save(pa);
     }
 

@@ -15,7 +15,7 @@ public class FillInTheBlankService {
         return fillInTheBlankRepository.findOne(id);
     }
 
-    public void saveFillInTheBlank(FillInTheBlank fillInTheBlank) {
+    public void save(FillInTheBlank fillInTheBlank) {
         fillInTheBlankRepository.save(fillInTheBlank);
     }
 }

@@ -15,7 +15,7 @@ public class FillInAnswerService {
         return fillInAnswerRepository.findOne(id);
     }
 
-    public void saveFillInAnswer(FillInAnswer fillInAnswer) {
+    public void save(FillInAnswer fillInAnswer) {
         fillInAnswerRepository.save(fillInAnswer);
     }
 }

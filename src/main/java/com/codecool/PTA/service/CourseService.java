@@ -13,11 +13,15 @@ public class CourseService {
     @Autowired
     private CourseRepository courseRepository;
 
+    public Course findById(Long id) {
+        return courseRepository.findOne(id);
+    }
+
     public List<Course> findAll() {
         return courseRepository.findAll();
     }
 
-    public void saveCourse(Course course) {
+    public void save(Course course) {
         courseRepository.save(course);
     }
 
