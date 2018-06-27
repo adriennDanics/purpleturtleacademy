@@ -46,16 +46,18 @@ public class AssignmentController extends AbstractController {
 
     @GetMapping("/fill/{id}")
     public String displayFillAssignment(@PathVariable Long id, @PathVariable String left, Model model) {
-        Student student = getLoggedInUser();
         isNewFriendRequest();
-        model.addAttribute("stundent", student);
+        model.addAttribute("stundent", getLoggedInUser());
         model.addAttribute("fill", fillInTheBlankService.findById(id));
         model.addAttribute("left", left);
         return "fillInTheBlank/fillInTheBlank";
     }
 
     @GetMapping("/kata")
-    public String displayKataAssignment(Model model) {
+    public String displayKataAssignment(@PathVariable Long id, Model model) {
+        model.addAttribute("student", getLoggedInUser());
+        model.addAttribute("kata", kataService.findById(id));
+
         return "kata/katas";
     }
 
