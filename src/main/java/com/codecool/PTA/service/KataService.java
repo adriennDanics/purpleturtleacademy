@@ -20,4 +20,8 @@ public class KataService {
     }
 
     public Kata findById(Long id) { return kataRepository.getOne(id); }
+
+    public void saveKata(Kata kata) {
+        kataRepository.save(kata);
+    }
 }

@@ -1,7 +1,7 @@
 //package com.codecool.PTA.model;
 //
 //import com.codecool.PTA.api.*;
-//import com.codecool.PTA.config.AssignmentConfig;
+//import com.codecool.PTA.service.AssignmentConfig;
 //import com.codecool.PTA.controller.*;
 //import com.codecool.PTA.helper.PasswordHashing;
 //import com.codecool.PTA.helper.RandomizeAssignment;
