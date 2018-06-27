@@ -23,22 +23,21 @@ public class SendCourseInfo extends AbstractController {
     private StudentService studentService;
 
     @GetMapping("/courseinfo")
-    public ResponseEntity<JSONObject> courseInfo(@RequestParam("id") Long id) {
+    public ResponseEntity<JSONObject> getCourseInfo(@RequestParam("id") Long id) {
+        Map<String, String> courses = new HashMap<>() ;
+        courses.put("name", course.getName().toString());
+        courses.put("description", course.getDescription());
         Course course = courseService.findById(id);
-        Map<String, String> courseInfo = new HashMap<>() ;
-        courseInfo.put("name", course.getName().toString());
-        courseInfo.put("description", course.getDescription());
-        JSONObject response = new JSONObject(courseInfo);
+        JSONObject response = new JSONObject(courses);
         return new ResponseEntity<>(response, HttpStatus.OK);
     }
 
     @PostMapping("/courseinfo")
     public ResponseEntity<String> signUpToCourse(@PathVariable("id") Long id) {
-        Course course = courseService.findById(id);
         Student student = getLoggedInUser();
+        Course course = courseService.findById(id);
         student.setCourse(course);
         studentService.save(student);
         return new ResponseEntity<>(SUCCESS, HttpStatus.OK);
     }
-
 }
