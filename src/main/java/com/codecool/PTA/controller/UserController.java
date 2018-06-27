@@ -7,6 +7,8 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 //TODO
 @Controller
 public class UserController extends AbstractController {
@@ -35,6 +37,7 @@ public class UserController extends AbstractController {
 
     @GetMapping("student/{id}/certificate")
     public String displayCertificate(@PathVariable("id") Long id, Model model) {
+        isNewFriendRequest();
         model.addAttribute("student", studentService.findById(id));
         model.addAttribute("certificate", studentService.findCertificateByStudentId(id));
 
@@ -43,17 +46,43 @@ public class UserController extends AbstractController {
 
     @GetMapping("student/{id}/friends")
     public String listFriends(@PathVariable("id") Long id, Model model) {
+        isNewFriendRequest();
+        Student student = studentService.findById(id);
+        model.addAttribute("student", student);
+        model.addAttribute("friends", student.getFriends());
+
         return "friends/friends";
     }
 
     @GetMapping("student/{id}/friend-requests")
     public String listFriendRequests(@PathVariable("id") Long id, Model model) {
+        isNewFriendRequest();
+        Student student = studentService.findById(id);
+        model.addAttribute("student", student);
+        model.addAttribute("taggedBy", student.getTaggedByOthers());
+
         return "friends/friendRequests";
     }
 
     @GetMapping("student/{id}/friendable-students")
     public String listFriendableStudents(@PathVariable("id") Long id, Model model) {
+        isNewFriendRequest();
+        Student student = studentService.findById(id);
+
+        model.addAttribute("student", student);
+        model.addAttribute("studentList", getFriendableStudents(student));
+
         return "listStudents/listStudents";
+    }
+
+    private List<Student> getFriendableStudents(Student student) {
+        List<Student> students = studentService.findAll();
+        students.remove(student);
+        students.removeAll(student.getPendingFriends());
+        students.removeAll(student.getFriends());
+        students.removeAll(student.getTaggedByOthers());
+
+        return students;
     }
 
 }
