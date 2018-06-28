@@ -1,6 +1,8 @@
 package com.codecool.PTA.controller;
 
 import com.codecool.PTA.model.user.Student;
+import com.codecool.PTA.service.UserDetailServiceImp;
+import com.codecool.PTA.service.UserDetailsImp;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.context.request.RequestContextHolder;
 import org.springframework.web.context.request.ServletRequestAttributes;
@@ -19,8 +21,8 @@ public abstract class AbstractController {
     }
 
     protected Student getLoggedInUser() {
-        System.out.println(SecurityContextHolder.getContext().getAuthentication().getPrincipal());
-        return null;
+        UserDetailsImp userDetailsImp = (UserDetailsImp) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        return userDetailsImp.getUser();
     }
 
     protected HttpSession getHttpSession() {

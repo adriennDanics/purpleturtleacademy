@@ -21,6 +21,10 @@ public class UserDetailsImp implements UserDetails {
     }
 
 
+    public Student getUser() {
+        return user;
+    }
+
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
