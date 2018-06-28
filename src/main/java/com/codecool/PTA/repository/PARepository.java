@@ -9,6 +9,6 @@ import java.util.List;
 
 public interface PARepository extends JpaRepository<PA, Long> {
 
-    List<PA> getByCourseTypeAndLevelAndTemplate(CourseType courseType, Level level, boolean isTemplate);
+    List<PA> getAllByCourseTypeAndLevelAndTemplate(CourseType courseType, Level level, boolean isTemplate);
 
 }

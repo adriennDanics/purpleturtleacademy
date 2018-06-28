@@ -1,9 +1,8 @@
 package com.codecool.PTA.api;
 
 import com.codecool.PTA.controller.AbstractController;
-import com.codecool.PTA.model.quest.FillInTheBlank;
-import com.codecool.PTA.persistence.PersistenceImplementation;
 import com.codecool.PTA.model.quest.FillInAnswer;
+import com.codecool.PTA.model.quest.FillInTheBlank;
 import com.codecool.PTA.service.FillInAnswerService;
 import com.codecool.PTA.service.FillInTheBlankService;
 import org.json.simple.JSONObject;
@@ -14,10 +13,6 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RestController;
 
-import javax.servlet.ServletException;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-import java.io.IOException;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;

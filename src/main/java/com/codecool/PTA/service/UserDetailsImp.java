@@ -1,21 +1,20 @@
 package com.codecool.PTA.service;
 
 import com.codecool.PTA.model.role.Role;
-import com.codecool.PTA.model.user.User;
+import com.codecool.PTA.model.user.Student;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
-import javax.jws.soap.SOAPBinding;
 import java.util.Collection;
 import java.util.HashSet;
 import java.util.Set;
 
 public class UserDetailsImp implements UserDetails {
 
-    private User user;
+    private Student user;
 
-    public UserDetailsImp(User user) {
+    public UserDetailsImp(Student user) {
         this.user = user;
     }
 

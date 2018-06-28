@@ -1,6 +1,6 @@
 package com.codecool.PTA.service;
 
-import com.codecool.PTA.model.user.User;
+import com.codecool.PTA.model.user.Student;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
@@ -17,7 +17,7 @@ public class UserDetailServiceImp implements UserDetailsService {
 
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        User user = studentService.findByUsername(username);
+        Student user = studentService.findByUsername(username);
         if (user == null){
             throw new UsernameNotFoundException(username);
         }
