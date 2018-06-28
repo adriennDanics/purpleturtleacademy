@@ -18,6 +18,10 @@ import java.util.Set;
 @Entity
 public class Student extends User {
 
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private long id;
+
     private long xp;
 
     @Enumerated(EnumType.STRING)
@@ -179,6 +183,10 @@ public class Student extends User {
 
     public void setRoles(Set<Role> roles) {
         this.roles = roles;
+    }
+
+    public long getId() {
+        return id;
     }
 
 }

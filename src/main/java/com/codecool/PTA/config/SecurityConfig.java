@@ -15,8 +15,9 @@ import org.springframework.security.config.annotation.web.configuration.WebSecur
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
 
+    @Autowired
+    private CustomAuthenticationSuccessHandler successHandler;
 
-//    CustomAuthenticationSuccessHandler successHandler;
     @Autowired
     private UserDetailServiceImp userDetailServiceImp;
 
@@ -31,7 +32,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .formLogin()
                 .loginPage("/login")
                 .loginProcessingUrl("/login")
-                .defaultSuccessUrl("/")
+                .successHandler(successHandler)
                 .failureUrl("/login")
                 .usernameParameter("username")
                 .passwordParameter("password")

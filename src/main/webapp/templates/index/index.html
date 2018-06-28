@@ -1,29 +1,27 @@
 <!DOCTYPE html>
-<html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org" layout:decorator="layout">
 <head>
     <meta charset="UTF-8">
-
-    <div th:replace="layout.html :: head"></div>
-
 </head>
 <body>
-    <div th:replace="layout.html :: navbar"></div>
-    <div class="welcome container">
-        <img src="/static/welcome.png" alt="welcome">
-        <div class="welcome message" th:text="'Hi ' + ${student.getFirstName()}">
+    <div layout:fragment="loginContent">
+        <div class="welcome container">
+            <img src="/static/welcome.png" alt="welcome">
+            <div class="welcome message" th:text="'Hi ' + ${student.getFirstName()}">
+            </div>
         </div>
-    </div>
-    <div class="table table-hover">
-        <table>
-            <tbody>
-            <tr class="card" th:attr="data-id=${course.id}">
-                <div class="certi-link" th:unless="${orientation}">
-                    <td><a href="/assignments" th:text="${course.name}">Name</a></td>
-                        <td th:text="${course.description}">Description</td>
-                </div>
-            </tr>
-            </tbody>
-        </table>
+        <div class="table table-hover">
+            <table>
+                <tbody>
+                <tr class="card" th:attr="data-id=${course.id}">
+                    <div class="certi-link" th:unless="${orientation}">
+                        <td><a href="/assignments" th:text="${course.name}">Name</a></td>
+                            <td th:text="${course.description}">Description</td>
+                    </div>
+                </tr>
+                </tbody>
+            </table>
+        </div>
     </div>
 
 </body>

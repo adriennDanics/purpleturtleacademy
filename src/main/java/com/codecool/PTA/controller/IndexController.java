@@ -9,6 +9,8 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 
+import javax.servlet.http.HttpServletRequest;
+
 @Controller
 public class IndexController extends AbstractController {
 
@@ -18,9 +20,9 @@ public class IndexController extends AbstractController {
     private CourseService courseService;
 
     @GetMapping({"", "index"})
-    public String displayIndexPage(Model model) {
+    public String displayIndexPage(Model model, HttpServletRequest request) {
 //        checkForNewFriendRequest();
-        Student student = getLoggedInUser();
+        Student student = (Student) request.getSession().getAttribute("student");
         Course course = student.getCourse() == null ? courseService.findById(ORIENTATION) : student.getCourse();
         final boolean IS_ORIENTATION_ACTIVE = course.getName() == CourseType.ORIENTATION;
         if (IS_ORIENTATION_ACTIVE) {

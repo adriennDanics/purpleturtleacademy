@@ -1,6 +1,6 @@
 package com.codecool.PTA.model.course;
 
-import com.codecool.PTA.model.user.Mentor;
+//import com.codecool.PTA.model.user.Mentor;
 import com.codecool.PTA.model.user.Student;
 
 import javax.persistence.*;
@@ -22,8 +22,8 @@ public class Course {
     @OneToMany(mappedBy = "course", cascade = CascadeType.ALL)
     private Set<Student> students = new HashSet<>();
 
-    @OneToMany(mappedBy = "course", cascade = CascadeType.ALL)
-    private Set<Mentor> mentors = new HashSet<>();
+//    @OneToMany(mappedBy = "course", cascade = CascadeType.ALL)
+//    private Set<Mentor> mentors = new HashSet<>();
 
     protected Course(){}
 
@@ -64,11 +64,11 @@ public class Course {
         this.students.add(student);
     }
 
-    public Set<Mentor> getMentors() {
-        return mentors;
-    }
-
-    public void setMentors(Mentor mentor) {
-        this.mentors.add(mentor);
-    }
+//    public Set<Mentor> getMentors() {
+//        return mentors;
+//    }
+//
+//    public void setMentors(Mentor mentor) {
+//        this.mentors.add(mentor);
+//    }
 }

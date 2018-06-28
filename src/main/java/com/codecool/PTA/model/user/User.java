@@ -13,9 +13,7 @@ import java.util.Set;
 @MappedSuperclass
 public abstract class User {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private long id;
+
 
     @Column(unique = true, nullable = false)
     private String username;
@@ -53,9 +51,6 @@ public abstract class User {
         this.image = gender.getImage();
     }
 
-    public long getId() {
-        return id;
-    }
 
     public String getFirstName() {
         return firstName;
