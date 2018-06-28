@@ -32,18 +32,18 @@
 
             <div class="collapse navbar-collapse" id="navbarSupportedContent">
                 <ul class="navbar-nav mr-auto">
-                    <li class="nav-item active">
+                    <li th:if="${session.student}" class="nav-item active">
                         <a class="nav-link" href="/courses">Courses <span class="sr-only">(current)</span></a>
                     </li>
-                    <li class="nav-item">
+                    <li th:if="${session.student}" class="nav-item">
                         <a class="nav-link disabled" href="#">Challenges (Soon)</a>
                     </li>
-                    <li class="nav-item dropdown">
+                    <li th:if="${session.student}" class="nav-item dropdown">
                         <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                             Friends
                         </a>
                         <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                            <a class="dropdown-item" href="/list-users">User list</a>
+                            <a class="dropdown-item" th:href="'/student/' + ${student.getId} + '/friendable-users'">User list</a>
                             <a class="dropdown-item" href="/friends">Friends</a>
                             <!--<div class="dropdown-divider"></div>-->
                             <a class="dropdown-item" id="friend-request-button" href="/friend-requests">Friend requests</a>
