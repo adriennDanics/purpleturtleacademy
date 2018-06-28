@@ -1,20 +1,20 @@
 <!DOCTYPE html>
-<html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org" layout:decorator="layout">
 <head>
     <meta charset="UTF-8">
-    <div th:replace="layout.html :: head"></div>
-
 </head>
 <body>
-    <h4 class="warning">Please log in to continue to the site!</h4>
-    <h5 class="warning">Not a member yet?
-        <a href="/registration">Register!</a></h5>
-    <form class="form-group" th:action="@{/login}" method="POST">
-        <label for="username">Username</label><br>
-        <input class="form-control solution" type="text" name="username" id="username"><br>
-        <label for="password">Password</label><br>
-        <input class="form-control solution" type="password" name="password" id="password"><br>
-        <button type="submit">Enter</button>
-    </form>
+    <div layout:fragment="loginContent">
+        <h4 class="warning">Please log in to continue to the site!</h4>
+        <h5 class="warning">Not a member yet?
+            <a href="/registration">Register!</a></h5>
+        <form class="form-group" th:action="@{/login}" method="POST">
+            <label for="username">Username</label><br>
+            <input class="form-control solution" type="text" name="username" id="username"><br>
+            <label for="password">Password</label><br>
+            <input class="form-control solution" type="password" name="password" id="password"><br>
+            <button type="submit">Enter</button>
+        </form>
+    </div>
 </body>
 </html>
