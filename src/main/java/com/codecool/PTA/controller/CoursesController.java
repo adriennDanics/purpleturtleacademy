@@ -13,7 +13,7 @@ public class CoursesController extends AbstractController {
     @Autowired
     private CourseService courseService;
 
-    @GetMapping
+    @GetMapping("/courses")
     public String listCourses(Model model) {
         checkForNewFriendRequest();
         Student student = getLoggedInUser();

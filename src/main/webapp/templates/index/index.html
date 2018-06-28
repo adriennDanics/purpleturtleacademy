@@ -10,7 +10,7 @@
     <div th:replace="layout.html :: navbar"></div>
     <div class="welcome container">
         <img src="/static/welcome.png" alt="welcome">
-        <div class="welcome message" th:text="'Hi ' + ${session.student.getFirstName()}">
+        <div class="welcome message" th:text="'Hi ' + ${student.getFirstName()}">
         </div>
     </div>
     <div class="table table-hover">

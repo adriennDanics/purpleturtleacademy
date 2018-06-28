@@ -4,6 +4,7 @@ import com.codecool.PTA.model.certificate.Certificate;
 import com.codecool.PTA.model.course.Course;
 import com.codecool.PTA.model.quest.Kata;
 import com.codecool.PTA.model.quest.PA;
+import com.codecool.PTA.model.role.Role;
 
 import javax.persistence.*;
 import java.util.HashSet;
@@ -50,7 +51,15 @@ public class Student extends User {
             inverseJoinColumns=@JoinColumn(name="TaggerFriend"))
     private Set<Student> taggedByOthers = new HashSet<>();
 
-    protected Student() {
+    @ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+//    @JoinTable(
+//            name = "roles",
+//            joinColumns = {@JoinColumn(name = "id")},
+//            inverseJoinColumns = {@JoinColumn(name = "role_id")}
+//    )
+    private Set<Role> roles = new HashSet<>();
+
+    public Student() {
         super();
     }
 
@@ -150,6 +159,14 @@ public class Student extends User {
 
     public void setCertificate(Certificate certificate) {
         this.certificate = certificate;
+    }
+
+    public Set<Role> getRoles() {
+        return roles;
+    }
+
+    public void setRoles(Set<Role> roles) {
+        this.roles = roles;
     }
 
 }

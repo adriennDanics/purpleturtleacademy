@@ -16,7 +16,7 @@ public class PAService {
     private PARepository paRepository;
 
     public List<PA> findPaTemplatesByCourseNameAndLevelName(CourseType courseType, Level level) {
-        return paRepository.getByCourseTypeAndLevelAndTemplate(courseType, level, true);
+        return paRepository.getAllByCourseTypeAndLevelAndIsTemplate(courseType, level, true);
     }
 
     public void save(PA pa) {

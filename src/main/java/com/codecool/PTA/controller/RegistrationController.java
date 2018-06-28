@@ -1,61 +1,63 @@
 package com.codecool.PTA.controller;
 
-import com.codecool.PTA.config.TemplateEngineUtil;
-import com.codecool.PTA.helper.PasswordHashing;
-import com.codecool.PTA.model.course.Course;
-import com.codecool.PTA.model.course.CourseType;
+
 import com.codecool.PTA.model.user.GenderEnum;
 import com.codecool.PTA.model.user.Student;
-import com.codecool.PTA.persistence.PersistenceImplementation;
-import org.thymeleaf.TemplateEngine;
-import org.thymeleaf.context.WebContext;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PostMapping;
 
-import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
-import java.io.IOException;
 
+
+@Controller
 public class RegistrationController extends AbstractController {
 
-    private PersistenceImplementation persistenceImplementation;
-    private PasswordHashing passwordHashing;
-
-    public RegistrationController(PersistenceImplementation persistenceImplementation, PasswordHashing passwordHashing) {
-        this.persistenceImplementation = persistenceImplementation;
-        this.passwordHashing = passwordHashing;
-    }
-//TODO
-    @Override
-    protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        WebContext context = new WebContext(req, resp, req.getServletContext());
-
-        TemplateEngine engine = TemplateEngineUtil.getTemplateEngine(req.getServletContext());
-        engine.process("registration/registration.html", context, resp.getWriter());
+    @GetMapping(value = "/registration")
+    public String registrationView(Model model){
+        model.addAttribute("student", new Student());
+        return "registration/registration";
     }
 
-    @Override
-    protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        HttpSession session = req.getSession();
-        if (passwordsMatch(req)) {
-            Student student = createNewlyRegisteredStudent(req);
-            if(persistenceImplementation.persist(student)) {
-                session.setAttribute("student", student);
-                clearPasswordNotMatchFromSession(session);
-                if (session.getAttribute("used") != null) {
-                    session.removeAttribute("used");
-                }
-                resp.sendRedirect("");
-            } else {
-                session.setAttribute("used", "used username or password");
-                resp.sendRedirect("/registration");
-            }
-
-        } else {
-            addPasswordNotMatchToSession(session);
-            resp.sendRedirect("/registration");
-        }
+    @PostMapping("/reg")
+    public String registrationSave(@ModelAttribute Student student){
+        return "/login";
     }
+
+////TODO
+//    @Override
+//    protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+//        WebContext context = new WebContext(req, resp, req.getServletContext());
+//
+//        TemplateEngine engine = TemplateEngineUtil.getTemplateEngine(req.getServletContext());
+//        engine.process("registration/registration.html", context, resp.getWriter());
+//    }
+//
+//    @Override
+//    protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+//        HttpSession session = req.getSession();
+//        if (passwordsMatch(req)) {
+//            Student student = createNewlyRegisteredStudent(req);
+//            if(persistenceImplementation.persist(student)) {
+//                session.setAttribute("student", student);
+//                clearPasswordNotMatchFromSession(session);
+//                if (session.getAttribute("used") != null) {
+//                    session.removeAttribute("used");
+//                }
+//                resp.sendRedirect("");
+//            } else {
+//                session.setAttribute("used", "used username or password");
+//                resp.sendRedirect("/registration");
+//            }
+//
+//        } else {
+//            addPasswordNotMatchToSession(session);
+//            resp.sendRedirect("/registration");
+//        }
+//    }
 //TODO create abstract class with these helper methods
     private void addPasswordNotMatchToSession(HttpSession session) {
         session.setAttribute("passwordNotMatch", "The passwords you entered are not matching!");
@@ -86,24 +88,21 @@ public class RegistrationController extends AbstractController {
         return gender;
     }
 
-    public void setPersistenceImplementation(PersistenceImplementation persistenceImplementation) {
-        this.persistenceImplementation = persistenceImplementation;
-    }
-
-    private Student createNewlyRegisteredStudent(HttpServletRequest req) {
-        String hashedPassword = passwordHashing.hashPassword(req.getParameter("password"));
-        Course course = persistenceImplementation.findCourseByName(CourseType.ORIENTATION);
-        GenderEnum gender = translateGender(req.getParameter("gender"));
-
-        return new Student(
-                req.getParameter("username"),
-                hashedPassword,
-                req.getParameter("first_name"),
-                req.getParameter("last_name"),
-                req.getParameter("email"),
-                course,
-                gender
-        );
-    }
+//
+//    private Student createNewlyRegisteredStudent(HttpServletRequest req) {
+//        String hashedPassword = passwordHashing.hashPassword(req.getParameter("password"));
+//        Course course = persistenceImplementation.findCourseByName(CourseType.ORIENTATION);
+//        GenderEnum gender = translateGender(req.getParameter("gender"));
+//
+//        return new Student(
+//                req.getParameter("username"),
+//                hashedPassword,
+//                req.getParameter("first_name"),
+//                req.getParameter("last_name"),
+//                req.getParameter("email"),
+//                course,
+//                gender
+//        );
+//    }
 
 }

@@ -1,58 +1,59 @@
 <!DOCTYPE html>
-<html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org" layout:decorator="layout">
 <head>
     <meta charset="UTF-8">
     <title>Registration</title>
-    <div th:replace="layout.html :: head"></div>
 </head>
 <body>
-    <span>
-        <div th:if="${session.used}" >
-            <p class="warning">The username or the email address is already in use, please choose another one</p>
-        </div>
-    </span>
-    <span>
-        <form class="form-group" th:action="@{/registration}" th:object="${student}" method="POST">
-            <label for="first_name">First name</label>
-            <input class="form-control" type="text" name="first_name" id="first_name" th:field="firstName" required>
-            <label for="last_name">Last name</label>
-            <input class="form-control" type="text" name="last_name" id="last_name" th:field="lastName">
-            <fieldset class="form-group">
-                <legend>Gender</legend>
-                <div class="form-check">
-                    <label class="form-check-label">
-                        <input type="radio" class="form-check-input" name="gender" id="optionsRadios1" value="male" checked="">
-                        Male
-                    </label>
-                </div>
-                <div class="form-check">
-                    <label class="form-check-label">
-                        <input type="radio" class="form-check-input" name="gender" id="optionsRadios2" value="female">
-                        Female
-                    </label>
-                </div>
-                <div class="form-check">
-                    <label class="form-check-label">
-                        <input type="radio" class="form-check-input" name="gender" id="optionsRadios3" value="other">
-                        Other
-                    </label>
-                </div>
-            </fieldset>
-            <label for="email">Email</label>
-            <input class="form-control" type="email" name="email" id="email" th:field="email" required>
-            <label for="username">Username</label>
-            <input class="form-control" type="text" name="username" id="username" th:field="username" required>
-            <label for="password">Password</label>
-            <input class="form-control" type="password" name="password" id="password" th:field="password" required>
-            <div th:if="${session.passwordNotMatch}">
-                <p class="warning">The passwords you entered are not matching!</p>
+    <div layout:fragment="loginContent">
+        <br><br>
+        <span>
+            <div th:if="${session.used}" >
+                <p class="warning">The username or the email address is already in use, please choose another one</p>
             </div>
-            <label for="password_confirm">Password confirm</label>
-            <input class="form-control" type="password" name="password_confirm" id="password_confirm" required>
-            <button class="btn" type="submit">Register</button>
-            <a class="btn" href="/login">Back</a>
-        </form>
-    </span>
-
+        </span>
+        <span>
+            <form class="form-group" th:action="@{/reg}" th:object="${student}" method="POST">
+                <label for="first_name">First name</label>
+                <input class="form-control" type="text" name="first_name" id="first_name" th:field="*{firstName}" required>
+                <label for="last_name">Last name</label>
+                <input class="form-control" type="text" name="last_name" id="last_name" th:field="*{lastName}">
+                <fieldset class="form-group">
+                    <legend>Gender</legend>
+                    <div class="form-check">
+                        <label class="form-check-label">
+                            <input type="radio" class="form-check-input" name="gender" id="optionsRadios1" value="male" checked="">
+                            Male
+                        </label>
+                    </div>
+                    <div class="form-check">
+                        <label class="form-check-label">
+                            <input type="radio" class="form-check-input" name="gender" id="optionsRadios2" value="female">
+                            Female
+                        </label>
+                    </div>
+                    <div class="form-check">
+                        <label class="form-check-label">
+                            <input type="radio" class="form-check-input" name="gender" id="optionsRadios3" value="other">
+                            Other
+                        </label>
+                    </div>
+                </fieldset>
+                <label for="email">Email</label>
+                <input class="form-control" type="email" name="email" id="email" th:field="*{email}" required>
+                <label for="username">Username</label>
+                <input class="form-control" type="text" name="username" id="username" th:field="*{username}" required>
+                <label for="password">Password</label>
+                <input class="form-control" type="password" name="password" id="password" th:field="*{password}" required>
+                <div th:if="${session.passwordNotMatch}">
+                    <p class="warning">The passwords you entered are not matching!</p>
+                </div>
+                <label for="password_confirm">Password confirm</label>
+                <input class="form-control" type="password" name="password_confirm" id="password_confirm" required>
+                <button class="btn" type="submit">Register</button>
+                <a class="btn" href="/login">Back</a>
+            </form>
+        </span>
+    </div>
 </body>
 </html>

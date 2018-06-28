@@ -36,15 +36,6 @@ public abstract class User {
 
     private String image;
 
-    @ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
-    @JoinTable(
-            name = "roles",
-            joinColumns = {@JoinColumn(name = "id")},
-            inverseJoinColumns = {@JoinColumn(name = "role_id")}
-    )
-
-    private Set<Role> roles = new HashSet<>();
-
     protected User() {
     }
 
@@ -121,14 +112,6 @@ public abstract class User {
 
     public void setImage(String image) {
         this.image = image;
-    }
-
-    public Set<Role> getRoles() {
-        return roles;
-    }
-
-    public void setRoles(Set<Role> roles) {
-        this.roles = roles;
     }
 
     @Override

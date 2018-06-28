@@ -16,7 +16,7 @@ public class KataService {
     private KataRepository kataRepository;
 
     public List<Kata> findKataTemplatesByCourseNameAndLevelName(CourseType courseType, Level level) {
-        return kataRepository.getByCourseTypeAndLevelAndTemplate(courseType, level, true);
+        return kataRepository.getAllByCourseTypeAndLevelAndIsTemplate(courseType, level, true);
     }
 
     public Kata findById(Long id) { return kataRepository.getOne(id); }
