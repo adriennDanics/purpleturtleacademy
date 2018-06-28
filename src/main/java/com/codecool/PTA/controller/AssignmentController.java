@@ -144,6 +144,6 @@ public class AssignmentController extends AbstractController {
     public void setXP(@PathVariable Long xp) {
         Student student = getLoggedInUser();
         student.setXp(xp);
-        studentService.saveStudent(student);
+        studentService.save(student);
     }
 }
