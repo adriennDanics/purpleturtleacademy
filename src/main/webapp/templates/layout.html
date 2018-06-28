@@ -44,9 +44,9 @@
                         </a>
                         <div class="dropdown-menu" aria-labelledby="navbarDropdown">
                             <a class="dropdown-item" th:href="'/student/' + ${student.getId} + '/friendable-users'">User list</a>
-                            <a class="dropdown-item" href="/friends">Friends</a>
+                            <a class="dropdown-item" th:href="'/student/' + ${student.getId} + '/friends'">Friends</a>
                             <!--<div class="dropdown-divider"></div>-->
-                            <a class="dropdown-item" id="friend-request-button" href="/friend-requests">Friend requests</a>
+                            <a class="dropdown-item" id="friend-request-button" th:href="'/student/' + ${student.getId} + '/friend-requests'">Friend requests</a>
                         </div>
                     </li>
                     <div th:if="${session.newRequest}" id="notification_bell">
