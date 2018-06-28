@@ -9,3 +9,5 @@ spring.datasource.password=
 
 # Creates the DB when the app starts, drops everything when the app closes. Good for testing.
 spring.jpa.hibernate.ddl-auto=create-drop
+
+spring.thymeleaf.mode=LEGACYHTML5

@@ -42,8 +42,7 @@
 
         <dependency>
             <groupId>org.springframework.boot</groupId>
-            <artifactId>thymleaf-extras-springbootsecurity4</artifactId>
-            <version>RELEASE</version>
+            <artifactId>thymeleaf-extras-springbootsecurity4</artifactId>
         </dependency>
 
         <!-- ORM repository (JPA) support -->
