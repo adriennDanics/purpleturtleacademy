@@ -10,6 +10,8 @@ import java.util.Collection;
 import java.util.HashSet;
 import java.util.Set;
 
+
+
 public class UserDetailsImp implements UserDetails {
 
     private Student user;
@@ -17,6 +19,8 @@ public class UserDetailsImp implements UserDetails {
     public UserDetailsImp(Student user) {
         this.user = user;
     }
+
+
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
