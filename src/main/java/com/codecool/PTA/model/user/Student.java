@@ -59,7 +59,7 @@ public class Student extends User {
 //    )
     private Set<Role> roles = new HashSet<>();
 
-    protected Student() {
+    public Student() {
         super();
     }
 
