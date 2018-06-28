@@ -3,25 +3,23 @@ package com.codecool.PTA.controller;
 
 import com.codecool.PTA.model.user.GenderEnum;
 import com.codecool.PTA.model.user.Student;
-
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
 
 import javax.servlet.http.HttpServletRequest;
-
 import javax.servlet.http.HttpSession;
 
 
 @Controller
 public class RegistrationController extends AbstractController {
 
-    @RequestMapping(value = "/registration")
+    @GetMapping(value = "/registration")
     public String registrationView(Model model){
         model.addAttribute("student", new Student());
-        return "registration";
+        return "registration/registration";
     }
 
     @PostMapping("/reg")
