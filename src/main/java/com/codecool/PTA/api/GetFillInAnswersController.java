@@ -36,7 +36,7 @@ public class GetFillInAnswersController extends AbstractController {
         FillInTheBlank fillInTheBlank = fillInTheBlankService.findById(id);
 
         List<FillInAnswer> fillInAnswers = fillInAnswerService.getAnswersForQuestion(fillInTheBlank);
-        
+
     }
 
     @Override
