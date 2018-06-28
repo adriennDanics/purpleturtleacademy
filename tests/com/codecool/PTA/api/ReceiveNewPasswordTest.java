@@ -42,7 +42,7 @@ public class ReceiveNewPasswordTest extends JSONTest {
         when(passwordHashing.isPasswordCorrect("password", "password")).thenReturn(true);
         when(passwordHashing.hashPassword("new_password")).thenReturn("new_password");
 
-        new ReceiveNewPassword(pim, passwordHashing).doPost(req, resp);
+        new EditUserInformation(pim, passwordHashing).doPost(req, resp);
 
         assertEquals("new_password", student.getPassword());
     }
