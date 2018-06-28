@@ -9,6 +9,6 @@ import java.util.List;
 
 public interface KataRepository extends JpaRepository<Kata, Long> {
 
-    List<Kata> getAllByCourseTypeAndLevelAndTemplate(CourseType courseType, Level level, boolean isTemplate);
+    List<Kata> getAllByCourseTypeAndLevelAndIsTemplate(CourseType courseType, Level level, boolean isTemplate);
 
 }

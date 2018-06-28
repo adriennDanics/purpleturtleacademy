@@ -25,7 +25,7 @@ public class EditUserInformation extends AbstractController {
     @Autowired
     private PasswordUtilService passwordUtilService;
 
-    @RequestMapping(value="/profile/newpassword", method = RequestMethod.POST)
+    @RequestMapping(value="/profile/newpassword", method = RequestMethod.GET)
     public ResponseEntity<?> getNewPassword(@RequestBody JSONObject passwords) {
         Student student = getLoggedInUser();
         String oldPassword = passwords.get("oldpassword").toString();

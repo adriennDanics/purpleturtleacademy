@@ -12,7 +12,7 @@ public class IndexController extends AbstractController {
 
     @GetMapping({"", "index"})
     public String displayIndexPage(Model model) {
-        checkForNewFriendRequest();
+//        checkForNewFriendRequest();
         Student student = getLoggedInUser();
         Course course = student.getCourse();
         final boolean IS_ORIENTATION_ACTIVE = course.getName() == CourseType.ORIENTATION;

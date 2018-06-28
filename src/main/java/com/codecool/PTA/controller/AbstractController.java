@@ -19,7 +19,8 @@ public abstract class AbstractController {
     }
 
     protected Student getLoggedInUser() {
-        return (Student) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        System.out.println(SecurityContextHolder.getContext().getAuthentication().getPrincipal());
+        return null;
     }
 
     protected HttpSession getHttpSession() {
