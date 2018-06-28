@@ -1,30 +1,34 @@
-//package com.codecool.PTA.controller;
-//
-//import com.codecool.PTA.config.TemplateEngineUtil;
-//import com.codecool.PTA.helper.PasswordHashing;
-//import com.codecool.PTA.model.course.Course;
-//import com.codecool.PTA.model.course.CourseType;
-//import com.codecool.PTA.model.user.GenderEnum;
-//import com.codecool.PTA.model.user.Student;
-//import com.codecool.PTA.persistence.PersistenceImplementation;
-//import org.thymeleaf.TemplateEngine;
-//import org.thymeleaf.context.WebContext;
-//
-//import javax.servlet.ServletException;
-//import javax.servlet.http.HttpServletRequest;
-//import javax.servlet.http.HttpServletResponse;
-//import javax.servlet.http.HttpSession;
-//import java.io.IOException;
-//
-//public class RegistrationController extends AbstractController {
-//
-//    private PersistenceImplementation persistenceImplementation;
-//    private PasswordHashing passwordHashing;
-//
-//    public RegistrationController(PersistenceImplementation persistenceImplementation, PasswordHashing passwordHashing) {
-//        this.persistenceImplementation = persistenceImplementation;
-//        this.passwordHashing = passwordHashing;
-//    }
+package com.codecool.PTA.controller;
+
+
+import com.codecool.PTA.model.user.GenderEnum;
+import com.codecool.PTA.model.user.Student;
+
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+
+import javax.servlet.http.HttpServletRequest;
+
+import javax.servlet.http.HttpSession;
+
+
+@Controller
+public class RegistrationController extends AbstractController {
+
+    @RequestMapping(value = "/registration")
+    public String registrationView(Model model){
+        model.addAttribute("student", new Student());
+        return "registration";
+    }
+
+    @PostMapping("/reg")
+    public String registrationSave(@ModelAttribute Student student){
+        return "/login";
+    }
+
 ////TODO
 //    @Override
 //    protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
@@ -56,39 +60,36 @@
 //            resp.sendRedirect("/registration");
 //        }
 //    }
-////TODO create abstract class with these helper methods
-//    private void addPasswordNotMatchToSession(HttpSession session) {
-//        session.setAttribute("passwordNotMatch", "The passwords you entered are not matching!");
-//    }
-//
-//    private void clearPasswordNotMatchFromSession(HttpSession session) {
-//        if (session.getAttribute("passwordNotMatch") != null) {
-//            session.removeAttribute("passwordNotMatch");
-//        }
-//    }
-//
-//    private boolean passwordsMatch(HttpServletRequest req) {
-//        String password = req.getParameter("password");
-//        String passwordConfirm = req.getParameter("password_confirm");
-//
-//        return password.equals(passwordConfirm);
-//    }
-//
-//    GenderEnum translateGender(String genderChecked) {
-//        GenderEnum gender;
-//        if (genderChecked.equals("female")) {
-//            gender = GenderEnum.FEMALE;
-//        } else if (genderChecked.equals("male")) {
-//            gender = GenderEnum.MALE;
-//        } else {
-//            gender = GenderEnum.OTHER;
-//        }
-//        return gender;
-//    }
-//
-//    public void setPersistenceImplementation(PersistenceImplementation persistenceImplementation) {
-//        this.persistenceImplementation = persistenceImplementation;
-//    }
+//TODO create abstract class with these helper methods
+    private void addPasswordNotMatchToSession(HttpSession session) {
+        session.setAttribute("passwordNotMatch", "The passwords you entered are not matching!");
+    }
+
+    private void clearPasswordNotMatchFromSession(HttpSession session) {
+        if (session.getAttribute("passwordNotMatch") != null) {
+            session.removeAttribute("passwordNotMatch");
+        }
+    }
+
+    private boolean passwordsMatch(HttpServletRequest req) {
+        String password = req.getParameter("password");
+        String passwordConfirm = req.getParameter("password_confirm");
+
+        return password.equals(passwordConfirm);
+    }
+
+    GenderEnum translateGender(String genderChecked) {
+        GenderEnum gender;
+        if (genderChecked.equals("female")) {
+            gender = GenderEnum.FEMALE;
+        } else if (genderChecked.equals("male")) {
+            gender = GenderEnum.MALE;
+        } else {
+            gender = GenderEnum.OTHER;
+        }
+        return gender;
+    }
+
 //
 //    private Student createNewlyRegisteredStudent(HttpServletRequest req) {
 //        String hashedPassword = passwordHashing.hashPassword(req.getParameter("password"));
@@ -105,5 +106,5 @@
 //                gender
 //        );
 //    }
-//
-//}
+
+}

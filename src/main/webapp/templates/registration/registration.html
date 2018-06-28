@@ -12,7 +12,7 @@
         </div>
     </span>
     <span>
-        <form class="form-group" th:action="@{/registration}" th:object="${student}" method="POST">
+        <form class="form-group" th:action="@{/reg}" th:object="${student}" method="POST">
             <label for="first_name">First name</label>
             <input class="form-control" type="text" name="first_name" id="first_name" th:field="firstName" required>
             <label for="last_name">Last name</label>
