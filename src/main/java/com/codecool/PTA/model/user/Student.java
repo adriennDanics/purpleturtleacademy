@@ -5,8 +5,13 @@ import com.codecool.PTA.model.course.Course;
 import com.codecool.PTA.model.quest.Kata;
 import com.codecool.PTA.model.quest.PA;
 import com.codecool.PTA.model.role.Role;
+import com.codecool.PTA.service.CourseService;
+import org.springframework.beans.factory.annotation.Autowired;
 
 import javax.persistence.*;
+import java.time.LocalDate;
+import java.time.ZoneId;
+import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -61,6 +66,13 @@ public class Student extends User {
 
     public Student() {
         super();
+        LocalDate localDate = java.time.LocalDate.now();
+        Date dateNow = Date.from(localDate.atStartOfDay(ZoneId.systemDefault()).toInstant());
+
+        this.setGender(GenderEnum.OTHER);
+        this.setRegistrationDate(dateNow);
+        this.xp = 0;
+        this.level = Level.BEGINNER;
     }
 
     public Student(String username, String password, String firstName, String lastName, String email, Course course, GenderEnum gender) {

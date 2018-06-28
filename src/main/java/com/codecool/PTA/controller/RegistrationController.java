@@ -3,18 +3,23 @@ package com.codecool.PTA.controller;
 
 import com.codecool.PTA.model.user.GenderEnum;
 import com.codecool.PTA.model.user.Student;
+import com.codecool.PTA.service.StudentService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
-
 @Controller
 public class RegistrationController extends AbstractController {
+
+    @Autowired
+    private StudentService studentService;
 
     @GetMapping(value = "/registration")
     public String registrationView(Model model){
@@ -23,8 +28,10 @@ public class RegistrationController extends AbstractController {
     }
 
     @PostMapping("/reg")
-    public String registrationSave(@ModelAttribute Student student){
-        return "/login";
+    public String registrationSave(@ModelAttribute Student student, @RequestParam("genderParam") String gender){
+        student.setGender(translateGender(gender));
+        studentService.save(student);
+        return "login/login";
     }
 
 ////TODO

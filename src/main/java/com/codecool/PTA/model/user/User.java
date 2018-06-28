@@ -114,6 +114,14 @@ public abstract class User {
         this.image = image;
     }
 
+    public Date getRegistrationDate() {
+        return registrationDate;
+    }
+
+    public void setRegistrationDate(Date registrationDate) {
+        this.registrationDate = registrationDate;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
