@@ -17,7 +17,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 @RestController
-public class ReceiveNewPassword extends AbstractController {
+public class EditUserInformation extends AbstractController {
 
     @Autowired
     private StudentService studentService;
@@ -39,7 +39,7 @@ public class ReceiveNewPassword extends AbstractController {
         } else {
             Map<String, String> denial = new HashMap<>();
             denial.put("message", "Old password was wrong, change not possible");
-            org.json.simple.JSONObject response = new org.json.simple.JSONObject(denial);
+            JSONObject response = new org.json.simple.JSONObject(denial);
             return new ResponseEntity<>(response, HttpStatus.OK);
         }
 
