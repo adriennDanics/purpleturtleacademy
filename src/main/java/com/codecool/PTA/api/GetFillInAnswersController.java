@@ -1,9 +1,15 @@
 package com.codecool.PTA.api;
 
 import com.codecool.PTA.controller.AbstractController;
+import com.codecool.PTA.model.quest.FillInTheBlank;
 import com.codecool.PTA.persistence.PersistenceImplementation;
 import com.codecool.PTA.model.quest.FillInAnswer;
+import com.codecool.PTA.service.FillInAnswerService;
+import com.codecool.PTA.service.FillInTheBlankService;
 import org.json.simple.JSONObject;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.PathVariable;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
@@ -17,6 +23,20 @@ public class GetFillInAnswersController extends AbstractController {
 
     public GetFillInAnswersController(PersistenceImplementation persistenceImplementation) {
         this.persistenceImplementation = persistenceImplementation;
+    }
+
+    @Autowired
+    private FillInAnswerService fillInAnswerService;
+
+    @Autowired
+    private FillInTheBlankService fillInTheBlankService;
+
+
+    public ResponseEntity<JSONObject> getFillInAnswersForQuestion(@PathVariable Long id) {
+        FillInTheBlank fillInTheBlank = fillInTheBlankService.findById(id);
+
+        List<FillInAnswer> fillInAnswers = fillInAnswerService.getAnswersForQuestion(fillInTheBlank);
+        
     }
 
     @Override
