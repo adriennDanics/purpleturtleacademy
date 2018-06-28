@@ -80,7 +80,7 @@ editProfileInfo={
         $.ajax({
             type: "POST",
             url: "http://localhost:8080/profile/newname",
-            data: JSON.stringify(newNameToSend),
+            data: JSON.stringify({'username': newNameToSend}),
             async: false,
             contentType: "application/json; charset=utf-8",
             dataType: 'json',
@@ -133,7 +133,7 @@ editProfileInfo={
                 $.ajax({
                     type: "POST",
                     url: "http://localhost:8080/profile/newpassword",
-                    data: JSON.stringify({'old': oldPass.value, 'new': newPass.value}),
+                    data: JSON.stringify({'oldpassword': oldPass.value, 'newpassword': newPass.value}),
                     async: false,
                     contentType: "application/json; charset=utf-8",
                     dataType: 'json',
