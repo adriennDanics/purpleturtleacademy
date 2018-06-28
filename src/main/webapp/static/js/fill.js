@@ -5,8 +5,9 @@ dom = {
     _userAnswers: [],
     _responseDiv: "",
     _xp: Number(document.getElementById("get-xp").dataset.xp),
+    _xpChange: document.getElementById("get-xp-change").dataset.xpchange,
 
-    init: function () {
+init: function () {
         dom.getCorrectAnswers();
         dom.getUserAnswers();
         dom.getResponseDiv();
@@ -88,17 +89,17 @@ dom = {
     checkIfNext: function(next) {
         if (next <= 0) {
             dom.sendXP();
-            window.location.replace("/assignments");
+            window.location.replace("http://0.0.0.0:8080/quiz-result?xp=" + xpChange);
         } else {
             dom.sendXP();
-            window.location.replace("http://localhost:8080/question?id="+String(next-1));
+            window.location.replace("http://localhost:8080/question?id="+String(next-1)+"&xp="+xpChange);
         }
     },
 
     sendXP: function() {
     $.ajax({
         type: "POST",
-        url: "http://localhost:8080/quiz",
+        url: "http://localhost:8080/quiz?xp="+dom._xp,
         data: JSON.stringify({'xp': dom._xp}),
         async: false,
         contentType: "application/json; charset=utf-8",

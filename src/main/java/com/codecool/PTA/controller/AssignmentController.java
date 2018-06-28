@@ -56,12 +56,13 @@ public class AssignmentController extends AbstractController {
         return "assignments/assignments";
     }
 
-    @GetMapping("/fill/{id}/{left}")
-    public String displayFillAssignment(@PathVariable Long id, @PathVariable String left, Model model) {
+    @GetMapping("/fill/{id}/{left}/{xp}")
+    public String displayFillAssignment(@PathVariable Long id, @PathVariable String left, @PathVariable Long xpChange, Model model) {
         checkForNewFriendRequest();
         model.addAttribute("student", getLoggedInUser());
         model.addAttribute("fill", fillInTheBlankService.findById(id));
         model.addAttribute("left", left);
+        model.addAttribute("xpchange", xpChange);
         return "fillInTheBlank/fillInTheBlank";
     }
 
@@ -94,7 +95,7 @@ public class AssignmentController extends AbstractController {
 
     //TODO rewrite 5-question quiz
     @GetMapping("/question")
-    public String getQuestion(@PathVariable Long numberLeft) {
+    public String getQuestion(@PathVariable Long numberLeft, @PathVariable Long xpChange) {
 
         Student student = getLoggedInUser();
         CourseType studentCoure = student.getCourse().getName();
@@ -120,22 +121,23 @@ public class AssignmentController extends AbstractController {
         if(currentAssignment.getClass() == FillInTheBlank.class){
             long next = currentAssignment.getId();
             questionsCompleted.add(currentAssignment);
-            returnUrl = "/fill?id=" + next + "&left=" + numberLeft;
+            returnUrl = "/fill?id=" + next + "&left=" + numberLeft + "&xp=" + xpChange;
         } else {
             long nextQuiz = currentAssignment.getId();
             questionsCompleted.add(currentAssignment);
-            returnUrl = "/quiz?id="+nextQuiz + "&left=" + numberLeft;
+            returnUrl = "/quiz?id="+nextQuiz + "&left=" + numberLeft + "&xp=" + xpChange;
         }
         return returnUrl;
     }
 
 
-    @GetMapping("/quiz/{id}/{left}")
-    public String displayQuizAssignment(@PathVariable Long id, @PathVariable String left, Model model) {
+    @GetMapping("/quiz/{id}/{left}/{xp}")
+    public String displayQuizAssignment(@PathVariable Long id, @PathVariable String left, @PathVariable Long xpChange, Model model) {
         checkForNewFriendRequest();
         model.addAttribute("student", getLoggedInUser());
         model.addAttribute("question", quizQuestionService.findById(id));
         model.addAttribute("left", left);
+        model.addAttribute("xpchange", xpChange);
         return "quiz/quizzes";
     }
 
@@ -144,6 +146,6 @@ public class AssignmentController extends AbstractController {
     public void setXP(@PathVariable Long xp) {
         Student student = getLoggedInUser();
         student.setXp(xp);
-        studentService.saveStudent(student);
+        studentService.save(student);
     }
 }
