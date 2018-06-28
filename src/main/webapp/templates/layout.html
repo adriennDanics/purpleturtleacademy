@@ -59,7 +59,7 @@
                     <button type="button" class="btn btn-light"><a href="/profile" class="nav-link">Profile</a></button>
                 </div>
                 <div th:if="${session.student}" class="nav-item">
-                    <span class="badge badge-pill badge-info" id="get-xp" th:text="${session.xp} + ' XP'" th:attr="data-xp=${student.getXp()}">XP</span>
+                    <span class="badge badge-pill badge-info" id="get-xp" th:text="${session.xp} + ' XP'" th:attr="data-xp=${session.xp}">XP</span>
                     <span class="badge badge-primary" th:text="${session.level}">Level</span>
                 </div>
                 <div th:unless="${session.student}">
