@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <div th:replace="layout.html :: head"></div>
+    <script src="static/js/friends.js" defer></script>
+
+</head>
+<body>
+<div id="studentListBox">
+    <div th:replace="layout.html :: navbar"></div>
+    <div class="table table-hover">
+            <div class="row" th:text="${student.getUsername()}" id="student-name"></div>
+                <div class="row" th:text="'You won '+${receivedxp} + ' XP!'">
+                    <div class="row"th:text="'You will be '+${student.getLevel().nextLevel} + ' soon'">
+                        <div th:text="'Only '+${nextlevelxp}+ ' needed'">username</div>
+                        <a class="btn btn-primary" href="/assignments">Go to assignments page</a>
+                        <a class="btn btn-primary" href="/">Go to home page</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+</div>
+
+
+</body>
+</html>

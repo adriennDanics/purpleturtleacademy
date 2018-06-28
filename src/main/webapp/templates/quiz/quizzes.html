@@ -15,6 +15,6 @@
             <button th:attr="id=${question.getAnswers().get(answer)}" class="quiz_answers btn" type="submit" th:utext="${answer}"> Check solution </button>
         </span>
     </div>
-    <div><a class="btn" href="/assignments">Back</a></div>
+    <div id="get-xp-change" th:attr="data-xpchange=${xpchange}"><a class="btn" href="/assignments">Back</a></div>
 </body>
 </html>
