@@ -27,7 +27,7 @@ public class RegistrationController extends AbstractController {
         return "registration/registration";
     }
 
-    @PostMapping("/reg")
+    @PostMapping("/registration")
     public String registrationSave(@ModelAttribute Student student, @RequestParam("genderParam") String gender){
         student.setGender(translateGender(gender));
         studentService.save(student);
