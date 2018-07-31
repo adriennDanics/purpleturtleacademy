@@ -1,40 +1,41 @@
 <!DOCTYPE html>
-<html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org" layout:decorator="layout"
+      xmlns:layout="http://www.w3.org/1999/xhtml">
 <head>
     <meta charset="UTF-8">
-
-    <div th:replace="layout.html :: head"></div>
     <script src="static/js/courseInformation.js" defer></script>
 
 </head>
 <body>
-    <div th:replace="layout.html :: navbar"></div>
-    <div class="table table-hover">
-        <table>
-            <tbody>
-                <tr th:each="course,iterStat : ${courses}" class="card" th:attr="data-id=${course.id}">
-                    <td th:text="${course.name}">Name</td>
-                </tr>
-            </tbody>
-        </table>
-    </div>
-    <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-        <div class="modal-dialog modal-lg" role="document">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLabel">Course</h5>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
-                </div>
-                <div class="table">
-                    <div class="row modal-body container-fluid" id="modal-content">
-
+    <div layout:fragment="loginContent">
+        <p>He?</p>
+        <div class="table table-hover">
+            <table>
+                <tbody>
+                    <tr th:each="course,iterStat : ${courses}" class="card" th:attr="data-id=${course.id}">
+                        <td th:text="${course.name}">Name</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog modal-lg" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLabel">Course</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
                     </div>
-                </div>
-                <div class="modal-footer">
-                    <button id="close-modal" type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                    <a href="/"><button id="sign-up-course" type="button" class="btn btn-primary" data-dismiss="modal">Sign up</button></a>
+                    <div class="table">
+                        <div class="row modal-body container-fluid" id="modal-content">
+
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button id="close-modal" type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                        <a href="/"><button id="sign-up-course" type="button" class="btn btn-primary" data-dismiss="modal">Sign up</button></a>
+                    </div>
                 </div>
             </div>
         </div>

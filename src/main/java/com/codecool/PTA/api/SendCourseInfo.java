@@ -34,7 +34,7 @@ public class SendCourseInfo extends AbstractController {
     }
 
     @PostMapping("/courseinfo")
-    public ResponseEntity<String> signUpToCourse(@PathVariable("id") Long id) {
+    public ResponseEntity<String> signUpToCourse(@RequestParam("id") Long id) {
         Student student = getLoggedInUser();
         Course course = courseService.findById(id);
         student.setCourse(course);
