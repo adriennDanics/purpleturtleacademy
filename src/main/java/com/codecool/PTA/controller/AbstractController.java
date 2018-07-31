@@ -1,7 +1,6 @@
 package com.codecool.PTA.controller;
 
 import com.codecool.PTA.model.user.Student;
-import com.codecool.PTA.service.UserDetailServiceImp;
 import com.codecool.PTA.service.UserDetailsImp;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.context.request.RequestContextHolder;

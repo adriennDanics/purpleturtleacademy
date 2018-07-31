@@ -22,9 +22,9 @@ public class IndexController extends AbstractController {
     @GetMapping({"", "index"})
     public String displayIndexPage(Model model, HttpServletRequest request) {
 //        checkForNewFriendRequest();
-        Student student = (Student) request.getSession().getAttribute("student");
+        Student student = getLoggedInUser();
         Course course = student.getCourse() == null ? courseService.findById(ORIENTATION) : student.getCourse();
-        final boolean IS_ORIENTATION_ACTIVE = course.getName() == CourseType.ORIENTATION;
+        boolean IS_ORIENTATION_ACTIVE = course.getName() == CourseType.ORIENTATION;
         if (IS_ORIENTATION_ACTIVE) {
             model.addAttribute("orientation", "orientation");
         }
