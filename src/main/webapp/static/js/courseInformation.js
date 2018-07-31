@@ -65,7 +65,7 @@ function signUpToCourse(id) {
         async: false,
         contentType: "application/json; charset=utf-8",
         dataType: 'json',
-        success: location.reload()
+        success: window.location.replace("http://0.0.0.0:8080")
     });
     removeInfo();
 }

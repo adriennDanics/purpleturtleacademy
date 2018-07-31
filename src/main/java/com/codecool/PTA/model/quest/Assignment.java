@@ -59,6 +59,18 @@ public abstract class Assignment implements Comparable{
         this.assignmentTitle = assignmentTitle;
     }
 
+    public void setLevel(Level level) {
+        this.level = level;
+    }
+
+    public void setCourseType(CourseType courseType) {
+        this.courseType = courseType;
+    }
+
+    public void setQuestion(String question) {
+        this.question = question;
+    }
+
     @Override
     public int compareTo(Object o) {
         if(this.equals(o)){

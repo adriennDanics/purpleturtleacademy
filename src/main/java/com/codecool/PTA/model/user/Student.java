@@ -13,6 +13,7 @@ import java.time.LocalDate;
 import java.time.ZoneId;
 import java.util.Date;
 import java.util.HashSet;
+import java.util.LinkedHashSet;
 import java.util.Set;
 
 @Entity
@@ -31,10 +32,10 @@ public class Student extends User {
     private Course course;
 
     @ManyToMany(mappedBy = "student")
-    private Set<PA> completedPAs;
+    private Set<PA> completedPAs = new HashSet<>();
 
     @ManyToMany(mappedBy = "student")
-    private Set<Kata> completedKatas;
+    private Set<Kata> completedKatas = new HashSet<>();
 
     @OneToOne
     private Certificate certificate;

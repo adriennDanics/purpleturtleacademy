@@ -66,7 +66,7 @@ public class AssignmentController extends AbstractController {
         return "fillInTheBlank/fillInTheBlank";
     }
 
-    @GetMapping("/kata")
+    @GetMapping("/kata/{id}")
     public String displayKataAssignment(@PathVariable Long id, Model model) {
         model.addAttribute("student", getLoggedInUser());
         model.addAttribute("kata", kataService.findById(id));
@@ -87,10 +87,15 @@ public class AssignmentController extends AbstractController {
         return "pa/pas";
     }
 
-    @PostMapping("/pa")
-    public String submitPAAssignment(@ModelAttribute PA pa) {
+    @PostMapping("/pa/{id}")
+    public String submitPAAssignment(@PathVariable Long id, @ModelAttribute PA pa) {
+        PA paBaseQuestion = paService.findById(id);
+        pa.setAssignmentTitle(paBaseQuestion.getAssignmentTitle());
+        pa.setLevel(paBaseQuestion.getLevel());
+        pa.setCourseType(paBaseQuestion.getCourseType());
+        pa.setQuestion(paBaseQuestion.getQuestion());
         paService.save(pa);
-        return "redirect:assignments/assignments";
+        return "redirect:/assignments";
     }
 
     //TODO rewrite 5-question quiz

@@ -13,7 +13,7 @@ public class PA extends Assignment{
 
     private String submission;
 
-    @ManyToMany()
+    @ManyToMany
     private Set<Student> student = new HashSet<>();
 
     @Column

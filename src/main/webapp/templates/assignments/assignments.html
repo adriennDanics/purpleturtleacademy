@@ -18,13 +18,13 @@
                 <h4>Katas</h4>
             </li>
             <div th:each="kata,iterStat : ${kataList}">
-                <a class="dropdown-item"  th:href="@{/kata(id=${kata.getId()})}" th:text="${kata.getAssignmentTitle()}">Name</a>
+                <a class="dropdown-item"  th:href="'/kata/'+${kata.getId()}" th:text="${kata.getAssignmentTitle()}">Name</a>
             </div>
             <li class="nav-item">
                 <h4>PAs</h4>
             </li>
             <div th:each="pa,iterStat : ${paList}">
-                <a class="dropdown-item"  th:href="@{/pa(id=${pa.getId()})}" th:text="${pa.getAssignmentTitle()}">Name</a>
+                <a class="dropdown-item"  th:href="'/pa/'+${pa.getId()}" th:text="${pa.getAssignmentTitle()}">Name</a>
             </div>
         </ul>
     </div>
