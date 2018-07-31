@@ -25,7 +25,7 @@ public class EditUserInformation extends AbstractController {
     @Autowired
     private PasswordUtilService passwordUtilService;
 
-    @RequestMapping(value="/profile/newpassword", method = RequestMethod.GET)
+    @RequestMapping(value="/profile/newpassword", method = RequestMethod.POST)
     public ResponseEntity<?> getNewPassword(@RequestBody JSONObject passwords) {
         Student student = getLoggedInUser();
         String oldPassword = passwords.get("oldpassword").toString();
@@ -45,7 +45,7 @@ public class EditUserInformation extends AbstractController {
 
     }
 
-    @RequestMapping(value="/profile/newpassword", method = RequestMethod.POST)
+    @RequestMapping(value="/profile/newname", method = RequestMethod.POST)
     public ResponseEntity<String> getNewName(@RequestBody JSONObject newName) {
         Student student = getLoggedInUser();
         student.setUsername(newName.get("username").toString());

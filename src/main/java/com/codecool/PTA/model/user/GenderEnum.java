@@ -1,9 +1,9 @@
 package com.codecool.PTA.model.user;
 
 public enum GenderEnum {
-    MALE("male", "static/boyTurtle.jpeg"),
-    FEMALE("female", "static/girlTurtle.jpg"),
-    OTHER("other", "static/otherTurtle.jpg");
+    MALE("male", "/static/boyTurtle.jpeg"),
+    FEMALE("female", "/static/girlTurtle.jpg"),
+    OTHER("other", "/static/otherTurtle.jpg");
 
     private String stringified;
     private String image;

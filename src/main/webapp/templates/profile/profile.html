@@ -1,9 +1,10 @@
 <!DOCTYPE html>
-<html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org" layout:decorator="layout">
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org" layout:decorator="layout"
+      xmlns:layout="http://www.w3.org/1999/xhtml">
 <head>
     <meta charset="UTF-8">
 
-    <script src="static/js/editProfile.js" defer></script>
+    <script src="/static/js/editProfile.js" defer></script>
 
 </head>
 <body>
@@ -19,14 +20,14 @@
             <button id="change-image" class="btn" type="button">Change image</button>
         </form>
         <button id="change-user-name" class="btn" type="button">Change username</button>
-        <form method="post" action="/profile" id="password-form">
+        <form method="post" action="/profile/newpassword" id="password-form">
             <button id="change-password" class="btn" type="button">Change password</button>
         </form>
     </div>
     <br>
     <br>
     <div class="certi-link" th:if="${student.getCertificate()}">
-        <a class="btn" href="/profile/certificate">Certificate</a>
+        <a class="btn" th:href="'student/'+${session.student.getId()}'/certificate'">Certificate</a>
     </div>
 </div>
 </div>

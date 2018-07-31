@@ -30,14 +30,16 @@ public class UserController extends AbstractController {
     }
 
     @PostMapping("changeImage")
-    public String changeProfilePicture(@RequestParam("new-image") String newImage, @ModelAttribute Student student) {
-        final boolean NO_IMAGE_PROVIDED = newImage.equals("");
+    public String changeProfilePicture(@RequestParam("new-image") String newImage) {
+        boolean NO_IMAGE_PROVIDED = newImage.equals("");
+        Student student = getLoggedInUser();
         if (NO_IMAGE_PROVIDED) {
             student.reSetDefaultImage();
+        } else {
+            student.setImage(newImage);
         }
         studentService.save(student);
-
-        return "redirect:profile/profile";
+        return "redirect:/student/"+student.getId();
     }
 
     @GetMapping("student/{id}/certificate")
