@@ -73,10 +73,15 @@ public class AssignmentController extends AbstractController {
         return "kata/katas";
     }
 
-    @PostMapping("/kata")
-    public String submitKataAssignment(@ModelAttribute Kata kata) {
+    @PostMapping("/kata/{id}")
+    public String submitKataAssignment(@PathVariable Long id, @ModelAttribute Kata kata) {
+        Kata kataBaseQuestion = kataService.findById(id);
+        kata.setAssignmentTitle(kataBaseQuestion.getAssignmentTitle());
+        kata.setLevel(kataBaseQuestion.getLevel());
+        kata.setCourseType(kataBaseQuestion.getCourseType());
+        kata.setQuestion(kataBaseQuestion.getQuestion());
         kataService.save(kata);
-        return "redirect:assignments/assignments";
+        return "redirect:/assignments";
     }
 
     @GetMapping("/pa/{id}")
