@@ -8,6 +8,7 @@
 <body>
     <div id="studentListBox">
         <div layout:fragment="loginContent">
+        <br><br><br>
         <span>
             <div th:data-requesterStudent="${student.getId()}" id="requesterStudent"></div>
             <div th:each="studentOf : ${studentList}">

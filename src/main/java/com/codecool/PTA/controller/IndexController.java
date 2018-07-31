@@ -8,10 +8,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
-
-import javax.servlet.http.HttpServletRequest;
+import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.SessionAttributes;
 
 @Controller
+@SessionAttributes({"student"})
 public class IndexController extends AbstractController {
 
     private final static long ORIENTATION = 3L;
@@ -19,8 +20,13 @@ public class IndexController extends AbstractController {
     @Autowired
     private CourseService courseService;
 
+    @ModelAttribute("student")
+    public Student getStudent() {
+        return getLoggedInUser();
+    }
+
     @GetMapping({"", "index"})
-    public String displayIndexPage(Model model, HttpServletRequest request) {
+    public String displayIndexPage(Model model) {
 //        checkForNewFriendRequest();
         Student student = getLoggedInUser();
         Course course = student.getCourse() == null ? courseService.findById(ORIENTATION) : student.getCourse();

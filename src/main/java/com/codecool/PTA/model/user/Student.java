@@ -39,21 +39,21 @@ public class Student extends User {
     @OneToOne
     private Certificate certificate;
 
-    @ManyToMany(cascade = CascadeType.ALL)
+    @ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     @JoinTable(
             name="Friendship",
             joinColumns=@JoinColumn(name="Student"),
             inverseJoinColumns=@JoinColumn(name="Friend"))
     private Set<Student> friends = new HashSet<>();
 
-    @ManyToMany(cascade = CascadeType.ALL)
+    @ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     @JoinTable(
             name="PendingFriendship",
             joinColumns=@JoinColumn(name="Student"),
             inverseJoinColumns=@JoinColumn(name="PendingFriend"))
     private Set<Student> pendingFriends = new HashSet<>();
 
-    @ManyToMany(cascade = CascadeType.ALL)
+    @ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     @JoinTable(
             name="StudentTagedByOthers",
             joinColumns=@JoinColumn(name="Student"),
