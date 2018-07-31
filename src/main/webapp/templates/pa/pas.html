@@ -1,14 +1,13 @@
 <!DOCTYPE html>
 <!--<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml" xmlns="http://www.w3.org/1999/html">-->
-<html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org" layout:decorator="layout">
 <head>
     <meta charset="UTF-8">
-    <div th:replace="layout.html :: head"></div>
     <script src="static/js/unlockassignment.js" defer></script>
 
 </head>
 <body>
-    <div th:replace="layout.html :: navbar"></div>
+    <div layout:fragment="loginContent">
     <h2 class="title" th:text="${question.getAssignmentTitle()}">Title</h2>
     <h4 class="description assignment" th:text="${question.getQuestion()}"> Description</h4>
     <form class="form-group" th:attr="action='/pa?id='+${question.getId()}" th:object="${question}" method="POST">
@@ -16,5 +15,6 @@
         <input class="form-control" type="text" name="submission" id="submission" th:field="*{submission}" th:attr="value=${question.getSubmission()}" required>
         <button type="submit">Submit a link to your repo!</button>
     </form>
+    </div>
 </body>
 </html>

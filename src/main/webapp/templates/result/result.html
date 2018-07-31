@@ -1,14 +1,14 @@
 <!DOCTYPE html>
-<html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org" layout:decorator="layout">
 <head>
     <meta charset="UTF-8">
-    <div th:replace="layout.html :: head"></div>
     <script src="static/js/friends.js" defer></script>
 
 </head>
 <body>
 <div id="studentListBox">
-    <div th:replace="layout.html :: navbar"></div>
+    <div layout:fragment="loginContent">
+
     <div class="table table-hover">
             <div class="row" th:text="${student.getUsername()}" id="student-name"></div>
                 <div class="row" th:text="'You won '+${receivedxp} + ' XP!'">
@@ -21,7 +21,7 @@
             </div>
         </div>
 </div>
-
+</div>
 
 </body>
 </html>

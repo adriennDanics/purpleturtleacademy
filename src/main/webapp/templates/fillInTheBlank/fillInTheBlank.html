@@ -1,22 +1,21 @@
 <!DOCTYPE html>
-<html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org" layout:decorator="layout">
 <head>
     <meta charset="UTF-8">
-    <div th:replace="layout.html :: head"></div>
 
     <script src="static/js/fill.js" defer></script>
 
 </head>
 <body>
 
-    <div th:replace="layout.html :: navbar"></div>
-    <div id="fillBox">
+<div layout:fragment="loginContent">
+<div id="fillBox">
         <div th:text="${fill.getId()}" id="fillInId" >valami</div>
         <div th:text="${fill.getAssignmentTitle()}" id="get-next" th:attr="data-next=${left}">valami</div>
         <div th:utext="${fill.getQuestion()}" id="get-xp-change" th:attr="data-xpchange=${xpchange}">valami</div>
         <button type="button" id="submitFillInAnswer">Ok</button>
         <div id="responseDiv"></div>
     </div>
-
+</div>
 </body>
 </html>
