@@ -76,11 +76,14 @@ public class AssignmentController extends AbstractController {
     @PostMapping("/kata/{id}")
     public String submitKataAssignment(@PathVariable Long id, @ModelAttribute Kata kata) {
         Kata kataBaseQuestion = kataService.findById(id);
+        Student student = getLoggedInUser();
         kata.setAssignmentTitle(kataBaseQuestion.getAssignmentTitle());
         kata.setLevel(kataBaseQuestion.getLevel());
         kata.setCourseType(kataBaseQuestion.getCourseType());
         kata.setQuestion(kataBaseQuestion.getQuestion());
+        student.addToCompletedKatas(kata);
         kataService.save(kata);
+        studentService.save(student);
         return "redirect:/assignments";
     }
 
@@ -95,11 +98,14 @@ public class AssignmentController extends AbstractController {
     @PostMapping("/pa/{id}")
     public String submitPAAssignment(@PathVariable Long id, @ModelAttribute PA pa) {
         PA paBaseQuestion = paService.findById(id);
+        Student student = getLoggedInUser();
         pa.setAssignmentTitle(paBaseQuestion.getAssignmentTitle());
         pa.setLevel(paBaseQuestion.getLevel());
         pa.setCourseType(paBaseQuestion.getCourseType());
         pa.setQuestion(paBaseQuestion.getQuestion());
+        student.addToCompletedPAs(pa);
         paService.save(pa);
+        studentService.save(student);
         return "redirect:/assignments";
     }
 

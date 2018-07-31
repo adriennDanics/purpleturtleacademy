@@ -31,10 +31,16 @@ public class Student extends User {
     @ManyToOne
     private Course course;
 
-    @ManyToMany(mappedBy = "student")
+    @ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+    @JoinTable(name = "pa_student",
+            joinColumns = @JoinColumn(name = "student_id"),
+            inverseJoinColumns = @JoinColumn(name = "pa_id"))
     private Set<PA> completedPAs = new HashSet<>();
 
-    @ManyToMany(mappedBy = "student")
+    @ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+    @JoinTable(name = "kata_student",
+            joinColumns = @JoinColumn(name = "student_id"),
+            inverseJoinColumns = @JoinColumn(name = "kata_id"))
     private Set<Kata> completedKatas = new HashSet<>();
 
     @OneToOne
@@ -190,4 +196,11 @@ public class Student extends User {
         return id;
     }
 
+    public void addToCompletedPAs(PA pa){
+        completedPAs.add(pa);
+    }
+
+    public void addToCompletedKatas(Kata kata){
+        completedKatas.add(kata);
+    }
 }

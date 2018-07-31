@@ -13,7 +13,7 @@ import java.util.Set;
 @Entity
 public class Kata extends Assignment {
 
-    @ManyToMany
+    @ManyToMany(mappedBy = "completedKatas")
     private Set<Student> student = new HashSet<>();
 
     @Column(length = 1023)
