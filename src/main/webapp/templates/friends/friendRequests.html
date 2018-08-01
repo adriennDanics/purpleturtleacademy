@@ -1,5 +1,6 @@
 <!DOCTYPE html>
-<html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org" layout:decorator="layout">
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org" layout:decorator="layout"
+      xmlns:layout="http://www.w3.org/1999/xhtml">
 <head>
     <meta charset="UTF-8">
     <script src="static/js/friendRequest.js" defer></script>
@@ -9,12 +10,12 @@
 <div id="studentListBox">
     <div layout:fragment="loginContent">
     <span>
-        <div th:data-loggedInId="${student.getId()}" id="loggedInStudent"></div>
+        <div th:attr="data-loggedInId=${student.getId()}" id="loggedInStudent"></div>
         <div th:each="studentOf : ${taggedBy}">
-            <div th:id="student + ${studentOf.getId()}">
+            <div th:attr="id=student + ${studentOf.getId()}">
                 <div th:text="${studentOf.getUsername()}">username</div>
-                <button th:data-id ="${studentOf.getId()}" class="acceptButtons">Accept</button>
-                <button th:data-id ="${studentOf.getId()}" class="rejectButtons">Reject</button>
+                <button th:attr="data-id =${studentOf.getId()}" class="acceptButtons">Accept</button>
+                <button th:attr="data-id =${studentOf.getId()}" class="rejectButtons">Reject</button>
             </div>
         </div>
     </span>
