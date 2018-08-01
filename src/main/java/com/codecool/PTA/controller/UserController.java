@@ -62,7 +62,8 @@ public class UserController extends AbstractController {
     }
 
     @PostMapping("delete-friend")
-    public String deleteFriend(@RequestParam("deletingStudent") Long deleterId, @RequestParam("studentToDelete") Long deletedId) {
+    public String deleteFriend(@RequestParam("deletingStudent") Long deleterId,
+                               @RequestParam("studentToDelete") Long deletedId) {
         Student deleter = studentService.findById(deleterId);
         Student deleted = studentService.findById(deletedId);
 
@@ -72,7 +73,7 @@ public class UserController extends AbstractController {
         studentService.save(deleter);
         studentService.save(deleted);
 
-        return "redirect:friends/friends";
+        return "friends/friends";
     }
 
     @GetMapping("student/{id}/friend-requests")
