@@ -13,9 +13,6 @@ public class PA extends Assignment{
 
     private String submission;
 
-    @ManyToMany(mappedBy = "completedPAs")
-    private Set<Student> student = new HashSet<>();
-
     @Column
     public boolean isTemplate;
 
@@ -36,11 +33,4 @@ public class PA extends Assignment{
         this.submission = submission;
     }
 
-    public Set<Student> getStudent() {
-        return student;
-    }
-
-    public void addStudent(Student student) {
-        this.student.add(student);
-    }
 }
