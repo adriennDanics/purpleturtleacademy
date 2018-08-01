@@ -1,8 +1,9 @@
 <!DOCTYPE html>
-<html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org" layout:decorator="layout">
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org" layout:decorator="layout"
+      xmlns:layout="http://www.w3.org/1999/xhtml">
 <head>
     <meta charset="UTF-8">
-    <script src="static/js/friends.js" defer></script>
+    <script src="/static/js/friends.js" type="text/javascript" defer></script>
 
 </head>
 <body>
@@ -15,7 +16,7 @@
                 <div th:id="student + ${studentOf.getId()}">
                     <span>
                         <div th:text="${studentOf.getUsername()}">username</div>
-                        <button th:data-id ="${studentOf.getId()}" class="requestButtons">Send friend request</button>
+                        <button th:attr="data-id=${studentOf.getId()}" class="requestButtons">Send friend request</button>
                     </span>
                 </div>
             </div>
