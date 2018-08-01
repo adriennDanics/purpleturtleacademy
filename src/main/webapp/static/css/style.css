@@ -66,7 +66,7 @@ img {
     display:inline;
 }
 
-#fillBox, #studentListBox, #loggedInStudent {
+#fillBox, #studentListBox, #loggedInStudent, #friendList {
     margin:150px;
 }
 
