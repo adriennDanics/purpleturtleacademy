@@ -5,15 +5,12 @@ import com.codecool.PTA.model.course.Course;
 import com.codecool.PTA.model.quest.Kata;
 import com.codecool.PTA.model.quest.PA;
 import com.codecool.PTA.model.role.Role;
-import com.codecool.PTA.service.CourseService;
-import org.springframework.beans.factory.annotation.Autowired;
 
 import javax.persistence.*;
 import java.time.LocalDate;
 import java.time.ZoneId;
 import java.util.Date;
 import java.util.HashSet;
-import java.util.LinkedHashSet;
 import java.util.Set;
 
 @Entity
@@ -37,10 +34,7 @@ public class Student extends User {
             inverseJoinColumns = @JoinColumn(name = "pa_id"))
     private Set<PA> completedPAs = new HashSet<>();
 
-    @ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
-    @JoinTable(name = "kata_student",
-            joinColumns = @JoinColumn(name = "student_id"),
-            inverseJoinColumns = @JoinColumn(name = "kata_id"))
+    @ManyToMany(fetch =FetchType.EAGER, cascade = CascadeType.ALL, mappedBy = "studentKataSubmissions")
     private Set<Kata> completedKatas = new HashSet<>();
 
     @OneToOne

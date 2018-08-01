@@ -4,17 +4,19 @@ import com.codecool.PTA.model.course.CourseType;
 import com.codecool.PTA.model.user.Level;
 import com.codecool.PTA.model.user.Student;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.ManyToMany;
+import javax.persistence.*;
 import java.util.HashSet;
 import java.util.Set;
 
 @Entity
 public class Kata extends Assignment {
 
-    @ManyToMany(mappedBy = "completedKatas")
-    private Set<Student> student = new HashSet<>();
+
+    @ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+    @JoinTable(name = "kata_student",
+            joinColumns = @JoinColumn(name = "kata_id"),
+            inverseJoinColumns = @JoinColumn(name = "student_id"))
+    private Set<Student> studentKataSubmissions = new HashSet<>();
 
     @Column(length = 1023)
     private String submission;
@@ -39,12 +41,12 @@ public class Kata extends Assignment {
         this.submission = submission;
     }
 
-    public Set<Student> getStudent() {
-        return student;
+    public Set<Student> getStudentKataSubmissions() {
+        return studentKataSubmissions;
     }
 
     public void addStudent(Student student) {
-        this.student.add(student);
+        this.studentKataSubmissions.add(student);
     }
 
 }
