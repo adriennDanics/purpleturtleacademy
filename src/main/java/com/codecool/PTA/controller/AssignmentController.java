@@ -121,9 +121,9 @@ public class AssignmentController extends AbstractController {
 
     @GetMapping("/question/{numberLeft}/{xpChange}")
     public String getQuestion(@PathVariable Integer numberLeft, @PathVariable Long xpChange) {
-        for(Assignment assignment: randomAssignment){
-            System.out.println(assignment.toString());
-        }
+//        for(Assignment assignment: randomAssignment){
+//            System.out.println(assignment.toString());
+//        }
         Assignment currentAssignment = randomAssignment.get(randomAssignment.size() - (numberLeft + 1));
         if(currentAssignment.getClass() == FillInTheBlank.class){
             long next = currentAssignment.getId();
