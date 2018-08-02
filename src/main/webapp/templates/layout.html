@@ -22,7 +22,7 @@
         <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.9/css/all.css"
               integrity="sha384-5SOiIsAziJl6AWe0HWRKTXlfcSHKmYV4RBF18PPJ173Kzn7jzMyFuTtk8JA7QQG1" crossorigin="anonymous">
         <link rel="stylesheet" type="text/css" href="/static/css/style.css">
-        <script src="static/js/layout.js"></script>
+        <script src="/static/js/layout.js"></script>
     </div>
 
         <nav th:fragment="navbar" class="navbar navbar-expand-lg fixed-top navbar-light bg-light">
@@ -59,8 +59,8 @@
                     <button type="button" class="btn btn-light"><a th:href="'/student/'+${session.student.getId()}" class="nav-link">Profile</a></button>
                 </div>
                 <div th:if="${session.student}" class="nav-item">
-                    <span class="badge badge-pill badge-info" id="get-xp" th:text="${session.xp} + ' XP'" th:attr="data-xp=${session.xp}">XP</span>
-                    <span class="badge badge-primary" th:text="${session.level}">Level</span>
+                    <span class="badge badge-pill badge-info" id="get-xp" th:text="${student.getXp()} + ' XP'" th:attr="data-xp=${session.student.getXp()}">XP</span>
+                    <span class="badge badge-primary" th:text="${student.getLevel()}">Level</span>
                 </div>
                 <div th:unless="${session.student}">
                     <button type="button" class="btn btn-light"><a href="/login" class="nav-link">Login</a></button>

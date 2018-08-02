@@ -5,7 +5,7 @@ dom = {
     _userAnswers: [],
     _responseDiv: "",
     _xp: Number(document.getElementById("get-xp").dataset.xp),
-    _xpChange: document.getElementById("get-xp-change").dataset.xpchange,
+    _xpChange: Number(document.getElementById("get-xp-change").dataset.xpchange),
 
 init: function () {
         dom.getCorrectAnswers();
@@ -16,12 +16,11 @@ init: function () {
     getCorrectAnswers: function() {
         let questionId = document.getElementById("fillInId").innerText;
         dom._id = questionId;
-        fetch("/fill_in_answers?id=" + questionId)
-            .then(response => response.json())
-            .then(function(result) {
-                dom._correctAnswersObject = result;
+        $.getJSON("/fill_in_answers/" + questionId,
+            function(response) {
+                dom._correctAnswersObject = response;
                 dom.makeCorrectAnswerList();
-            });
+        })
     },
 
     makeCorrectAnswerList: function() {
@@ -48,7 +47,7 @@ init: function () {
 
     checkAnswers: function() {
         for(let i = 0; i < dom._correctAnswersList.length; i++) {
-            if(dom._correctAnswersList[i].toLowerCase() != dom._userAnswers[i].toLowerCase()) {
+            if(dom._correctAnswersList[i].toLowerCase() !== dom._userAnswers[i].toLowerCase()) {
                 return false;
             }
         }
@@ -67,6 +66,7 @@ init: function () {
         let submitButton = document.getElementById("submitFillInAnswer");
         submitButton.style.display = 'none';
         dom._xp += 20;
+        dom._xpChange += 20;
         let next = document.getElementById("get-next").dataset.next;
         dom.checkIfNext(next);
     },
@@ -80,6 +80,7 @@ init: function () {
         dom._responseDiv.appendChild(responseParagraph);
         dom._userAnswers = [];
         dom._xp -= 10;
+        dom._xpChange -= 10;
     },
 
     clearResponseDiv: function() {
@@ -89,17 +90,17 @@ init: function () {
     checkIfNext: function(next) {
         if (next <= 0) {
             dom.sendXP();
-            window.location.replace("http://0.0.0.0:8080/quiz-result?xp=" + xpChange);
+            window.location.replace("http://0.0.0.0:8080/quiz-result/" + dom._xpChange);
         } else {
             dom.sendXP();
-            window.location.replace("http://localhost:8080/question?id="+String(next-1)+"&xp="+xpChange);
+            window.location.replace("http://localhost:8080/question/"+String(next-1)+"/"+dom._xpChange);
         }
     },
 
     sendXP: function() {
     $.ajax({
         type: "POST",
-        url: "http://localhost:8080/quiz?xp="+dom._xp,
+        url: "http://localhost:8080/quiz-xp-mod",
         data: JSON.stringify({'xp': dom._xp}),
         async: false,
         contentType: "application/json; charset=utf-8",

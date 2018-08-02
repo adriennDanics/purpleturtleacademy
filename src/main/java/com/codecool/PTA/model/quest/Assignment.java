@@ -96,4 +96,15 @@ public abstract class Assignment implements Comparable{
 
         return Objects.hash(getLevel(), getCourseType(), getAssignmentTitle(), getQuestion());
     }
+
+    @Override
+    public String toString() {
+        return this.getClass().getSimpleName()+"{" +
+                "id=" + id +
+                ", level=" + level +
+                ", courseType=" + courseType +
+                ", assignmentTitle='" + assignmentTitle + '\'' +
+                ", question='" + question + '\'' +
+                '}';
+    }
 }

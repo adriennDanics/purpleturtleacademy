@@ -1,5 +1,6 @@
 <!DOCTYPE html>
-<html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org" layout:decorator="layout">
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org" layout:decorator="layout"
+      xmlns:layout="http://www.w3.org/1999/xhtml">
 <head>
     <meta charset="UTF-8">
 
@@ -9,7 +10,7 @@
     <div class="table table-hover">
         <ul class="nav nav-pills flex-column">
             <li class="nav-item">
-                <a class="dropdown-item" href="/question?id=5">Take a quiz!</a>
+                <a class="dropdown-item" href="/quiz-start">Take a quiz!</a>
             </li>
             <!--<div th:each="quiz,iterStat : ${quizQuestions}">
                 <a class="dropdown-item" th:href="@{/quiz(id=${quiz.getId()})}" th:text="${quiz.getAssignmentTitle()}">Name</a>

@@ -30,7 +30,7 @@ public class UserDetailServiceImp implements UserDetailsService {
     public void setStudentRepository(StudentRepository studentRepository){ this.studentRepository = studentRepository; }
 
     @Override
-    public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
+    public UserDetailsImp loadUserByUsername(String username) throws UsernameNotFoundException {
         Student user = studentService.findByUsername(username);
         if (user == null){
             throw new UsernameNotFoundException(username);

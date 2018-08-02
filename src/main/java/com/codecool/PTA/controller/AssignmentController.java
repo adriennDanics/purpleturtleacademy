@@ -9,17 +9,16 @@ import com.codecool.PTA.helper.RandomizeAssignment;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.*;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
 import java.util.TreeSet;
 
 //TODO
 @Controller
+@SessionAttributes({"student"})
 public class AssignmentController extends AbstractController {
 
     @Autowired
@@ -40,7 +39,12 @@ public class AssignmentController extends AbstractController {
     @Autowired
     private RandomizeAssignment randomizeAssignment;
 
-    private static Set<Assignment> questionsCompleted = new TreeSet<>();
+    @ModelAttribute("student")
+    public Student getStudent() {
+        return getLoggedInUser();
+    }
+
+    private List<Assignment> randomAssignment;
 
     @GetMapping("/assignments")
     public String listAssignments(Model model) {
@@ -56,7 +60,7 @@ public class AssignmentController extends AbstractController {
         return "assignments/assignments";
     }
 
-    @GetMapping("/fill/{id}/{left}/{xp}")
+    @GetMapping("/fill/{id}/{left}/{xpChange}")
     public String displayFillAssignment(@PathVariable Long id, @PathVariable String left, @PathVariable Long xpChange, Model model) {
         checkForNewFriendRequest();
         model.addAttribute("student", getLoggedInUser());
@@ -109,45 +113,29 @@ public class AssignmentController extends AbstractController {
         return "redirect:/assignments";
     }
 
-    //TODO rewrite 5-question quiz
-    @GetMapping("/question")
-    public String getQuestion(@PathVariable Long numberLeft, @PathVariable Long xpChange) {
+    @GetMapping("/quiz-start")
+    public String getQuiz(){
+        randomAssignment = randomizeAssignment.makeRandomList(getStudent());
+        return "redirect:/question/4/0";
+    }
 
-        Student student = getLoggedInUser();
-        CourseType studentCoure = student.getCourse().getName();
-        Level studentLevel = student.getLevel();
-
-        List<FillInTheBlank> fillInQuestionList = fillInTheBlankService.findFillInTheBlanksByCourseTypeAndLevel(studentCoure, studentLevel);
-        List<QuizQuestion> quizQuestionList = quizQuestionService.findFillInTheBlanksByCourseTypeAndLevel(studentCoure, studentLevel);
-
-        Assignment currentAssignment = randomizeAssignment.makeRandomList(quizQuestionList, fillInQuestionList);
-
-        if(questionsCompleted.contains(currentAssignment)){
-            while(questionsCompleted.contains(currentAssignment)) {
-                currentAssignment = randomizeAssignment.makeRandomList(quizQuestionList, fillInQuestionList);
-            }
+    @GetMapping("/question/{numberLeft}/{xpChange}")
+    public String getQuestion(@PathVariable Integer numberLeft, @PathVariable Long xpChange) {
+        for(Assignment assignment: randomAssignment){
+            System.out.println(assignment.toString());
         }
-        if(numberLeft==0){
-            questionsCompleted.clear();
-            randomizeAssignment.makeRandomList(quizQuestionList, fillInQuestionList);
-        }
-
-        String returnUrl = null;
-
+        Assignment currentAssignment = randomAssignment.get(randomAssignment.size() - (numberLeft + 1));
         if(currentAssignment.getClass() == FillInTheBlank.class){
             long next = currentAssignment.getId();
-            questionsCompleted.add(currentAssignment);
-            returnUrl = "/fill?id=" + next + "&left=" + numberLeft + "&xp=" + xpChange;
+            return "redirect:/fill/" + next + "/" + numberLeft + "/" + xpChange;
         } else {
             long nextQuiz = currentAssignment.getId();
-            questionsCompleted.add(currentAssignment);
-            returnUrl = "/quiz?id="+nextQuiz + "&left=" + numberLeft + "&xp=" + xpChange;
+            return "redirect:/quiz/" + nextQuiz + "/" + numberLeft + "/" + xpChange;
         }
-        return returnUrl;
     }
 
 
-    @GetMapping("/quiz/{id}/{left}/{xp}")
+    @GetMapping("/quiz/{id}/{left}/{xpChange}")
     public String displayQuizAssignment(@PathVariable Long id, @PathVariable String left, @PathVariable Long xpChange, Model model) {
         checkForNewFriendRequest();
         model.addAttribute("student", getLoggedInUser());
@@ -157,11 +145,4 @@ public class AssignmentController extends AbstractController {
         return "quiz/quizzes";
     }
 
-    //TODO is this an API?
-    @PostMapping("/quiz/{xp}")
-    public void setXP(@PathVariable Long xp) {
-        Student student = getLoggedInUser();
-        student.setXp(xp);
-        studentService.save(student);
-    }
 }

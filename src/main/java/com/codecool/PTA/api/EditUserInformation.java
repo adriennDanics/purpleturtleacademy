@@ -8,10 +8,7 @@ import org.json.simple.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -49,6 +46,14 @@ public class EditUserInformation extends AbstractController {
     public ResponseEntity<String> getNewName(@RequestBody JSONObject newName) {
         Student student = getLoggedInUser();
         student.setUsername(newName.get("username").toString());
+        studentService.save(student);
+        return new ResponseEntity<>(SUCCESS, HttpStatus.OK);
+    }
+
+    @RequestMapping(value="/quiz-xp-mod", method = RequestMethod.POST)
+    public ResponseEntity<String> setXP(@RequestBody JSONObject xp) {
+        Student student = getLoggedInUser();
+        student.setXp(Long.valueOf(xp.get("xp").toString()));
         studentService.save(student);
         return new ResponseEntity<>(SUCCESS, HttpStatus.OK);
     }

@@ -4,7 +4,7 @@ let ADVANCED = 25;
 let LEVEL = document.getElementById("get-level").dataset.level;
 let XP = Number(document.getElementById("get-xp").dataset.xp);
 let ID = document.getElementById("get-id").dataset.quizid;
-let xpChange = document.getElementById("get-xp-change").dataset.xpchange;
+let xpChange = Number(document.getElementById("get-xp-change").dataset.xpchange);
 
 function main(){
     $(document).ready(function () {
@@ -58,7 +58,7 @@ function modifyXPPositive() {
 function sendXP() {
     $.ajax({
         type: "POST",
-        url: "http://localhost:8080/quiz?xp=" + XP,
+        url: "http://localhost:8080/quiz-xp-mod",
         data: JSON.stringify({'xp': XP}),
         async: false,
         contentType: "application/json; charset=utf-8",
@@ -72,11 +72,11 @@ function sendXP() {
 function checkIfNext(next) {
     if(next <= 0){
         setTimeout(function () {
-            window.location.replace("http://0.0.0.0:8080/quiz-result?xp=" + xpChange);
+            window.location.replace("http://0.0.0.0:8080/quiz-result/" + xpChange);
         }, 1000);
     } else {
         setTimeout(function () {
-            window.location.replace("http://localhost:8080/question?id="+String(next-1)+"&xp="+xpChange);
+            window.location.replace("http://localhost:8080/question/"+String(next-1)+"/"+xpChange);
         }, 1000);
     }
 }

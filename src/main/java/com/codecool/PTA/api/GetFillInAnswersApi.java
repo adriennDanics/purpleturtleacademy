@@ -27,7 +27,7 @@ public class GetFillInAnswersApi extends AbstractController {
     private FillInTheBlankService fillInTheBlankService;
 
 
-    @GetMapping("/fill_in_answers")
+    @GetMapping("/fill_in_answers/{id}")
     public ResponseEntity<JSONObject> getFillInAnswersForQuestion(@PathVariable Long id) {
         FillInTheBlank fillInTheBlank = fillInTheBlankService.findById(id);
 
