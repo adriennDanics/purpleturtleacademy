@@ -2,9 +2,6 @@ package com.codecool.PTA.model.user;
 
 import com.codecool.PTA.model.certificate.Certificate;
 import com.codecool.PTA.model.course.Course;
-import com.codecool.PTA.model.quest.Kata;
-import com.codecool.PTA.model.quest.KataSolution;
-import com.codecool.PTA.model.quest.PA;
 import com.codecool.PTA.model.role.Role;
 import org.hibernate.annotations.DynamicUpdate;
 
@@ -24,8 +21,6 @@ public class Student extends User {
     private long xp;
     private Level level;
     private Course course;
-    private Set<PA> completedPAs = new HashSet<>();
-//    private Set<KataSolution> completedKatas = new HashSet<>();
     private Certificate certificate;
     private Set<Student> friends = new HashSet<>();
     private Set<Student> pendingFriends = new HashSet<>();
@@ -133,27 +128,6 @@ public class Student extends User {
     public void setLevel(Level level) {
         this.level = level;
     }
-
-    @ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
-    @JoinTable(name = "pa_student",
-            joinColumns = @JoinColumn(name = "student_id"),
-            inverseJoinColumns = @JoinColumn(name = "completedpas_id"))
-    public Set<PA> getCompletedPAs() {
-        return this.completedPAs;
-    }
-
-    public void setCompletedPAs(Set<PA> completedPAs) {
-        this.completedPAs = completedPAs;
-    }
-
-//    @OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL, mappedBy = "student")
-//    public Set<KataSolution> getCompletedKatas() {
-//        return this.completedKatas;
-//    }
-//
-//    public void setCompletedKatas(Set<KataSolution> completedKatas) {
-//        this.completedKatas = completedKatas;
-//    }
 
     @OneToOne
     public Certificate getCertificate() {

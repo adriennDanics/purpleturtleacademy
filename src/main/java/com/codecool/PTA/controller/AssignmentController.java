@@ -26,6 +26,9 @@ public class AssignmentController extends AbstractController {
     private KataSolutionService kataSolutionService;
 
     @Autowired
+    private PASolutionService paSolutionService;
+
+    @Autowired
     private PAService paService;
 
     @Autowired
@@ -90,23 +93,23 @@ public class AssignmentController extends AbstractController {
 
     @GetMapping("/pa/{id}")
     public String displayPAAssignment(@PathVariable Long id, Model model) {
-        checkForNewFriendRequest();
-        model.addAttribute("student", getLoggedInUser());
-        model.addAttribute("question", paService.findById(id));
+        PA pa = paService.findById(id);
+        Student student = getLoggedInUser();
+        model.addAttribute("student", student);
+        model.addAttribute("pa", pa);
+        model.addAttribute("paSolution", new PASolution(pa, student));
         return "pa/pas";
     }
 
     @PostMapping("/pa/{id}")
-    public String submitPAAssignment(@PathVariable Long id, @ModelAttribute PA pa) {
-        PA paBaseQuestion = paService.findById(id);
+    public String submitPAAssignment(@PathVariable Long id, @RequestParam("submission") String solution) {
         Student student = getLoggedInUser();
-        pa.setAssignmentTitle(paBaseQuestion.getAssignmentTitle());
-        pa.setLevel(paBaseQuestion.getLevel());
-        pa.setCourseType(paBaseQuestion.getCourseType());
-        pa.setQuestion(paBaseQuestion.getQuestion());
-//        student.addToCompletedPAs(pa);
-//        paService.save(pa);
-        studentService.save(student);
+        PA pa = paService.findById(id);
+        PASolution paSolution = new PASolution();
+        paSolution.setSolution(solution);
+        paSolution.setPA(pa);
+        paSolution.setStudent(student);
+        paSolutionService.save(paSolution);
         return "redirect:/assignments";
     }
 
