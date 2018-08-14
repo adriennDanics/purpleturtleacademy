@@ -1,18 +1,15 @@
 package com.codecool.PTA.controller;
 
+import com.codecool.PTA.helper.RandomizeAssignment;
 import com.codecool.PTA.model.course.CourseType;
 import com.codecool.PTA.model.quest.*;
 import com.codecool.PTA.model.user.Level;
 import com.codecool.PTA.model.user.Student;
 import com.codecool.PTA.service.*;
-import com.codecool.PTA.helper.RandomizeAssignment;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 import java.util.Set;
@@ -24,6 +21,12 @@ public class AssignmentController extends AbstractController {
 
     @Autowired
     private KataService kataService;
+
+    @Autowired
+    private KataSolutionService kataSolutionService;
+
+    @Autowired
+    private PASolutionService paSolutionService;
 
     @Autowired
     private PAService paService;
@@ -68,44 +71,45 @@ public class AssignmentController extends AbstractController {
 
     @GetMapping("/kata/{id}")
     public String displayKataAssignment(@PathVariable Long id, Model model) {
-        model.addAttribute("student", getLoggedInUser());
-        model.addAttribute("kata", kataService.findById(id));
+        Kata kata = kataService.findById(id);
+        Student student = getLoggedInUser();
+        model.addAttribute("student", student);
+        model.addAttribute("kata", kata);
+        model.addAttribute("kataSolution", new KataSolution(kata, student));
         return "kata/katas";
     }
 
     @PostMapping("/kata/{id}")
-    public String submitKataAssignment(@PathVariable Long id, @ModelAttribute Kata kata) {
-        Kata kataBaseQuestion = kataService.findById(id);
+    public String submitKataAssignment(@PathVariable Long id, @RequestParam("submission") String solution) {
         Student student = getLoggedInUser();
-        kata.setAssignmentTitle(kataBaseQuestion.getAssignmentTitle());
-        kata.setLevel(kataBaseQuestion.getLevel());
-        kata.setCourseType(kataBaseQuestion.getCourseType());
-        kata.setQuestion(kataBaseQuestion.getQuestion());
-        student.addToCompletedKatas(kata);
-        kataService.save(kata);
-        studentService.save(student);
+        Kata kata = kataService.findById(id);
+        KataSolution kataSolution = new KataSolution();
+        kataSolution.setSolution(solution);
+        kataSolution.setKata(kata);
+        kataSolution.setStudent(student);
+        kataSolutionService.save(kataSolution);
         return "redirect:/assignments";
     }
 
     @GetMapping("/pa/{id}")
-    public String displayPAAssignment(@PathVariable Long id,  Model model) {
-        checkForNewFriendRequest();
-        model.addAttribute("student", getLoggedInUser());
-        model.addAttribute("question", paService.findById(id));
+    public String displayPAAssignment(@PathVariable Long id, Model model) {
+        PA pa = paService.findById(id);
+        Student student = getLoggedInUser();
+        model.addAttribute("student", student);
+        model.addAttribute("pa", pa);
+        model.addAttribute("paSolution", new PASolution(pa, student));
         return "pa/pas";
     }
 
     @PostMapping("/pa/{id}")
-    public String submitPAAssignment(@PathVariable Long id, @ModelAttribute PA pa) {
-        PA paBaseQuestion = paService.findById(id);
+    public String submitPAAssignment(@PathVariable Long id, @RequestParam("submission") String solution) {
         Student student = getLoggedInUser();
-        pa.setAssignmentTitle(paBaseQuestion.getAssignmentTitle());
-        pa.setLevel(paBaseQuestion.getLevel());
-        pa.setCourseType(paBaseQuestion.getCourseType());
-        pa.setQuestion(paBaseQuestion.getQuestion());
-        student.addToCompletedPAs(pa);
-        paService.save(pa);
-        studentService.save(student);
+        PA pa = paService.findById(id);
+        PASolution paSolution = new PASolution();
+        paSolution.setSolution(solution);
+        paSolution.setPA(pa);
+        paSolution.setStudent(student);
+        paSolutionService.save(paSolution);
         return "redirect:/assignments";
     }
 
@@ -122,26 +126,26 @@ public class AssignmentController extends AbstractController {
 
         Assignment currentAssignment = randomizeAssignment.makeRandomList(quizQuestionList, fillInQuestionList);
 
-        if(questionsCompleted.contains(currentAssignment)){
-            while(questionsCompleted.contains(currentAssignment)) {
+        if (questionsCompleted.contains(currentAssignment)) {
+            while (questionsCompleted.contains(currentAssignment)) {
                 currentAssignment = randomizeAssignment.makeRandomList(quizQuestionList, fillInQuestionList);
             }
         }
-        if(numberLeft==0){
+        if (numberLeft == 0) {
             questionsCompleted.clear();
             randomizeAssignment.makeRandomList(quizQuestionList, fillInQuestionList);
         }
 
         String returnUrl = null;
 
-        if(currentAssignment.getClass() == FillInTheBlank.class){
+        if (currentAssignment.getClass() == FillInTheBlank.class) {
             long next = currentAssignment.getId();
             questionsCompleted.add(currentAssignment);
             returnUrl = "/fill?id=" + next + "&left=" + numberLeft + "&xp=" + xpChange;
         } else {
             long nextQuiz = currentAssignment.getId();
             questionsCompleted.add(currentAssignment);
-            returnUrl = "/quiz?id="+nextQuiz + "&left=" + numberLeft + "&xp=" + xpChange;
+            returnUrl = "/quiz?id=" + nextQuiz + "&left=" + numberLeft + "&xp=" + xpChange;
         }
         return returnUrl;
     }
