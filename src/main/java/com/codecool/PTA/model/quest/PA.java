@@ -2,19 +2,12 @@ package com.codecool.PTA.model.quest;
 
 import com.codecool.PTA.model.course.CourseType;
 import com.codecool.PTA.model.user.Level;
-import com.codecool.PTA.model.user.Student;
 
-import javax.persistence.*;
-import java.util.HashSet;
-import java.util.Set;
+import javax.persistence.Column;
+import javax.persistence.Entity;
 
 @Entity
-public class PA extends Assignment{
-
-    private String submission;
-
-    @ManyToMany(mappedBy = "completedPAs")
-    private Set<Student> student = new HashSet<>();
+public class PA extends Assignment {
 
     @Column
     public boolean isTemplate;
@@ -28,19 +21,4 @@ public class PA extends Assignment{
         this.isTemplate = isTemplate;
     }
 
-    public String getSubmission() {
-        return submission;
-    }
-
-    public void setSubmission(String submission) {
-        this.submission = submission;
-    }
-
-    public Set<Student> getStudent() {
-        return student;
-    }
-
-    public void addStudent(Student student) {
-        this.student.add(student);
-    }
 }

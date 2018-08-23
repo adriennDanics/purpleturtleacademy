@@ -5,16 +5,16 @@
         <meta charset="UTF-8">
         <script src="/static/js/script.js" defer></script>
 
-    </head>
-    <body>
-        <div layout:fragment="loginContent">
+</head>
+<body>
+    <div layout:fragment="loginContent">
         <h2 class="title" th:text="${kata.assignmentTitle}">Title</h2>
         <h4 class="description" th:text="${kata.question}"> Description</h4>
-        <form class="form-group" th:action="'/kata/' + ${kata.getId()}" th:object="${kata}" method="POST">
+        <form class="form-group" th:action="'/kata/' + ${kata.id}" method="POST">
             <label for="submission">Submission</label>
-            <input class="form-control" type="text" name="submission" id="submission" th:field="*{submission}" th:attr="value=${kata.getSubmission()}" required>
+            <input class="form-control" type="text" name="submission" id="submission" required>
             <button type="submit">Submit a link to your repo!</button>
         </form>
-        </div>
-    </body>
+    </div>
+</body>
 </html>
