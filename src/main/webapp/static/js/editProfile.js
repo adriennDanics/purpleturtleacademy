@@ -27,6 +27,7 @@ editProfileInfo={
         inputField.setAttribute("id", idString);
         inputField.setAttribute("name", idString);
         inputField.setAttribute("type", "text");
+        inputField.setAttribute("th:field", "*{image}");
         inputField.setAttribute("placeholder", "Leave the field blank for default picture");
         inputField.classList.add("form-control");
 
@@ -79,7 +80,7 @@ editProfileInfo={
         $.ajax({
             type: "POST",
             url: "http://localhost:8080/profile/newname",
-            data: JSON.stringify(newNameToSend),
+            data: JSON.stringify({'username': newNameToSend}),
             async: false,
             contentType: "application/json; charset=utf-8",
             dataType: 'json',
@@ -132,7 +133,7 @@ editProfileInfo={
                 $.ajax({
                     type: "POST",
                     url: "http://localhost:8080/profile/newpassword",
-                    data: JSON.stringify({'old': oldPass.value, 'new': newPass.value}),
+                    data: JSON.stringify({'oldpassword': oldPass.value, 'newpassword': newPass.value}),
                     async: false,
                     contentType: "application/json; charset=utf-8",
                     dataType: 'json',

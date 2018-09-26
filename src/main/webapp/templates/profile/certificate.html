@@ -1,19 +1,18 @@
 <!DOCTYPE html>
-<html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org" layout:decorator="layout">
 <head>
     <meta charset="UTF-8">
 
-    <div th:replace="layout.html :: head"></div>
 
 </head>
 <body>
-<div th:replace="layout.html :: navbar"></div>
+<div layout:fragment="loginContent">
 <div class="container">
     <br><br><br>
     <div th:text="'First name: ' + ${student.getFirstName()}"></div>
     <div th:text="'Last name: ' + ${student.getLastName()}"></div>
     <div th:text="'Certificate date of issue: ' + ${certificate.getIssueDate()}"></div>
 </div>
-
+</div>
 </body>
 </html>

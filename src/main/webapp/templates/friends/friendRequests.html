@@ -1,14 +1,13 @@
 <!DOCTYPE html>
-<html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org" layout:decorator="layout">
 <head>
     <meta charset="UTF-8">
-    <div th:replace="layout.html :: head"></div>
     <script src="static/js/friendRequest.js" defer></script>
 
 </head>
 <body>
 <div id="studentListBox">
-    <div th:replace="layout.html :: navbar"></div>
+    <div layout:fragment="loginContent">
     <span>
         <div th:data-loggedInId="${student.getId()}" id="loggedInStudent"></div>
         <div th:each="studentOf : ${taggedBy}">
@@ -20,7 +19,7 @@
         </div>
     </span>
 </div>
-
+</div>
 
 </body>
 </html>

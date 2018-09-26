@@ -1,19 +1,20 @@
 <!DOCTYPE html>
-<html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
-    <head>
-        <meta charset="UTF-8">
-        <div th:replace="layout.html :: head"></div>
-        <script src="static/js/script.js" defer></script>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org" layout:decorator="layout"
+      xmlns:layout="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <script src="static/js/script.js" defer></script>
 
-    </head>
-    <body>
-        <div th:replace="layout.html :: navbar"></div>
+</head>
+<body>
+    <div layout:fragment="loginContent">
         <h2 class="title" th:text="${kata.assignmentTitle}">Title</h2>
         <h4 class="description" th:text="${kata.question}"> Description</h4>
-        <form class="form-group" th:attr="action='/kata?id='+${kata.getId()}" method="POST">
+        <form class="form-group" th:action="'/kata/' + ${kata.id}" method="POST">
             <label for="submission">Submission</label>
-            <input class="form-control" type="text" name="submission" id="submission" th:attr="value=${kata.getSubmission()}" required>
+            <input class="form-control" type="text" name="submission" id="submission" required>
             <button type="submit">Submit a link to your repo!</button>
         </form>
-    </body>
+    </div>
+</body>
 </html>

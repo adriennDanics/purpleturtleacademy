@@ -1,5 +1,6 @@
 <!DOCTYPE html>
-<html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.w3.org/1999/xhtml">
 <head>
     <meta charset="UTF-8">
 
@@ -19,10 +20,9 @@
         <link href="https://fonts.googleapis.com/css?family=Gochi+Hand" rel="stylesheet">
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
         <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.9/css/all.css"
-              integrity="sha384-5SOiIsAziJl6AWe0HWRKTXlfcSHKmYV4RBF18PPJ173Kzn7jzMyFuTtk8JA7QQG1" crossorigin="anonymous"
-              defer>
+              integrity="sha384-5SOiIsAziJl6AWe0HWRKTXlfcSHKmYV4RBF18PPJ173Kzn7jzMyFuTtk8JA7QQG1" crossorigin="anonymous">
         <link rel="stylesheet" type="text/css" href="/static/css/style.css">
-        <script src="static/js/layout.js" defer></script>
+        <script src="static/js/layout.js"></script>
     </div>
 
         <nav th:fragment="navbar" class="navbar navbar-expand-lg fixed-top navbar-light bg-light">
@@ -33,47 +33,34 @@
 
             <div class="collapse navbar-collapse" id="navbarSupportedContent">
                 <ul class="navbar-nav mr-auto">
-                    <li class="nav-item active">
+                    <li th:if="${session.student}" class="nav-item active">
                         <a class="nav-link" href="/courses">Courses <span class="sr-only">(current)</span></a>
                     </li>
-                    <li class="nav-item">
+                    <li th:if="${session.student}" class="nav-item">
                         <a class="nav-link disabled" href="#">Challenges (Soon)</a>
                     </li>
-                    <!--<li class="nav-item active">-->
-                        <!--<a class="nav-link" href="/list-users">User list<span class="sr-only">(current)</span></a>-->
-                    <!--</li>-->
-                    <!--<li class="nav-item active">-->
-                        <!--<a class="nav-link" href="/friends">Friends<span class="sr-only">(current)</span></a>-->
-                    <!--</li>-->
-                    <!--<li class="nav-item active">-->
-                        <!--<a class="nav-link" href="/friend-requests">Friend requests<span class="sr-only">(current)</span></a>-->
-                    <!--</li>-->
-                    <li class="nav-item dropdown">
+                    <li th:if="${session.student}" class="nav-item dropdown">
                         <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                             Friends
                         </a>
                         <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                            <a class="dropdown-item" href="/list-users">User list</a>
-                            <a class="dropdown-item" href="/friends">Friends</a>
+                            <a class="dropdown-item" th:href="'/student/' + ${student.id} + '/friendable-students'">User list</a>
+                            <a class="dropdown-item" th:href="'/student/' + ${student.id} + '/friends'">Friends</a>
                             <!--<div class="dropdown-divider"></div>-->
-                            <a class="dropdown-item" id="friend-request-button" href="/friend-requests">Friend requests</a>
+                            <a class="dropdown-item" id="friend-request-button" th:href="'/student/' + ${student.id} + '/friend-requests'">Friend requests</a>
                         </div>
                     </li>
                     <div th:if="${session.newRequest}" id="notification_bell">
                         <i class="fas fa-bell fa-2x mr-3" id="notification_element"></i>
                     </div>
                 </ul>
-                <!--<form class="form-inline my-2 my-lg-0">
-                    <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
-                    <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
-                </form>-->
                 <div th:if="${session.student}">
                     <button type="button" class="btn btn-light"><a href="/logout" class="nav-link">Logout</a></button>
-                    <button type="button" class="btn btn-light"><a href="/profile" class="nav-link">Profile</a></button>
+                    <button type="button" class="btn btn-light"><a th:href="'/student/'+${session.student.getId()}" class="nav-link">Profile</a></button>
                 </div>
-                <div class="nav-item">
-                    <span class="badge badge-pill badge-info" id="get-xp" th:text="${student.getXp()} + ' XP'" th:attr="data-xp=${student.getXp()}">XP</span>
-                    <span class="badge badge-primary" th:text="${student.getLevel()}">Level</span>
+                <div th:if="${session.student}" class="nav-item">
+                    <span class="badge badge-pill badge-info" id="get-xp" th:text="${session.xp} + ' XP'" th:attr="data-xp=${session.xp}">XP</span>
+                    <span class="badge badge-primary" th:text="${session.level}">Level</span>
                 </div>
                 <div th:unless="${session.student}">
                     <button type="button" class="btn btn-light"><a href="/login" class="nav-link">Login</a></button>
@@ -81,5 +68,11 @@
                 </div>
             </div>
         </nav>
+
+    <div layout:fragment="loginContent">
+    </div>
+
+    <br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/>
+
 </body>
 </html>

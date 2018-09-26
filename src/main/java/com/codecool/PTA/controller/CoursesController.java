@@ -1,43 +1,25 @@
 package com.codecool.PTA.controller;
 
-
-import com.codecool.PTA.config.TemplateEngineUtil;
-import com.codecool.PTA.model.course.Course;
-import com.codecool.PTA.persistence.PersistenceImplementation;
 import com.codecool.PTA.model.user.Student;
-import org.thymeleaf.TemplateEngine;
-import org.thymeleaf.context.WebContext;
+import com.codecool.PTA.service.CourseService;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.GetMapping;
 
-import javax.servlet.ServletException;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-import java.io.IOException;
-import java.util.List;
-
+@Controller
 public class CoursesController extends AbstractController {
-    
-    private PersistenceImplementation persistenceImplementation;
 
-    public CoursesController(PersistenceImplementation persistenceImplementation) {
-        this.persistenceImplementation = persistenceImplementation;
+    @Autowired
+    private CourseService courseService;
+
+    @GetMapping("/courses")
+    public String listCourses(Model model) {
+//        checkForNewFriendRequest();
+        Student student = getLoggedInUser();
+        model.addAttribute("courses", courseService.findAll());
+        model.addAttribute("student", student);
+        return "courses/courses";
     }
 
-    @Override
-    protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        //super.doGet(req, resp);
-        if(checkLogin(req)) {
-            isNewFriendRequest(req);
-            WebContext context = new WebContext(req, resp, req.getServletContext());
-            List<Course> courses = persistenceImplementation.findAllCourses();
-            Student student = (Student) getLoggedInUser(req);
-
-            context.setVariable("student", student);
-            context.setVariable("courses", courses);
-
-            TemplateEngine engine = TemplateEngineUtil.getTemplateEngine(req.getServletContext());
-            engine.process("courses/courses.html", context, resp.getWriter());
-        } else {
-            resp.sendRedirect("/login");
-        }
-    }
 }

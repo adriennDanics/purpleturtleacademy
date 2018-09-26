@@ -2,56 +2,40 @@ package com.codecool.PTA.model.user;
 
 import com.codecool.PTA.model.certificate.Certificate;
 import com.codecool.PTA.model.course.Course;
-import com.codecool.PTA.model.quest.Kata;
-import com.codecool.PTA.model.quest.PA;
+import com.codecool.PTA.model.role.Role;
+import org.hibernate.annotations.DynamicUpdate;
 
 import javax.persistence.*;
+import java.time.LocalDate;
+import java.time.ZoneId;
+import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
 
 @Entity
+@Table(name = "Student")
+@DynamicUpdate
 public class Student extends User {
 
+    private long id;
     private long xp;
-
-    @Enumerated(EnumType.STRING)
     private Level level;
-
-    @ManyToOne
     private Course course;
-
-    @ManyToMany(mappedBy = "student")
-    private Set<PA> completedPAs;
-
-    @ManyToMany(mappedBy = "student")
-    private Set<Kata> completedKatas;
-
-    @OneToOne
     private Certificate certificate;
-
-    @ManyToMany(cascade = CascadeType.ALL)
-    @JoinTable(
-            name="Friendship",
-            joinColumns=@JoinColumn(name="Student"),
-            inverseJoinColumns=@JoinColumn(name="Friend"))
     private Set<Student> friends = new HashSet<>();
-
-    @ManyToMany(cascade = CascadeType.ALL)
-    @JoinTable(
-            name="PendingFriendship",
-            joinColumns=@JoinColumn(name="Student"),
-            inverseJoinColumns=@JoinColumn(name="PendingFriend"))
     private Set<Student> pendingFriends = new HashSet<>();
-
-    @ManyToMany(cascade = CascadeType.ALL)
-    @JoinTable(
-            name="StudentTagedByOthers",
-            joinColumns=@JoinColumn(name="Student"),
-            inverseJoinColumns=@JoinColumn(name="TaggerFriend"))
     private Set<Student> taggedByOthers = new HashSet<>();
+    private Set<Role> roles = new HashSet<>();
 
-    protected Student() {
+    public Student() {
         super();
+        LocalDate localDate = java.time.LocalDate.now();
+        Date dateNow = Date.from(localDate.atStartOfDay(ZoneId.systemDefault()).toInstant());
+
+        this.setGender(GenderEnum.OTHER);
+        this.setRegistrationDate(dateNow);
+        this.xp = 0;
+        this.level = Level.BEGINNER;
     }
 
     public Student(String username, String password, String firstName, String lastName, String email, Course course, GenderEnum gender) {
@@ -85,18 +69,34 @@ public class Student extends User {
         taggedByOthers.remove(student);
     }
 
+    @ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+    @JoinTable(
+            name = "Friendship",
+            joinColumns = @JoinColumn(name = "Student"),
+            inverseJoinColumns = @JoinColumn(name = "Friend"))
     public Set<Student> getFriends() {
         return friends;
     }
 
+    @ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+    @JoinTable(
+            name = "Pending_Friendship",
+            joinColumns = @JoinColumn(name = "Student"),
+            inverseJoinColumns = @JoinColumn(name = "Pending_Friend"))
     public Set<Student> getPendingFriends() {
         return pendingFriends;
     }
 
+    @ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+    @JoinTable(
+            name = "Student_Tagged_By_Others",
+            joinColumns = @JoinColumn(name = "Student"),
+            inverseJoinColumns = @JoinColumn(name = "Tagger_Friend"))
     public Set<Student> getTaggedByOthers() {
         return taggedByOthers;
     }
 
+    @ManyToOne
     public Course getCourse() {
         return course;
     }
@@ -114,12 +114,13 @@ public class Student extends User {
         checkIfLevelJump();
     }
 
-    private void checkIfLevelJump(){
-        if(level.getNextLevel().getEntryRequirement() <= xp){
+    private void checkIfLevelJump() {
+        if (level.getNextLevel().getEntryRequirement() <= xp) {
             this.level = level.getNextLevel();
         }
     }
 
+    @Enumerated(EnumType.STRING)
     public Level getLevel() {
         return level;
     }
@@ -128,28 +129,44 @@ public class Student extends User {
         this.level = level;
     }
 
-    public Set<PA> getCompletedPAs() {
-        return completedPAs;
-    }
-
-    public void setCompletedPAs(Set<PA> completedPAs) {
-        this.completedPAs = completedPAs;
-    }
-
-    public Set<Kata> getCompletedKatas() {
-        return completedKatas;
-    }
-
-    public void setCompletedKatas(Set<Kata> completedKatas) {
-        this.completedKatas = completedKatas;
-    }
-
+    @OneToOne
     public Certificate getCertificate() {
         return certificate;
     }
 
     public void setCertificate(Certificate certificate) {
         this.certificate = certificate;
+    }
+
+    @ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    public Set<Role> getRoles() {
+        return roles;
+    }
+
+    public void setRoles(Set<Role> roles) {
+        this.roles = roles;
+    }
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    public long getId() {
+        return id;
+    }
+
+    public void setId(long id) {
+        this.id = id;
+    }
+
+    public void setFriends(Set<Student> friends) {
+        this.friends = friends;
+    }
+
+    public void setPendingFriends(Set<Student> pendingFriends) {
+        this.pendingFriends = pendingFriends;
+    }
+
+    public void setTaggedByOthers(Set<Student> taggedByOthers) {
+        this.taggedByOthers = taggedByOthers;
     }
 
 }

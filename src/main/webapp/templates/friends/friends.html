@@ -1,23 +1,26 @@
 <!DOCTYPE html>
-<html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org" layout:decorator="layout">
 <head>
     <meta charset="UTF-8">
-    <div th:replace="layout.html :: head"></div>
     <script src="static/js/friends.js" defer></script>
 
 </head>
 <body>
 <div id="studentListBox">
-    <div th:replace="layout.html :: navbar"></div>
+    <div layout:fragment="loginContent">
     <span>
-            <div th:each="student : ${friends}">
-                <div th:id="student + ${student.getId()}">
-                    <div th:text="${student.getUsername()}">username</div>
-                </div>
+        <div th:each="user : ${friends}">
+            <div th:id="student + ${student.getId()}">
+                <div th:text="${user.getUsername()}">username</div>
+                <form action="/delete-friend" method="POST">
+                    <input type="hidden" name="deletingStudent" id="deletingStudent" th:value="${student.getId()}">
+                    <input type="hidden" name="studentToDelete" id="studentToDelete" th:value="${user.getId()}">
+                    <button type="submit" >Delete friend</button>
+                </form>
             </div>
-        </span>
+        </div>
+    </span>
 </div>
-
-
+</div>
 </body>
 </html>

@@ -1,39 +1,41 @@
 package com.codecool.PTA.controller;
 
 import com.codecool.PTA.model.user.Student;
-import com.codecool.PTA.model.user.User;
+import com.codecool.PTA.service.UserDetailsImp;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.web.context.request.RequestContextHolder;
+import org.springframework.web.context.request.ServletRequestAttributes;
 
-import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
-public abstract class AbstractController extends HttpServlet {
+public abstract class AbstractController {
 
-    public static void setFirstNotification(boolean firstNotification) {
-        AbstractController.firstNotification = firstNotification;
-    }
-
-    static boolean firstNotification = true;
+    protected final static String SUCCESS = "success";
+    protected static boolean isFirstNotification = true;
 
     boolean checkLogin(HttpServletRequest req) {
         HttpSession session = req.getSession(true);
         return !(session.getAttribute("student") == null);
     }
 
-    User getLoggedInUser(HttpServletRequest req) {
-        HttpSession session = req.getSession();
-        return (User) session.getAttribute("student");
+    protected Student getLoggedInUser() {
+        UserDetailsImp userDetailsImp = (UserDetailsImp) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        return userDetailsImp.getUser();
     }
 
-    boolean isNewFriendRequest(HttpServletRequest req) {
-        HttpSession session = req.getSession();
+    protected HttpSession getHttpSession() {
+        ServletRequestAttributes attr = (ServletRequestAttributes) RequestContextHolder.currentRequestAttributes();
+        return attr.getRequest().getSession(true);
+    }
 
-        Student student = (Student) session.getAttribute("student");
-        if(student.getTaggedByOthers().size() != 0) {
-            if(firstNotification) {
-                session.setAttribute("newRequest", "new");
-            }
+    void checkForNewFriendRequest() {
+        Student student = getLoggedInUser();
+        final boolean hasBeenTagged = student.getTaggedByOthers().size() != 0;
+        if (hasBeenTagged && isFirstNotification) {
+            HttpSession session = getHttpSession();
+            session.setAttribute("newRequest", "new");
         }
-        return (student.getTaggedByOthers().size() != 0);
     }
+
 }

@@ -1,14 +1,14 @@
 <!DOCTYPE html>
-<html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org" layout:decorator="layout"
+      xmlns:layout="http://www.w3.org/1999/xhtml">
 <head>
     <meta charset="UTF-8">
 
-    <div th:replace="layout.html :: head"></div>
-    <script src="static/js/editProfile.js" defer></script>
+    <script src="/static/js/editProfile.js" defer></script>
 
 </head>
 <body>
-<div th:replace="layout.html :: navbar"></div>
+<div layout:fragment="loginContent">
 <br><br><br>
 <div>
     <div>
@@ -16,20 +16,20 @@
     </div>
     <div class="profile-picture">
         <img th:attr="src=${student.getImage()}" alt="image">
-        <form method="post" action="/profile" id="image-form">
+        <form method="post" th:action="@{/changeImage}" th:object="${student}" id="image-form">
             <button id="change-image" class="btn" type="button">Change image</button>
         </form>
         <button id="change-user-name" class="btn" type="button">Change username</button>
-        <form method="post" action="/profile" id="password-form">
+        <form method="post" action="/profile/newpassword" id="password-form">
             <button id="change-password" class="btn" type="button">Change password</button>
         </form>
     </div>
     <br>
     <br>
     <div class="certi-link" th:if="${student.getCertificate()}">
-        <a class="btn" href="/profile/certificate">Certificate</a>
+        <a class="btn" th:href="'student/'+${session.student.getId()}'/certificate'">Certificate</a>
     </div>
 </div>
-
+</div>
 </body>
 </html>

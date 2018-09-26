@@ -1,17 +1,19 @@
 package com.codecool.PTA.model.user;
 
+import com.codecool.PTA.model.role.Role;
+
 import javax.persistence.*;
 import java.time.LocalDate;
 import java.time.ZoneId;
 import java.util.Date;
+import java.util.HashSet;
 import java.util.Objects;
+import java.util.Set;
 
 @MappedSuperclass
 public abstract class User {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private long id;
+
 
     @Column(unique = true, nullable = false)
     private String username;
@@ -49,9 +51,6 @@ public abstract class User {
         this.image = gender.getImage();
     }
 
-    public long getId() {
-        return id;
-    }
 
     public String getFirstName() {
         return firstName;
@@ -108,6 +107,14 @@ public abstract class User {
 
     public void setImage(String image) {
         this.image = image;
+    }
+
+    public Date getRegistrationDate() {
+        return registrationDate;
+    }
+
+    public void setRegistrationDate(Date registrationDate) {
+        this.registrationDate = registrationDate;
     }
 
     @Override

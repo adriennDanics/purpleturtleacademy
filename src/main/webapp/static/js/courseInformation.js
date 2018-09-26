@@ -4,8 +4,8 @@ function main() {
     });
 }
 
-function addEventListenerToCourse(){
-    let courseCards= document.getElementsByClassName("card");
+function addEventListenerToCourse() {
+    let courseCards = document.getElementsByClassName("card");
     $.each(courseCards, function (i) {
         courseCards[i].addEventListener("click", function () {
             courseCards[i].setAttribute("data-toggle", "modal");
@@ -17,8 +17,8 @@ function addEventListenerToCourse(){
 }
 
 function getCurseInfo(id) {
-    $.getJSON("/courseinfo?id="+id,
-        function(response) {
+    $.getJSON("/courseinfo?id=" + id,
+        function (response) {
             let rowToAppendContentTo = document.getElementById("modal-content");
             removeInfo();
             let newRow = document.createElement("div");
@@ -33,15 +33,15 @@ function getCurseInfo(id) {
             newRow.appendChild(newDescription);
             rowToAppendContentTo.appendChild(newRow);
             addEventListenerToModal(id, response.name);
-    });
+        });
 }
 
-function addEventListenerToModal(id, nameOfCourse){
+function addEventListenerToModal(id, nameOfCourse) {
     let buttonToSignUp = document.getElementById("sign-up-course");
-    if(nameOfCourse === "JAVA") {
+    if (nameOfCourse === "JAVA") {
         buttonToSignUp.setAttribute("disabled", "disabled");
         buttonToSignUp.innerText = "Coming Soon";
-    } else if(nameOfCourse === "ORIENTATION"){
+    } else if (nameOfCourse === "ORIENTATION") {
         buttonToSignUp.setAttribute("disabled", "disabled");
         buttonToSignUp.innerText = "No need for that :)";
     } else {
@@ -65,7 +65,7 @@ function signUpToCourse(id) {
         async: false,
         contentType: "application/json; charset=utf-8",
         dataType: 'json',
-        success: location.reload()
+        success: window.location.replace("http://0.0.0.0:8080")
     });
     removeInfo();
 }
